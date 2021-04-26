@@ -9,7 +9,7 @@ comments: true
 Trong Computer Vision, cửa sổ trượt (sliding window) là các hình chữ nhật với kích thước cố định trượt trên toàn bộ bức ảnh từ trái qua phải, từ trên xuống dưới.
 Đối với mỗi cửa sổ trượt đó chúng ta thường áp dụng `image classifier` để xác định trong cửa sổ có chứa vật thể ta quan tậm hay không.
 
-![image](https://pyimagesearch.com/wp-content/uploads/2014/10/sliding_window_example.gif){: .center-image}
+![image](https://pyimagesearch.com/wp-content/uploads/2014/10/sliding_window_example.gif)
 
 Khi kết hợp `image pyramid` với sliding window chúng ta có thể tạo ra bộ phân loại ảnh để có thể nhận biết vật thể với nhiều kích thước và vị trí khác nhau trong ảnh.
 
