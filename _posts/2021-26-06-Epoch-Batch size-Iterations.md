@@ -12,7 +12,7 @@ Trước khi đi vào chủ đề chính, chúng ta xem lại thuật toán **Gr
 Một số biến thể của Gradient Descent:
 - Batch Gradient Descent
 - Stochastic Gradient Descent
-- Mini-Batch Gradient Descent.
+- Mini-Batch Gradient Descents
 
 Sự khác nhau chính giữa 3 thuật toán trên chính là số lượng dữ liệu được sử dụng cho mỗi lần cập nhật tham số. Batch Gradient Descent sử dụng toàn bộ dữ liệu cho mỗi lần cập nhật. Stochastic Gradient Descent sử dụng 1 dữ liệu để cập nhật tham số, còn Mini-Batch Gradient Descent sử dụng `Batch size` dữ liệu để cập nhật tham số trong 1 lần. Do đó
 - **Batch size:** số lượng dữ liệu Mini-Batch Gradient Descent sử dụng trong 1 lần để cập nhật tham số
