@@ -9,7 +9,7 @@ comments: true
 Trong Computer Vision, cửa sổ trượt (sliding window) là các hình chữ nhật với kích thước cố định trượt trên toàn bộ bức ảnh từ trái qua phải, từ trên xuống dưới.
 Đối với mỗi cửa sổ trượt đó chúng ta thường áp dụng `image classifier` để xác định trong cửa sổ có chứa vật thể ta quan tậm hay không.
 
-![image](https://pyimagesearch.com/wp-content/uploads/2014/10/sliding_window_example.gif){: .center-image}
+![image](https://pyimagesearch.com/wp-content/uploads/2014/10/sliding_window_example.gif)
 
 Khi kết hợp `image pyramid` với sliding window chúng ta có thể tạo ra bộ phân loại ảnh để có thể nhận biết vật thể với nhiều kích thước và vị trí khác nhau trong ảnh.
 
@@ -45,7 +45,7 @@ Bài này sẽ tập trung nói về sliding window nên sẽ tạm bỏ qua ph�
 - `stepSize` - số pixels của sổ trượt sẽ nhảy qua mỗi lần. `stepSize` hay để 4-8. Nếu `stepSize` nhỏ quá, có nhiều sliding windows được tạo ra tính toán sẽ tăng, nếu quá lớn nhiều khi không xác định được toàn bộ vật thể mà chỉ một bộ phần nào đó. Tùy bài toán mà có sự điều chỉnh phù hợp.
 - `windowSize` - (width, height) kích thước mong đợi của sliding window được trích xuất từ ảnh ban đầu.
 
-**Chú ý: ** 
+**Chú ý:** 
 - Ở phần trên có sử dụng `yield` chức năng tương tự `return` trong hàm. Tuy nhiên khi sử dụng `yield` ta đang muốn trả về một `generator`, mỗi khi gọi nó sẽ sinh ra giá trị, lưu lại trạng thái đó để tiếp tục cho lần sau.
 - Khi `width` và `height` của ảnh không chia hết cho `stepSize` thì hàm `sliding_window` vẫn trả về phần dư (bên phải và bên dưới)
 
