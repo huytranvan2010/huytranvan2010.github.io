@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Sliding windows for Object Detection"
+title: "Turning CNN classifier into an object detector"
 tags: [Object detection, OpenCV]
 comments: true
 ---
