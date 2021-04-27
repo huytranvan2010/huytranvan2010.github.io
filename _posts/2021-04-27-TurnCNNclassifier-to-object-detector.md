@@ -16,7 +16,7 @@ Trước khi xuất hiện object detector dựa trên Deep learning có một c
 3. Non-max suppression: loại bỏ các bounding boxes chồng chập (overlapping)
 
 Các bước chính để chuyển mạng CNN phân loại ảnh thành object detector được thể hiện như hình sau:
-![steps](./images/steps.png)
+![steps](../images/steps.png)
 
 # Kết luận:
 - Bộ nhận diện vật thể dựa vào mạng CNN, image pyramid, sliding window khá chậm
