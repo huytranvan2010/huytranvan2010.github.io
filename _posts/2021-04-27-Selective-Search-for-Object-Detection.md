@@ -88,7 +88,7 @@ Cùng xem một số region proposals được tạo ra.
 
 ![iamge](../images/2021-04-27/output.png)
 
-Do có khoảng 2000 regions proposals được tạo ra, biểu diễn cùng một lúc rất khỏ nhìn nên chỉ đưa ra một phần thôi.
+Do có khoảng 2000 regions proposals được tạo ra, biểu diễn cùng một lúc rất khó nhìn nên chỉ đưa ra một phần thôi.
 
 # Tài liệu tham khảo
 https://www.pyimagesearch.com/2020/06/29/opencv-selective-search-for-object-detection/
