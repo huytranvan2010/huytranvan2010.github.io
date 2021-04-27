@@ -19,11 +19,11 @@ Trong bài trước nhận thấy việc khả năng ứng dụng image pyramid 
 
 Selective search hoạt động bằng cách sử dụng [superpixel algorithm](https://www.pyimagesearch.com/tag/superpixel/). Ví dụ sử dụng superpixel algorithm được biểu diễn trong hình sau:
 
-![image](./images/superpixel.png)
+![image](./images/2021-04-27/superpixle.png)
 
 Selective search tìm cách hợp nhất các superpixels để tìm ra các vùng có khả năng chứa vật thể.
 
-![iamge2](./images/selective_search.png)
+![iamge2](./images/2021-04-27/selective_search.png)
 
 Thực hiện Selective seach bằng OpenCV
 
@@ -85,7 +85,7 @@ các regions of proposals
 """
 ```
 Cùng xem một số region proposals được tạo ra.
-![iamge](./images/2021-04-27-output.png)
+![iamge](./images/2021-04-27/output.png)
 
 Do có khoảng 2000 regions proposals được tạo ra, biểu diễn cùng một lúc rất khỏ nhìn nên chỉ đưa ra một phần thôi.
 
