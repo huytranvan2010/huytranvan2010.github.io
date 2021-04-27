@@ -5,7 +5,7 @@ tags: [Object detection, OpenCV]
 comments: true
 ---
 
-# Turn-CNNclassifier-2-object-detector
+# Mở đầu
 Trước khi xuất hiện object detector dựa trên Deep learning có một công cụ rất mạnh mẽ để phát hiện vật thể là `HOG + Linear SVM`.
 3 thành phần quan trọng của HOG + Linear SVM sẽ được sử dụng để chuyển bất kì CNN image classifier thành object detetor:
 1. Image pyramid: cho phép phát hiện vật thể với nhiều kích thước khác nhau
