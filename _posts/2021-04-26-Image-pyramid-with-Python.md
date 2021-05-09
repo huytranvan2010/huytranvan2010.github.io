@@ -74,4 +74,4 @@ Như vậy chúng ta đã cùng tìm hiểu về `image pyramid`, bài tiếp th
 # 4. Tài liệu tham khảo
 https://www.pyimagesearch.com/2015/03/16/image-pyramids-with-python-and-opencv/
 
-$X^{(i)<t>}$
+$$ X^{(i)<t>} $$
