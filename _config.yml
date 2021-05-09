@@ -107,3 +107,5 @@ exclude:
   - LICENSE
   - README.md
   - CNAME
+  
+classes: wide     # mở rộng sang bên phải, tuy nhiên nếu có table content để bên phải thì ko cần cái này
