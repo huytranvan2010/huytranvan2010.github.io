@@ -5,7 +5,6 @@ tags: [Object tracking, OpenCV]
 comments: true
 ---
 
-# Tracking-multiple-objects-with-OpenCV
 Run Command
 
 ```python
