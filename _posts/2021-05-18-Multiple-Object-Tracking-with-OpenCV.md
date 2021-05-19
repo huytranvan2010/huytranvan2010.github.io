@@ -123,6 +123,9 @@ else:
 cv2.destroyAllWindows()
    
 ```
+Các vấn đề của MultiTracker:
+* Càng nhiều trackers được tạo ra thì tốc độ xử lý càng chậm
+* Mỗi lần theo dõi đối tương lại phải tạo lại tracker riêng (ko sử dụng chung được)
 
 # Tài liệu tham khảo
 https://www.pyimagesearch.com/2018/08/06/tracking-multiple-objects-with-opencv/
