@@ -21,6 +21,7 @@ OpenCv cung cấp cho chúng ta 8 object tracking algorithms:
 * **MOSSE tracker:** rất nhanh, tuy nhiên độ chính xác không tốt như KCF và CSRT
 * **GOTURN tracker:** dựa trên deep learning, cần nhiều files để chạy, khó sử dụng.
 
+Các bạn xem code ở github của mình cho dễ nhìn [huytranvan2010](https://github.com/huytranvan2010/OpenCV-Object-Tracking)
 ```python
 # Cách dùng
 # python opencv_object_tracking.py --tracker CSRT
