@@ -5,7 +5,11 @@ tags: [Object tracking, OpenCV]
 comments: true
 ---
 
-# OpenCV-Object-Tracking
+**Tracking và Detection**
+
+* **Tracking nhanh hơn detection:** Khi tracking vật thể được phát hiện ở khung hình trước đó, chúng ta đã biết rất nhiều thông tin về hình dạng của vật thể, vị trí, hướng của chuyển động. Do đó chúng ta có thể sử dụng các thông tin này để dự đoán vị trí của vật thể trong các khung hình tiếp theo và chỉ cần tìm kiếm một chút để xác định vị trí chính xác của vật thể. 
+* **Tracking có thể hỗ trợ khi detection thất bại:** Nếu chúng ta chạy face detector trên video và mặt người bị gần sát vật thể khác, lúc này face detector có thể không phát hiện được. Một thuật toán tracking tốt có thể giải quyết được phần nào sự occlusion.
+* **Tracking duy trì identity (định danh):** detection chỉ xác định các bounding box quanh vật thể, tuy nhiên tracking có thể giúp chúng ta duy trì đình danh cho từng vật thể (gắn ID cho nó)
 
 Trong bài trước chúng ta đã tìm hiểu về `centroid tracking algorithm`. Nó hoạt động khá tốt, tuy nhiên nó cần chạy `object detection` cho mỗi khung hình. Điều này sẽ làm tăng khối lượng tính toán hơn.
 
