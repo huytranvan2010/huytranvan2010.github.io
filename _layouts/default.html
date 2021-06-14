@@ -2,10 +2,12 @@
 <html>
   {% include head.html %}
   <body>
+    <!--config MathJax-->>
     <script>
       window.MathJax = {
         tex: {
-        inlineMath: [['$', '$'], ['\\(', '\\)']]
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [ ['$$','$$'] ]
         },
         skipHtmlTags: [
           'script', 'noscript', 'style', 'textarea', 'pre'
