@@ -105,33 +105,33 @@ Do đó chúng ta cần phải chuẩn hóa kích thước width, height và tâ
 
 $$ L_{conf}(x, c) = -\sum_{i \in Pos} x_{ij}^{p} \text{log}(\hat{c}_{i}^p) - \sum_{i \in Neg}\text{log}(\hat{c}_{i}^0) $$
 
-$ L_{conf} $ chính là softmax loss trên toàn bộ confidences của các classes ($c$).  
-* Đối với mỗi **positive match prediction**, chúng ta phạt loss function theo confidence score của các nhãn tương ứng. Do positive match prediction nên vùng dự đoán có vật thể chính xác là chứa vật thể. Do đó việc dự đoán nhãn cũng tương tự như bài toán image classification với softmax loss $-\sum_{i \in Pos} x_{ij}^{p} \text{log}(\hat{c}_{i}^p)$. Nhớ lại $x_{ij}^{p} = \left\{1, 0 \right\}$ thể hiện matching default box $i$ với ground-truth box $j$ cho nhãn $p$, còn $(\hat{c}_{i}^p)$ chính là xác suất xuất hiện nhãn $p$ trong default box $i$. Điều này cũng tương tự như bài toán classification với nhiều nhãn với loss là $-\sum_{i}^{}y^{(i)}\ast log(\hat{y}^{i})$
-* Đối với mỗi một **negative match prediction**, chúng ta phạt loss function theo confidence score của nhãn ‘0’ là nhãn đại diện cho background không chứa vật thể. Do không chứa vật thể nên chỉ có duy nhất background `0`, xác suất xảy ra background $ x_{ij}^{0} = 1$, do đó loss là $ -\sum_{i \in Neg}\text{log}(\hat{c}_{i}^0) $.
+$$ L_{conf} $$ chính là softmax loss trên toàn bộ confidences của các classes ($$c$$).  
+* Đối với mỗi **positive match prediction**, chúng ta phạt loss function theo confidence score của các nhãn tương ứng. Do positive match prediction nên vùng dự đoán có vật thể chính xác là chứa vật thể. Do đó việc dự đoán nhãn cũng tương tự như bài toán image classification với softmax loss $$-\sum_{i \in Pos} x_{ij}^{p} \text{log}(\hat{c}_{i}^p)$$. Nhớ lại $$x_{ij}^{p} = \left\{1, 0 \right\}$$ thể hiện matching default box $i$ với ground-truth box $$j$$ cho nhãn $$p$$, còn $$(\hat{c}_{i}^p)$$ chính là xác suất xuất hiện nhãn $$p$$ trong default box $$i$$. Điều này cũng tương tự như bài toán classification với nhiều nhãn với loss là $$-\sum_{i}^{}y^{(i)}\ast log(\hat{y}^{i})$$
+* Đối với mỗi một **negative match prediction**, chúng ta phạt loss function theo confidence score của nhãn ‘0’ là nhãn đại diện cho background không chứa vật thể. Do không chứa vật thể nên chỉ có duy nhất background `0`, xác suất xảy ra background $$ x_{ij}^{0} = 1$$, do đó loss là $$ -\sum_{i \in Neg}\text{log}(\hat{c}_{i}^0) $$.
 
 Ở đây $$\hat{c}_{i}^p = \frac{exp({c}_{i}^p)}{\sum_{p}^{}exp({c}_{i}^p)}$$
 
 
 ## 3.2. Lựa chọn kích cỡ (scale) và hệ số tỉ lệ (aspect ratio) cho box mặc định
-**Scale:** độ phóng đại so với ảnh gốc. Nếu ảnh gốc có kích thước $(w, h)$, sau khi scale ảnh mới sẽ có kích thước là $(ws, hs)$. $s\in \left [ 0,1 \right ]$ là hệ số
+**Scale:** độ phóng đại so với ảnh gốc. Nếu ảnh gốc có kích thước $$(w, h)$$, sau khi scale ảnh mới sẽ có kích thước là $$(ws, hs)$$. $$s\in \left [ 0,1 \right ]$$ là hệ số
 scale. 
 
-**Aspect ratio:** hệ số tỉ lệ hay tỉ lệ cạnh $\frac{w}{h}$ xác định hình dạng tương đối của khung hình chứa vật thể, người thường có aspect ration < 1, ô tô có aspect ration > 1.
+**Aspect ratio:** hệ số tỉ lệ hay tỉ lệ cạnh $$\frac{w}{h}$$ xác định hình dạng tương đối của khung hình chứa vật thể, người thường có aspect ration < 1, ô tô có aspect ration > 1.
 
-Giả sử chúng ta có $m$ feature maps để dự đoán. Scale của default boxes cho mỗi feature map được tính như sau:
+Giả sử chúng ta có $$m$$ feature maps để dự đoán. Scale của default boxes cho mỗi feature map được tính như sau:
 $$ s_k = s_{min} + \frac{s_{max} - s_{min}}{m-1}(k-1), k \in [1,m] $$
 
-Trong đó $k$ là số thứ tự layer dùng để dự đoán do đó nó nằm từ 1 đến $m$, $s_{min} = 0.2$, $s_{max} = 0.9$.
-* $k=1$ - tương đương với layer `Conv4_3` và $s_{1} = s_{min} = 0.2$. Điều này nghĩa là sao? Tại `Conv4_3` layer sẽ phát hiện object với scale nhỏ (bản thân `Conv4_3` layer là layer đầu tiên để dự đoán, có kích thước lớn nhất, chia làm nhiều cell nhất, do đó nó có khả năng phát hiện các vật thể nhỏ).
-* $k=m$ - tương đương với layer `Conv11_2` và $s_{m} = s_{max} = 0.9.2$. Điều này nghĩa là sao? Tại `Conv11_2` layer sẽ phát hiện object với scale lớn (bản thân `Conv11_2` layer là layer cuối cùng để dự đoán, có kích thước nhot nhất, chia làm ít cell nhất, do đó nó có khả năng phát hiện các vật thể lớn).
-Giả sử chúng ta có $m$ feature maps để dự đoán, chúng ta sẽ tính $s_{k}$ cho $k-th$ feature map.
+Trong đó $k$ là số thứ tự layer dùng để dự đoán do đó nó nằm từ 1 đến $$m$$, $$s_{min} = 0.2$$, $$s_{max} = 0.9$$.
+* $$k=1$$ - tương đương với layer `Conv4_3` và $$s_{1} = s_{min} = 0.2$$. Điều này nghĩa là sao? Tại `Conv4_3` layer sẽ phát hiện object với scale nhỏ (bản thân `Conv4_3` layer là layer đầu tiên để dự đoán, có kích thước lớn nhất, chia làm nhiều cell nhất, do đó nó có khả năng phát hiện các vật thể nhỏ).
+* $$k=m$$ - tương đương với layer `Conv11_2` và $$s_{m} = s_{max} = 0.9.2$$. Điều này nghĩa là sao? Tại `Conv11_2` layer sẽ phát hiện object với scale lớn (bản thân `Conv11_2` layer là layer cuối cùng để dự đoán, có kích thước nhot nhất, chia làm ít cell nhất, do đó nó có khả năng phát hiện các vật thể lớn).
+Giả sử chúng ta có $m$ feature maps để dự đoán, chúng ta sẽ tính $$s_{k}$$ cho $$k-th$$ feature map.
 
-Đối với layer có 6 dự đoán, chúng ta đặt các tỉ lệ (aspect ratios) khác nhau cho các default boxes và biểu diễn là $ a_{r}\in \left\{1, 2, 3, \frac{1}{2}, \frac{1}{3} \right\} $. Sau đó chúng ta có thể tính được height và width cho mỗi default box theo công thức sau:
+Đối với layer có 6 dự đoán, chúng ta đặt các tỉ lệ (aspect ratios) khác nhau cho các default boxes và biểu diễn là $$ a_{r}\in \left\{1, 2, 3, \frac{1}{2}, \frac{1}{3} \right\} $$. Sau đó chúng ta có thể tính được height và width cho mỗi default box theo công thức sau:
 $$ w_{k}^a = s_{k} * \sqrt{{a_{r}}} $$
 
 $$ h_{k}^a = \frac{s_{k}} {\sqrt{{a_{r}}}} $$
 
-Đối với trường hợp aspect ratio $ a_{r} = 1$ ta sẽ thêm một defaul box có scale $s_k' = \sqrt{s_ks_{k+1}}$ để tạo thành 6 default boxes cho mỗi vị trí của feature map.
+Đối với trường hợp aspect ratio $$ a_{r} = 1$$ ta sẽ thêm một defaul box có scale $$s_k' = \sqrt{s_ks_{k+1}}$$ để tạo thành 6 default boxes cho mỗi vị trí của feature map.
 
 ## 3.3. Hard negative mining
 Sau quá trình matching (khớp default boxes và groud-truth box) có rất nhiều negative example (các bounding box với IOU so với ground-truth box thấp). Thay vì sử dụng tất cả negative examples, chúng ta sắp xếp chúng dựa vào **highest confidence loss** (ít có khả năng chứa vật thể nhất) cho mỗi default box và lấy những cái đầu tiên sao cho tỉ lệ giữa negatives và positives tối đa là `3:1` (tránh mất cân bằng quá)
