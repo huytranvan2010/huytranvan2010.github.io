@@ -48,27 +48,29 @@ SSD được xây dựng dựa trên bas model VVG-16 có loại bỏ các lớp
     * `Conv11_2`: `1x1x4=4` boxes (4 boxes cho mỗi vị trí)
 
 Chú ý số lượng bounding boxes ở mỗi vị trí cho các layers có thể khác nhau. Tổng cộng lại chúng ta có `5776 + 2166 + 600 + 150 + 36 + 4 = 8732` bounding boxes. Ở phiên bản **YOLOv1** có `7x7` vị trí với 2 bounding boxes cho mỗi vị trí, như vậy **YOLOv1** có tổng cộng 98 bounding boxes. Nên nhớ output của mỗi bounding box sẽ có dạng:
+
 $$ y^{T} = [\underbrace{x, y, w, h}_{\text{bounding box}}, \underbrace{c_1, c_2,..., c_C}_{\text{scores of C classes}}] $$
+
 * Conv layer dự đoán có kích thước lớn dùng để phát hiện vật thể có kích thước nhỏ và ngược lại.
 
 ## 3. Training
 ### 3.1. Loss function
 **Matching strategy:** Trong suốt quá trinh training chúng ta cần xác định default boxes khớp với ground-truth. Đối với mỗi groud-truth box chúng ta chọn các default boxes có `jaccard overlap` hay IoU lớn hơn `0.5` (coi là positive examples). 
 
-$ x_{ij}^{p} = \left\{1, 0 \right\}$ thể hiện matching (sự khớp) của **default box $i$ với ground-truth box $j$** của nhãn thứ $p$. $\sum_{i}x_{ij}^p \geq 1$ - trong quá trình mapping chúng ta có thể có nhiều default bounding box $i$ được map vào cùng 1 ground truth box $j$ với cùng 1 nhãn $p$.
+$$x_{ij}^{p} = \left\{1, 0 \right\}$$ thể hiện matching (sự khớp) của **default box $i$ với ground-truth box $j$** của nhãn thứ $$p$$. $$\sum_{i}x_{ij}^p \geq 1$$ - trong quá trình mapping chúng ta có thể có nhiều default bounding box $$i$$ được map vào cùng 1 ground truth box $$j$$ với cùng 1 nhãn $$p$$.
 
-Loss function bao gồm 2 thành phần: $ L_{loc} $ và $ L_{conf} $ (loss function của bài toán image classification chỉ có $L_{conf}$ thôi)
+Loss function bao gồm 2 thành phần: $$ L_{loc} $$ và $$ L_{conf} $$ (loss function của bài toán image classification chỉ có $$L_{conf}$$ thôi)
 $$ L(x, c, l, g) = \frac{1}{N}[L_{conf}(x, c) + \alpha L_{loc}(x, l, g)] \tag{1} $$
 
-trong đó $N$ là số lượng các default boxes matching với ground truth boxes. Nếu $N=0$ chúng ta set loss = 0.
+trong đó $$ N $$ là số lượng các default boxes matching với ground truth boxes. Nếu $$ N=0 $$ chúng ta set loss = 0.
 
 #### 3.1.1. Localization loss
 $$ L_{loc}(x, l ,g) = \sum_{i \in Pos}^{N}\sum_{m \in \{cx, cy, w, h\}} x^{k}_{ij} \space L_1^\text{smooth}(l_i^m - \hat{g}_j^m) $$
 
 **Localization loss** là một hàm Smooth L1 đo lường sai số giữa tham số của **box dự đoán (predicted box) ($ l $) và ground truth box ($ g $).**
-Các tham số này bao gồm offsets cho tâm $(cx, cy)$ của default bounding box, chiều dài ($h$) và chiều rộng ($w$). Loss này cũng tương tự với loss của Faster R-CNN.
+Các tham số này bao gồm offsets cho tâm $$(cx, cy)$$ của default bounding box, chiều dài ($$h$$) và chiều rộng ($$w$$). Loss này cũng tương tự với loss của Faster R-CNN.
 
-Localization loss chỉ xét cho các positive matching example ($i \in Pos$) giữa predicted box và ground-truth box. Thành phần $\sum_{m \in {x, y, w, h}} x^{k}_{ij} \space L_1^\text{smooth}(l_i^m - \hat{g}_j^m)$ chính là tổng khoảng cách giữa **predicted box ($l$)** và  ground-truth box ($g$) trên ở 4 offsets ($cx, cy, w, h$). $ cx, cy $ ở đây chính là tọa độ tâm. **$ d $ là kí kiệu cho default bounding box**.
+Localization loss chỉ xét cho các positive matching example ($$i \in Pos$$) giữa predicted box và ground-truth box. Thành phần $$\sum_{m \in {x, y, w, h}} x^{k}_{ij} \space L_1^\text{smooth}(l_i^m - \hat{g}_j^m)$$ chính là tổng khoảng cách giữa **predicted box ($l$)** và  ground-truth box ($g$) trên ở 4 offsets ($$cx, cy, w, h$$). $$ cx, cy $$ ở đây chính là tọa độ tâm. **$ d $ là kí kiệu cho default bounding box**.
 
 $$ \hat{g}_j^{cx} = \frac{g_j^{cx}-d_{i}^{cx}}{d_{i}^{w}} \triangleq t_{x} $$
 
@@ -78,19 +80,19 @@ $$ \hat{g}_j^{w} =log\frac{g_j^{w}}{d_i^{w}} \triangleq t_{w} $$
 
 $$ \hat{g}_j^{h} =log\frac{g_j^{h}}{d_i^{h}} \triangleq t_{h} $$
 
-Kí hiệu $\triangleq$ là đặt vế phải bằng vế phải. $ t_{x}, t_{y}, t_w, t_h $ nhận giá trị trong khoảng $ (-\infty, +\infty) $ và dùng để tinh chỉnh kích thước của bounding box. $ t_{x}, t_{y} $ càng lớn thì khoảng cách giữa tâm của **ground-truth $ g $ và default box $ d $** càng lớn. $t_w, t_h $ càng lớn thì chênh lệch giữa chiều dài và chiều rộng của ground-truth box và default box càng lớn. $ (t_x, t_y, t_w, t_h) $ là bộ tham số chuẩn hóa kích thước của ground-truth box $g$ theo kích thước của default box $d$. 
+Kí hiệu $\triangleq$ là đặt vế phải bằng vế phải. $$ t_{x}, t_{y}, t_w, t_h $$ nhận giá trị trong khoảng $$ (-\infty, +\infty) $$ và dùng để tinh chỉnh kích thước của bounding box. $$ t_{x}, t_{y} $$ càng lớn thì khoảng cách giữa tâm của **ground-truth $ g $ và default box $ d $** càng lớn. $$t_w, t_h $$ càng lớn thì chênh lệch giữa chiều dài và chiều rộng của ground-truth box và default box càng lớn. $$ (t_x, t_y, t_w, t_h) $$ là bộ tham số chuẩn hóa kích thước của ground-truth box $$g$$ theo kích thước của default box $$d$$. 
 
-Tương tự như vậy chúng ta có thể xác định được bộ tham số thể hiện mối liên hệ giữa **predicted box $l$ và default box $d$** bằng cách thay $g$ bằng $l$ trong các phương trình trên. Khi đó khoảng cách giữa predicted box và ground truth box sẽ càng gần nếu khoảng cách giữa các bộ tham số chuẩn hóa giữa chúng càng gần, tức khoảng cách giữa 2 vector $g$ và $l$ càng nhỏ.
+Tương tự như vậy chúng ta có thể xác định được bộ tham số thể hiện mối liên hệ giữa **predicted box $l$ và default box $d$** bằng cách thay $$g$$ bằng $$l$$ trong các phương trình trên. Khi đó khoảng cách giữa predicted box và ground truth box sẽ càng gần nếu khoảng cách giữa các bộ tham số chuẩn hóa giữa chúng càng gần, tức khoảng cách giữa 2 vector $$g$$ và $$l$$ càng nhỏ.
 
-Nhắc lại một chút về hàm smooth $L_1^{smooth}$:
+Nhắc lại một chút về hàm smooth $$L_1^{smooth}$$:
 $$ L_1^\text{smooth}(x) = \begin{cases}
     0.5 x^2             & \text{if } \vert x \vert < 1\\
     \vert x \vert - 0.5 & \text{otherwise}
 \end{cases} $$
 
-Trường hợp $x$ là một véc tơ thì thay $\left| x\right|$ ở vế phải bằng giá trị norm chuẩn bậc 1 của $x$ kí hiệu là $\left| x\right|$.
+Trường hợp $$x$$ là một véc tơ thì thay $$\left| x\right|$$ ở vế phải bằng giá trị norm chuẩn bậc 1 của $$x$$ kí hiệu là $$\left| x\right|$$.
 
-Trong phương trình của hàm localization loss thì các hằng số mà ta đã biết chính là $g$. Biến cần tìm giá trị tối ưu chính là $l$. Sau khi tìm ra được nghiệm tối ưu của $l$ ta sẽ tính ra predicted box nhờ phép chuyển đổi từ default box tương ứng.
+Trong phương trình của hàm localization loss thì các hằng số mà ta đã biết chính là $$g$$. Biến cần tìm giá trị tối ưu chính là $$l$$. Sau khi tìm ra được nghiệm tối ưu của $$l$$ ta sẽ tính ra predicted box nhờ phép chuyển đổi từ default box tương ứng.
 
 **Bổ sung:** làm rõ thêm về chuyển đổi kích thước.
 
