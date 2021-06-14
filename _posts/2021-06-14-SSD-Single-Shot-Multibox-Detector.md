@@ -4,8 +4,6 @@ title: "SSD - Single Shot Multibox Detector"
 tags: [Object Detection, OpenCV]
 comments: true
 ---
-
-# SSD
 Chúng ta đã tìm hiểu về một số mô hình phát hiện vật thể như họ R-CNN hay YOLO. Trong bài này chúng ta tìm hiểu thêm một mô hình phát hiện vật thể mới có tên là SSD.
 
 Đầu vào của SSD là toạ độ bounding box của vật thể (các offsets) và nhãn của vật thể chứa trong đó (giống các mô hình phát hiện vật thể khác).
