@@ -22,9 +22,9 @@ SSD chỉ cần ảnh đầu vào và các ground-truth boxes cho mỗi object t
 
 * Sau khi đi qua một số lớp Convolution để trích xuất đặc trưng, chúng ta nhận được **feature layer kích thước mxn với p channels** (như vậy mỗi channel chúng ta có mxn vị trí (location)). Như ở trên chúng ta nhận được feature layer với kích thước 8x8 hoặc 4x4 (chưa tính channels). Convolutional layer 3x3 được áp dụng lên feature layers mxnxp này.
 * Ứng với mỗi vị trí (location) chúng ta có **k bounding boxes**. k bounding boxes này có kích thước và tỉ lệ khác nhau (như trên hình). Ý tưởng chính là hình chữ nhậ đứng phù hợp với người, hình chữ nhật ngang thì phù hợp với ô tô.
-* Ứng với mỗi bounding box chúng ta sẽ tính confidence cho tất cả classes **c class scores** $$(c_{1}, c_{2},...,c_{n})$$ (chú ý hơi khác với YOLO, YOLO dự đoán objectness confidence của box - có object hay không, và tiếp theo dự đoán class scores) và **4 offsets** tương đối so với default boxes.
+* Ứng với mỗi bounding box chúng ta sẽ tính confidence cho tất cả classes **c class scores** $(c_{1}, c_{2},...,c_{n})$ (chú ý hơi khác với YOLO, YOLO dự đoán objectness confidence của box - có object hay không, và tiếp theo dự đoán class scores) và **4 offsets** tương đối so với default boxes.
 * Trong quá trình training, đầu tiên chúng ta cần khớp default boxes với ground-truth boxes. Ví dụ ở trên chúng ta khớp 2 default boxes với mèo và một default box với chó, chúng được coi là các positive examples.
-* Cuối cùng chúng ta sẽ có $$ m\times n\times k\times (c+4) $$ outputs
+* Cuối cùng chúng ta sẽ có $ m\times n\times k\times (c+4) $ outputs
 ![3](../images/2021-06-14/3.png)
 Đó cũng là lý do bài báo có tên là *SSD: Single Shot Multibox Detector*
 Bây giờ người ta hay sử dụng **ResNet** làm base model hơn.
@@ -57,20 +57,20 @@ $$ y^{T} = [\underbrace{x, y, w, h}_{\text{bounding box}}, \underbrace{c_1, c_2,
 ### 3.1. Loss function
 **Matching strategy:** Trong suốt quá trinh training chúng ta cần xác định default boxes khớp với ground-truth. Đối với mỗi groud-truth box chúng ta chọn các default boxes có `jaccard overlap` hay IoU lớn hơn `0.5` (coi là positive examples). 
 
-$$x_{ij}^{p} = \left\{1, 0 \right\}$$ thể hiện matching (sự khớp) của **default box $i$ với ground-truth box $j$** của nhãn thứ $$p$$. $$\sum_{i}x_{ij}^p \geq 1$$ - trong quá trình mapping chúng ta có thể có nhiều default bounding box $$i$$ được map vào cùng 1 ground truth box $$j$$ với cùng 1 nhãn $$p$$.
+$x_{ij}^{p} = \left\{1, 0 \right\}$ thể hiện matching (sự khớp) của **default box $i$ với ground-truth box $j$** của nhãn thứ $p$. $\sum_{i}x_{ij}^p \geq 1$ - trong quá trình mapping chúng ta có thể có nhiều default bounding box $i$ được map vào cùng 1 ground truth box $j$ với cùng 1 nhãn $p$.
 
-Loss function bao gồm 2 thành phần: $$ L_{loc} $$ và $$ L_{conf} $$ (loss function của bài toán image classification chỉ có $$L_{conf}$$ thôi)
+Loss function bao gồm 2 thành phần: $ L_{loc} $ và $ L_{conf} $ (loss function của bài toán image classification chỉ có $L_{conf}$ thôi):
 $$ L(x, c, l, g) = \frac{1}{N}[L_{conf}(x, c) + \alpha L_{loc}(x, l, g)] \tag{1} $$
 
-trong đó $$ N $$ là số lượng các default boxes matching với ground truth boxes. Nếu $$ N=0 $$ chúng ta set loss = 0.
+trong đó $ N $ là số lượng các default boxes matching với ground truth boxes. Nếu $ N=0 $ chúng ta set loss = 0.
 
 #### 3.1.1. Localization loss
 $$ L_{loc}(x, l ,g) = \sum_{i \in Pos}^{N}\sum_{m \in \{cx, cy, w, h\}} x^{k}_{ij} \space L_1^\text{smooth}(l_i^m - \hat{g}_j^m) $$
 
 **Localization loss** là một hàm Smooth L1 đo lường sai số giữa tham số của **box dự đoán (predicted box) ($ l $) và ground truth box ($ g $).**
-Các tham số này bao gồm offsets cho tâm $$(cx, cy)$$ của default bounding box, chiều dài ($$h$$) và chiều rộng ($$w$$). Loss này cũng tương tự với loss của Faster R-CNN.
+Các tham số này bao gồm offsets cho tâm $(cx, cy)$ của default bounding box, chiều dài ($h$) và chiều rộng ($w$). Loss này cũng tương tự với loss của Faster R-CNN.
 
-Localization loss chỉ xét cho các positive matching example ($$i \in Pos$$) giữa predicted box và ground-truth box. Thành phần $$\sum_{m \in {x, y, w, h}} x^{k}_{ij} \space L_1^\text{smooth}(l_i^m - \hat{g}_j^m)$$ chính là tổng khoảng cách giữa **predicted box ($l$)** và  ground-truth box ($g$) trên ở 4 offsets ($$cx, cy, w, h$$). $$ cx, cy $$ ở đây chính là tọa độ tâm. **$ d $ là kí kiệu cho default bounding box**.
+Localization loss chỉ xét cho các positive matching example ($i \in Pos$) giữa predicted box và ground-truth box. Thành phần $\sum_{m \in {x, y, w, h}} x^{k}_{ij} \space L_1^\text{smooth}(l_i^m - \hat{g}_j^m)$ chính là tổng khoảng cách giữa **predicted box ($l$)** và  ground-truth box ($g$) trên ở 4 offsets ($cx, cy, w, h$). $cx, cy $ ở đây chính là tọa độ tâm. **$ d $ là kí kiệu cho default bounding box**.
 
 $$ \hat{g}_j^{cx} = \frac{g_j^{cx}-d_{i}^{cx}}{d_{i}^{w}} \triangleq t_{x} $$
 
@@ -80,19 +80,19 @@ $$ \hat{g}_j^{w} =log\frac{g_j^{w}}{d_i^{w}} \triangleq t_{w} $$
 
 $$ \hat{g}_j^{h} =log\frac{g_j^{h}}{d_i^{h}} \triangleq t_{h} $$
 
-Kí hiệu $\triangleq$ là đặt vế phải bằng vế phải. $$ t_{x}, t_{y}, t_w, t_h $$ nhận giá trị trong khoảng $$ (-\infty, +\infty) $$ và dùng để tinh chỉnh kích thước của bounding box. $$ t_{x}, t_{y} $$ càng lớn thì khoảng cách giữa tâm của **ground-truth $ g $ và default box $ d $** càng lớn. $$t_w, t_h $$ càng lớn thì chênh lệch giữa chiều dài và chiều rộng của ground-truth box và default box càng lớn. $$ (t_x, t_y, t_w, t_h) $$ là bộ tham số chuẩn hóa kích thước của ground-truth box $$g$$ theo kích thước của default box $$d$$. 
+Kí hiệu $\triangleq$ là đặt vế phải bằng vế phải. $ t_{x}, t_{y}, t_w, t_h $ nhận giá trị trong khoảng $ (-\infty, +\infty) $ và dùng để tinh chỉnh kích thước của bounding box. $ t_{x}, t_{y} $ càng lớn thì khoảng cách giữa tâm của **ground-truth $ g $ và default box $ d $** càng lớn. $t_w, t_h $ càng lớn thì chênh lệch giữa chiều dài và chiều rộng của ground-truth box và default box càng lớn. $ (t_x, t_y, t_w, t_h) $ là bộ tham số chuẩn hóa kích thước của ground-truth box $g$ theo kích thước của default box $d$. 
 
-Tương tự như vậy chúng ta có thể xác định được bộ tham số thể hiện mối liên hệ giữa **predicted box $l$ và default box $d$** bằng cách thay $$g$$ bằng $$l$$ trong các phương trình trên. Khi đó khoảng cách giữa predicted box và ground truth box sẽ càng gần nếu khoảng cách giữa các bộ tham số chuẩn hóa giữa chúng càng gần, tức khoảng cách giữa 2 vector $$g$$ và $$l$$ càng nhỏ.
+Tương tự như vậy chúng ta có thể xác định được bộ tham số thể hiện mối liên hệ giữa **predicted box $l$ và default box $d$** bằng cách thay $g$ bằng $l$ trong các phương trình trên. Khi đó khoảng cách giữa predicted box và ground truth box sẽ càng gần nếu khoảng cách giữa các bộ tham số chuẩn hóa giữa chúng càng gần, tức khoảng cách giữa 2 vector $g$ và $l$ càng nhỏ.
 
-Nhắc lại một chút về hàm smooth $$L_1^{smooth}$$:
+Nhắc lại một chút về hàm smooth $L_1^{smooth}$:
 $$ L_1^\text{smooth}(x) = \begin{cases}
     0.5 x^2             & \text{if } \vert x \vert < 1\\
     \vert x \vert - 0.5 & \text{otherwise}
 \end{cases} $$
 
-Trường hợp $$x$$ là một vector thì thay $$\left| x\right|$$ ở vế phải bằng giá trị norm chuẩn bậc 1 của $$x$$ kí hiệu là $$\left| x\right|$$.
+Trường hợp $x$ là một vector thì thay $\left| x\right|$ ở vế phải bằng giá trị norm chuẩn bậc 1 của $x$ kí hiệu là $\left| x\right|$.
 
-Trong phương trình của hàm localization loss thì các hằng số mà ta đã biết chính là $$g$$. Biến cần tìm giá trị tối ưu chính là $$l$$. Sau khi tìm ra được nghiệm tối ưu của $$l$$ ta sẽ tính ra predicted box nhờ phép chuyển đổi từ default box tương ứng.
+Trong phương trình của hàm localization loss thì các hằng số mà ta đã biết chính là $g$. Biến cần tìm giá trị tối ưu chính là $l$. Sau khi tìm ra được nghiệm tối ưu của $l$ ta sẽ tính ra predicted box nhờ phép chuyển đổi từ default box tương ứng.
 
 **Bổ sung:** làm rõ thêm về chuyển đổi kích thước.
 
@@ -105,26 +105,26 @@ Do đó chúng ta cần phải chuẩn hóa kích thước width, height và tâ
 
 $$ L_{conf}(x, c) = -\sum_{i \in Pos} x_{ij}^{p} \text{log}(\hat{c}_{i}^p) - \sum_{i \in Neg}\text{log}(\hat{c}_{i}^0) $$
 
-$$ L_{conf} $$ chính là softmax loss trên toàn bộ confidences của các classes ($$c$$).  
-* Đối với mỗi **positive match prediction**, chúng ta phạt loss function theo confidence score của các nhãn tương ứng. Do positive match prediction nên vùng dự đoán có vật thể chính xác là chứa vật thể. Do đó việc dự đoán nhãn cũng tương tự như bài toán image classification với softmax loss $$-\sum_{i \in Pos} x_{ij}^{p} \text{log}(\hat{c}_{i}^p)$$. Nhớ lại $$x_{ij}^{p} = \left\{1, 0 \right\}$$ thể hiện matching default box $i$ với ground-truth box $$j$$ cho nhãn $$p$$, còn $$(\hat{c}_{i}^p)$$ chính là xác suất xuất hiện nhãn $$p$$ trong default box $$i$$. Điều này cũng tương tự như bài toán classification với nhiều nhãn với loss là $$-\sum_{i}^{}y^{(i)}\ast log(\hat{y}^{i})$$
-* Đối với mỗi một **negative match prediction**, chúng ta phạt loss function theo confidence score của nhãn ‘0’ là nhãn đại diện cho background không chứa vật thể. Do không chứa vật thể nên chỉ có duy nhất background `0`, xác suất xảy ra background $$ x_{ij}^{0} = 1$$, do đó loss là $$ -\sum_{i \in Neg}\text{log}(\hat{c}_{i}^0) $$.
+$ L_{conf} $ chính là softmax loss trên toàn bộ confidences của các classes ($c$).  
+* Đối với mỗi **positive match prediction**, chúng ta phạt loss function theo confidence score của các nhãn tương ứng. Do positive match prediction nên vùng dự đoán có vật thể chính xác là chứa vật thể. Do đó việc dự đoán nhãn cũng tương tự như bài toán image classification với softmax loss $-\sum_{i \in Pos} x_{ij}^{p} \text{log}(\hat{c}_{i}^p)$. Nhớ lại $x_{ij}^{p} = \left\{1, 0 \right\}$ thể hiện matching default box $i$ với ground-truth box $j$ cho nhãn $p$, còn $(\hat{c}_{i}^p)$ chính là xác suất xuất hiện nhãn $p$ trong default box $i$. Điều này cũng tương tự như bài toán classification với nhiều nhãn với loss là $-\sum_{i}^{}y^{(i)}\ast log(\hat{y}^{i})$
+* Đối với mỗi một **negative match prediction**, chúng ta phạt loss function theo confidence score của nhãn ‘0’ là nhãn đại diện cho background không chứa vật thể. Do không chứa vật thể nên chỉ có duy nhất background `0`, xác suất xảy ra background $ x_{ij}^{0} = 1$, do đó loss là $ -\sum_{i \in Neg}\text{log}(\hat{c}_{i}^0) $.
 
 Ở đây $$\hat{c}_{i}^p = \frac{exp({c}_{i}^p)}{\sum_{p}^{}exp({c}_{i}^p)}$$
 
 
 ## 3.2. Lựa chọn kích cỡ (scale) và hệ số tỉ lệ (aspect ratio) cho box mặc định
-**Scale:** độ phóng đại so với ảnh gốc. Nếu ảnh gốc có kích thước $$(w, h)$$, sau khi scale ảnh mới sẽ có kích thước là $$(ws, hs)$$. $$s\in \left [ 0,1 \right ]$$ là hệ số
-scale. 
+**Scale:** độ phóng đại so với ảnh gốc. Nếu ảnh gốc có kích thước $(w, h)$, sau khi scale ảnh mới sẽ có kích thước là $(ws, hs)$. $s\in \left [ 0,1 \right ]$ là hệ số scale. 
 
-**Aspect ratio:** hệ số tỉ lệ hay tỉ lệ cạnh $$\frac{w}{h}$$ xác định hình dạng tương đối của khung hình chứa vật thể, người thường có aspect ration < 1, ô tô có aspect ration > 1.
+**Aspect ratio:** hệ số tỉ lệ hay tỉ lệ cạnh $\frac{w}{h}$ xác định hình dạng tương đối của khung hình chứa vật thể, người thường có aspect ration < 1, ô tô có aspect ration > 1.
 
-Giả sử chúng ta có $$m$$ feature maps để dự đoán. Scale của default boxes cho mỗi feature map được tính như sau:
+Giả sử chúng ta có $m$ feature maps để dự đoán. Scale của default boxes cho mỗi feature map được tính như sau:
 $$ s_k = s_{min} + \frac{s_{max} - s_{min}}{m-1}(k-1), k \in [1,m] $$
 
-Trong đó $k$ là số thứ tự layer dùng để dự đoán do đó nó nằm từ 1 đến $$m$$, $$s_{min} = 0.2$$, $$s_{max} = 0.9$$.
-* $$k=1$$ - tương đương với layer `Conv4_3` và $$s_{1} = s_{min} = 0.2$$. Điều này nghĩa là sao? Tại `Conv4_3` layer sẽ phát hiện object với scale nhỏ (bản thân `Conv4_3` layer là layer đầu tiên để dự đoán, có kích thước lớn nhất, chia làm nhiều cell nhất, do đó nó có khả năng phát hiện các vật thể nhỏ).
-* $$k=m$$ - tương đương với layer `Conv11_2` và $$s_{m} = s_{max} = 0.9.2$$. Điều này nghĩa là sao? Tại `Conv11_2` layer sẽ phát hiện object với scale lớn (bản thân `Conv11_2` layer là layer cuối cùng để dự đoán, có kích thước nhot nhất, chia làm ít cell nhất, do đó nó có khả năng phát hiện các vật thể lớn).
-Giả sử chúng ta có $m$ feature maps để dự đoán, chúng ta sẽ tính $$s_{k}$$ cho $$k-th$$ feature map.
+Trong đó $k$ là số thứ tự layer dùng để dự đoán do đó nó nằm từ 1 đến $m$, $s_{min} = 0.2$, $s_{max} = 0.9$.
+
+* $k=1$ - tương đương với layer `Conv4_3` và $s_{1} = s_{min} = 0.2$. Điều này nghĩa là sao? Tại `Conv4_3` layer sẽ phát hiện object với scale nhỏ (bản thân `Conv4_3` layer là layer đầu tiên để dự đoán, có kích thước lớn nhất, chia làm nhiều cell nhất, do đó nó có khả năng phát hiện các vật thể nhỏ).
+* $k=m$ - tương đương với layer `Conv11_2` và $s_{m} = s_{max} = 0.9.2$. Điều này nghĩa là sao? Tại `Conv11_2` layer sẽ phát hiện object với scale lớn (bản thân `Conv11_2` layer là layer cuối cùng để dự đoán, có kích thước nhot nhất, chia làm ít cell nhất, do đó nó có khả năng phát hiện các vật thể lớn).
+Giả sử chúng ta có $m$ feature maps để dự đoán, chúng ta sẽ tính $s_{k}$ cho $k-th$ feature map.
 
 Đối với layer có 6 dự đoán, chúng ta đặt các tỉ lệ (aspect ratios) khác nhau cho các default boxes và biểu diễn là $$ a_{r}\in \left\{1, 2, 3, \frac{1}{2}, \frac{1}{3} \right\} $$. Sau đó chúng ta có thể tính được height và width cho mỗi default box theo công thức sau:
 $$w_{k}^a = s_{k} * \sqrt{{a_{r}}}$$
