@@ -108,6 +108,7 @@ $$ L_{conf}(x, c) = -\sum_{i \in Pos} x_{ij}^{p} \text{log}(\hat{c}_{i}^p) - \su
 
 $ L_{conf} $ chính là softmax loss trên toàn bộ confidences của các classes ($c$).  
 * Đối với mỗi **positive match prediction**, chúng ta phạt loss function theo confidence score của các nhãn tương ứng. Do positive match prediction nên vùng dự đoán có vật thể chính xác là chứa vật thể. Do đó việc dự đoán nhãn cũng tương tự như bài toán image classification với softmax loss $ -\sum_{i \in Pos} x_{ij}^{p} \text{log}(\hat{c}_{i}^p) $.
+
 Nhớ lại $x_{ij}^{p} = \left\{1, 0 \right\}$ thể hiện matching default box $i$ với ground-truth box $j$ cho nhãn $p$, còn $(\hat{c}_{i}^p)$ chính là xác suất xuất hiện nhãn $p$ trong default box $i$. Điều này cũng tương tự như bài toán classification với nhiều nhãn với loss là $-\sum_{i}^{}y^{(i)}\ast log(\hat{y}^{i})$
 * Đối với mỗi một **negative match prediction**, chúng ta phạt loss function theo confidence score của nhãn ‘0’ là nhãn đại diện cho background không chứa vật thể. Do không chứa vật thể nên chỉ có duy nhất background `0`, xác suất xảy ra background $ x_{ij}^{0} = 1$, do đó loss là $ -\sum_{i \in Neg}\text{log}(\hat{c}_{i}^0) $.
 
