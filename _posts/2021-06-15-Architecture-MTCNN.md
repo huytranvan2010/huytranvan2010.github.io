@@ -6,12 +6,12 @@ comments: true
 ---
 
 Như chúng ta đã tìm hiểu ở một số bài trước MTCNN bao gồm 3 mạng NN hay có thể gọi là 3 stages. Trong bước đầu tiên sử dụng mạng CNN nông (shallow) để nhanh chóng tạo ra các bounding boxes tiềm năng. Bước 2 tinh chỉnh lại bounding boxes nhận được từ bước 1 bằng mạng CNN phức tạp hơn. Bước cuối cùng sử dụng mạng CNN phức tạp hơn nữa để tinh chỉnh kết quả và đưa ra các facial landmarks.
-![Kiến trúc chung](Architecture_MTCNN/0.webp)
-*Kiến trúc MTCNN (NN thứ 3 đầu vào là 48x48x3)*
+![Kiến trúc chung](../images/Architecture_MTCNN/0.webp)
+*Kiến trúc MTCNN (NN thứ 3 đầu vào là 48x48x3)* 
 
 ## 3 bước trong CNN
 Đầu tiên ảnh được rescale để nhận được **image pyramid** giúp mô hình có thể phát hiện khuôn mặt với các kích thước khác nhau.
-![ok](Architecture_MTCNN/0.png)
+![ok](../images/Architecture_MTCNN/0.png)
 *Ảnh được rescale với nhiều tỉ lệ khác nhau* 
 
 ### Bước 1: The proposal network (P-Net)
@@ -19,7 +19,7 @@ Như chúng ta đã tìm hiểu ở một số bài trước MTCNN bao gồm 3 m
 
 **Bounding box regression** là kỹ thuật để dự đoán vị trí của bounding box khi chúng ta cần phát hiện đối tượng (ở đây là khuôn mặt). Sau khi có được tọa độ của bounding boxes một vài tinh chỉnh được thực hiện để loại bỏ một số bounding boxes overlap với nhau (xem trong code sẽ có). Đầu ra của bước này là tất cả bounding boxes sau khi đã thực hiện sàng lọc.
 
-![2](Architecture_MTCNN/2.png)
+![2](../images/Architecture_MTCNN/2.png)
 *Chi tiết kiến trúc P-Net*
 
 Ở đây có dùng **PRelu layer** (nói đơn giản giá trị không âm thì giữ nguyên, giá trị âm sẽ được nhân với hệ số $ \alpha $, hệ số này được học trong quá trình training), mọi người có thể xem chi tiết tại đây https://keras.io/api/layers/activation_layers/prelu/
@@ -29,7 +29,7 @@ Chú ý sau **PReLu layer 3** tách thành 2 nhánh, nhánh 4-2 dùng để dự
 ### Bước 2: The Refine Network (R-Net)
 Tất cả bounding boxes từ **P-Net** được đưa vào **R-Net**. Chú ý rằng **R-Net** là mạng CNN chứ không phải FCN. **R-Net** giảm số lượng bounding boxes xuống, tinh chỉnh lại tọa độ, có áp dụng Non-max suppression.
 
-![R-Net](Architecture_MTCNN/3.png)
+![R-Net](../images/Architecture_MTCNN/3.png)
 
 Ở đây cũng có 2 nhánh để dự đoán xuất hiện khuôn mặt hay không và tọa độ của bounding boxes. 
 
@@ -40,24 +40,24 @@ Tất cả bounding boxes từ **P-Net** được đưa vào **R-Net**. Chú ý 
 
 **Chú ý**: Như hình bên trên model được modified lại, **O-Net** có dự đoán cả *head pose*. 
 
-![O-Net](Architecture_MTCNN/4.png)
+![O-Net](../images/Architecture_MTCNN/4.png)
 
 ## 3 nhiệm cụ của MTCNN
 ### 1. Face classification
 Đây là binary classification nên dùng loss function như sau:
-![O-Net](Architecture_MTCNN/0.jpeg)
+![O-Net](../images/Architecture_MTCNN/0.jpeg)
 
 ### 2. Bounding box regression
 
 Đây là bài toán regression. Đối với mỗi window (bounding box) offset (độ lệch) giữa bounding box và ground truth bounding box được tính. Eucledian loss được áp dụng cho trường hợp này.
-![O-Net](Architecture_MTCNN/1.jpeg)
+![O-Net](../images/Architecture_MTCNN/1.jpeg)
 
 Chú ý ở đây mỗi bounding box có 4 thành phần nhé.
 
 ### 3. Facial landmark localization
 Xác định vị trí của facial landmarks. Đây cũng là bài toán regression.
 
-![O-Net](Architecture_MTCNN/2.jpeg)
+![O-Net](../images/Architecture_MTCNN/2.jpeg)
 
 Có 5 landmraks: left eye, right eye, nose, left mounth corner, right mounth corners.
 
