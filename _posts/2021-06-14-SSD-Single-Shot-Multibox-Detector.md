@@ -72,13 +72,13 @@ Các tham số này bao gồm offsets cho tâm $(cx, cy)$ của default bounding
 
 Localization loss chỉ xét cho các positive matching example ($i \in Pos$) giữa predicted box và ground-truth box. Thành phần $\sum_{m \in {x, y, w, h}} x^{k}_{ij} \space L_1^\text{smooth}(l_i^m - \hat{g}_j^m)$ chính là tổng khoảng cách giữa **predicted box ($l$)** và  ground-truth box ($g$) trên ở 4 offsets ($cx, cy, w, h$). $cx, cy $ ở đây chính là tọa độ tâm. **$ d $ là kí kiệu cho default bounding box**.
 
-$$ \hat{g}_j^{cx} = \frac{g_j^{cx}-d_{i}^{cx}}{d_{i}^{w}} \triangleq t_{x} $$
+$$\hat{g}_j^{cx} = \frac{g_j^{cx}-d_{i}^{cx}}{d_{i}^{w}} \triangleq t_{x}$$
 
-$$ \hat{g}_j^{cy} = \frac{g_j^{cy}-d_{i}^{cy}}{d_{i}^{h}} \triangleq t_{y} $$
+$$\hat{g}_j^{cy} = \frac{g_j^{cy}-d_{i}^{cy}}{d_{i}^{h}} \triangleq t_{y}$$
 
-$$ \hat{g}_j^{w} =log\frac{g_j^{w}}{d_i^{w}} \triangleq t_{w} $$
+$$\hat{g}_j^{w} =log\frac{g_j^{w}}{d_i^{w}} \triangleq t_{w}$$
 
-$$ \hat{g}_j^{h} =log\frac{g_j^{h}}{d_i^{h}} \triangleq t_{h} $$
+$$\hat{g}_j^{h} =log\frac{g_j^{h}}{d_i^{h}} \triangleq t_{h}$$
 
 Kí hiệu $\triangleq$ là đặt vế phải bằng vế phải. $ t_{x}, t_{y}, t_w, t_h $ nhận giá trị trong khoảng $ (-\infty, +\infty) $ và dùng để tinh chỉnh kích thước của bounding box. $ t_{x}, t_{y} $ càng lớn thì khoảng cách giữa tâm của **ground-truth $ g $ và default box $ d $** càng lớn. $t_w, t_h $ càng lớn thì chênh lệch giữa chiều dài và chiều rộng của ground-truth box và default box càng lớn. $ (t_x, t_y, t_w, t_h) $ là bộ tham số chuẩn hóa kích thước của ground-truth box $g$ theo kích thước của default box $d$. 
 
@@ -143,7 +143,7 @@ Sau quá trình matching (khớp default boxes và groud-truth box) có rất nh
 * Lấy một patch với minimum jaccard IoU với các vật thể: 0.1, 0.3, 0.5, 0.7, 0.9
 * Lấy ngẫu nhiên một patch
 
-Kích thucows của mỗi patch là `[0.1, 1]` so với kích thước ảnh gốc và có aspect ratio nằm giữa 0.2 và 2.
+Kích thước của mỗi patch là `[0.1, 1]` so với kích thước ảnh gốc và có aspect ratio nằm giữa 0.2 và 2.
 
 ## 6. Inferences using SSD
 SSD sử dụng các default boxes với tỉ lệ, hình dạng khác nhau trên các layers. SSD loại bỏ các predictions có confidence nhỏ hớn 0.01. Sau đó cũng áp dụng NMS các overlap 0.45 và giữ 200 detections cho mỗi image.
