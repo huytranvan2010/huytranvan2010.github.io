@@ -125,9 +125,9 @@ Trong đó $k$ là số thứ tự layer dùng để dự đoán do đó nó n�
 Giả sử chúng ta có $m$ feature maps để dự đoán, chúng ta sẽ tính $s_{k}$ cho $k-th$ feature map.
 
 Đối với layer có 6 dự đoán, chúng ta đặt các tỉ lệ (aspect ratios) khác nhau cho các default boxes và biểu diễn là $ a_{r}\in \left\{1, 2, 3, \frac{1}{2}, \frac{1}{3} \right\} $. Sau đó chúng ta có thể tính được height và width cho mỗi default box theo công thức sau:
-$$w_{k}^a = s_{k} * \sqrt{{a_{r}}} $$
+$$ w_{k}^a = s_{k} * \sqrt{{a_{r}}} $$
 
-$$h_{k}^a = \frac{s_{k}} {\sqrt{{a_{r}}}} $$
+$$ h_{k}^a = \frac{s_{k}} {\sqrt{{a_{r}}}} $$
 
 Đối với trường hợp aspect ratio $ a_{r} = 1$ ta sẽ thêm một defaul box có scale $s_k' = \sqrt{s_ks_{k+1}}$ để tạo thành 6 default boxes cho mỗi vị trí của feature map.
 
