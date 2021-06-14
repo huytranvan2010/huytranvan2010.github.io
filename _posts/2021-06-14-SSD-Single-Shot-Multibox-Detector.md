@@ -60,6 +60,7 @@ $$ y^{T} = [\underbrace{x, y, w, h}_{\text{bounding box}}, \underbrace{c_1, c_2,
 $x_{ij}^{p} = \left\{1, 0 \right\}$ thể hiện matching (sự khớp) của **default box $i$ với ground-truth box $j$** của nhãn thứ $p$. $\sum_{i}x_{ij}^p \geq 1$ - trong quá trình mapping chúng ta có thể có nhiều default bounding box $i$ được map vào cùng 1 ground truth box $j$ với cùng 1 nhãn $p$.
 
 Loss function bao gồm 2 thành phần: $ L_{loc} $ và $ L_{conf} $ (loss function của bài toán image classification chỉ có $L_{conf}$ thôi):
+
 $$ L(x, c, l, g) = \frac{1}{N}[L_{conf}(x, c) + \alpha L_{loc}(x, l, g)] \tag{1} $$
 
 trong đó $ N $ là số lượng các default boxes matching với ground truth boxes. Nếu $ N=0 $ chúng ta set loss = 0.
@@ -106,7 +107,8 @@ Do đó chúng ta cần phải chuẩn hóa kích thước width, height và tâ
 $$ L_{conf}(x, c) = -\sum_{i \in Pos} x_{ij}^{p} \text{log}(\hat{c}_{i}^p) - \sum_{i \in Neg}\text{log}(\hat{c}_{i}^0) $$
 
 $ L_{conf} $ chính là softmax loss trên toàn bộ confidences của các classes ($c$).  
-* Đối với mỗi **positive match prediction**, chúng ta phạt loss function theo confidence score của các nhãn tương ứng. Do positive match prediction nên vùng dự đoán có vật thể chính xác là chứa vật thể. Do đó việc dự đoán nhãn cũng tương tự như bài toán image classification với softmax loss $-\sum_{i \in Pos} x_{ij}^{p} \text{log}(\hat{c}_{i}^p)$. Nhớ lại $x_{ij}^{p} = \left\{1, 0 \right\}$ thể hiện matching default box $i$ với ground-truth box $j$ cho nhãn $p$, còn $(\hat{c}_{i}^p)$ chính là xác suất xuất hiện nhãn $p$ trong default box $i$. Điều này cũng tương tự như bài toán classification với nhiều nhãn với loss là $-\sum_{i}^{}y^{(i)}\ast log(\hat{y}^{i})$
+* Đối với mỗi **positive match prediction**, chúng ta phạt loss function theo confidence score của các nhãn tương ứng. Do positive match prediction nên vùng dự đoán có vật thể chính xác là chứa vật thể. Do đó việc dự đoán nhãn cũng tương tự như bài toán image classification với softmax loss $-\sum_{i \in Pos} x_{ij}^{p} \text{log}(\hat{c}_{i}^p)$.
+Nhớ lại $x_{ij}^{p} = \left\{1, 0 \right\}$ thể hiện matching default box $i$ với ground-truth box $j$ cho nhãn $p$, còn $(\hat{c}_{i}^p)$ chính là xác suất xuất hiện nhãn $p$ trong default box $i$. Điều này cũng tương tự như bài toán classification với nhiều nhãn với loss là $-\sum_{i}^{}y^{(i)}\ast log(\hat{y}^{i})$
 * Đối với mỗi một **negative match prediction**, chúng ta phạt loss function theo confidence score của nhãn ‘0’ là nhãn đại diện cho background không chứa vật thể. Do không chứa vật thể nên chỉ có duy nhất background `0`, xác suất xảy ra background $ x_{ij}^{0} = 1$, do đó loss là $ -\sum_{i \in Neg}\text{log}(\hat{c}_{i}^0) $.
 
 Ở đây $$\hat{c}_{i}^p = \frac{exp({c}_{i}^p)}{\sum_{p}^{}exp({c}_{i}^p)}$$
