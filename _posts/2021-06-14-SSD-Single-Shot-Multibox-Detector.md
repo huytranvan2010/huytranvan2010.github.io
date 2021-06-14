@@ -22,9 +22,9 @@ SSD chỉ cần ảnh đầu vào và các ground-truth boxes cho mỗi object t
 
 * Sau khi đi qua một số lớp Convolution để trích xuất đặc trưng, chúng ta nhận được **feature layer kích thước mxn với p channels** (như vậy mỗi channel chúng ta có mxn vị trí (location)). Như ở trên chúng ta nhận được feature layer với kích thước 8x8 hoặc 4x4 (chưa tính channels). Convolutional layer 3x3 được áp dụng lên feature layers mxnxp này.
 * Ứng với mỗi vị trí (location) chúng ta có **k bounding boxes**. k bounding boxes này có kích thước và tỉ lệ khác nhau (như trên hình). Ý tưởng chính là hình chữ nhậ đứng phù hợp với người, hình chữ nhật ngang thì phù hợp với ô tô.
-* Ứng với mỗi bounding box chúng ta sẽ tính confidence cho tất cả classes **c class scores** $(c_{1}, c_{2},...,c_{n})$ (chú ý hơi khác với YOLO, YOLO dự đoán objectness confidence của box - có object hay không, và tiếp theo dự đoán class scores) và **4 offsets** tương đối so với default boxes.
+* Ứng với mỗi bounding box chúng ta sẽ tính confidence cho tất cả classes **c class scores** $$(c_{1}, c_{2},...,c_{n})$$ (chú ý hơi khác với YOLO, YOLO dự đoán objectness confidence của box - có object hay không, và tiếp theo dự đoán class scores) và **4 offsets** tương đối so với default boxes.
 * Trong quá trình training, đầu tiên chúng ta cần khớp default boxes với ground-truth boxes. Ví dụ ở trên chúng ta khớp 2 default boxes với mèo và một default box với chó, chúng được coi là các positive examples.
-* Cuối cùng chúng ta sẽ có $ m\times n\times k\times (c+4) $ outputs
+* Cuối cùng chúng ta sẽ có $$ m\times n\times k\times (c+4) $$ outputs
 ![3](../images/2021-06-14/3.png)
 Đó cũng là lý do bài báo có tên là *SSD: Single Shot Multibox Detector*
 Bây giờ người ta hay sử dụng **ResNet** làm base model hơn.
