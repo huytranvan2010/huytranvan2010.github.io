@@ -5,7 +5,7 @@ tags: [Object Tracking, OpenCV]
 comments: true
 ---
 
-Trong bài này chúng ta cùng tìm hiểu về object tracking dựa trên màu săc của đối tượng.Ý tưởng chung là dựa vào color detection (color của vật để detect vị trí của vật) từ đó có thể track theo vật khi nó di chuyển. Việc xác định color boundaries (ranh giới màu) khi xác định vật thể nhiều khi rất khó do ảnh ảnh của điều kiện ánh sáng (light condition), tuy nhiên đôi khi với ngưỡng màu (color threshold) nào đó ta có thể dễ dạng tracking vật thể.
+Trong bài này chúng ta cùng tìm hiểu về object tracking dựa trên màu săc của đối tượng. Ý tưởng chung là dựa vào color detection (color của vật để detect vị trí của vật) từ đó có thể track theo vật khi nó di chuyển. Việc xác định color boundaries (ranh giới màu) khi xác định vật thể nhiều khi rất khó do ảnh ảnh của điều kiện ánh sáng (light condition), tuy nhiên đôi khi với ngưỡng màu (color threshold) nào đó có thể giúp ta dễ dàng tracking vật thể.
 
 **Một số nhiệm vụ (pepline) cần thực hiện để phát hiện vật thể và theo dõi chúng:**
 * Tạo mask cho ảnh bằng cách so sánh từng pixel của ảnh với target color value (màu của vật thể quan tâm). Nếu pixels nằm trong khoảng màu quan tâm sẽ chuyển thành **white**, nằm ngoài sẽ chuyển thành **black**.
@@ -22,11 +22,11 @@ Trong bài này chúng ta cùng tìm hiểu về object tracking dựa trên mà
 - Xem thêm về HSV và cách lấy khoảng màu của object, có thể sử dụng file `range-detector.py` để chọn khoảng màu đến khi nào tách được vật thể khỏi background (có màu trắng)
 
 ##### 2. Loại bỏ noise
-* Ảnh ban đầu đã được loại bỏ noise thường dùng GaussianBlur. Tuy nhiên ở đây á chỉ sao khi tạo mask cho ảnh sẽ có nhiều đốm trắng nằm đâu đó do cùng màu với vật thể quan tâm. Để loại bỏ chúng bằng **mophorlogical opening**. Đơn giản nhất là áp dụng **erosion** theo sau bởi **dilation**.
-* Nhiều khi ở giữa vật thể quan tâm lại có các đốm đen, để loại bỏ thì làm ngược lại, áp dụng **mophorlogical closing**. Đơn giản là áp dụng **dilation** theo sau **erosion**.
+* Ảnh ban đầu đã được loại bỏ noise thường dùng GaussianBlur. Tuy nhiên ở đây ám chỉ sau khi tạo mask cho ảnh có nhiều đốm trắng nằm đâu đó do cùng màu với vật thể quan tâm. Để loại bỏ chúng có thể thực hiện bằng **mophorlogical opening**. Đơn giản nhất là áp dụng **erosion** theo sau bởi **dilation**.
+* Nhiều khi ở giữa vật thể quan tâm lại có các đốm đen, để loại bỏ thì làm ngược lại, áp dụng **mophorlogical closing**. Đơn giản là áp dụng **dilation** theo sau bởi **erosion**.
 * Xác định tâm (centroid) của vật thể. Để xác định tâm của vật thể chúng ta sẽ đi tìm **contour** sau đó tính moments. Điều này đã quá quen thuộc mình xin phép không nhắc lại nữa. Sau đó vẽ gì đó ở tâm để có thể track vật thể.
 
-Dưới đây là phần implementation. Các bạn có thể xem chi tiết mình comment tại [Github_huytranvan2010]()
+Dưới đây là phần implementation. Các bạn có thể xem chi tiết mình comment tại [Github_huytranvan2010](https://github.com/huytranvan2010/Object-Tracking-by-Color)
 ```python
 import imutils
 import argparse
