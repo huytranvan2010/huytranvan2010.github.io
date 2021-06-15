@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Single Object Tracking with OpenCV"
-tags: [Object tracking, OpenCV]
+tags: [Object Tracking, OpenCV]
 comments: true
 ---
 
