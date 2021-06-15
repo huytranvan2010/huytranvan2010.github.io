@@ -62,10 +62,11 @@ while True:
         dst = cv2.calcBackProject([hsv], [0], roi_hist, [0,180], 1)
 
         # apply camshift to get the new location
-        ret, track_window = cv2.CamShift(dst, track_window, term_crit)
+        # ret_val - return value để xác định vị trí của đối tượng
+        ret_val, track_window = cv2.CamShift(dst, track_window, term_crit)
 
         # Draw it on image
-        pts = cv2.boxPoints(ret)    # trả về 4 đỉnh của rectangle
+        pts = cv2.boxPoints(ret_val)    # trả về 4 đỉnh của rectangle
         pts = np.int0(pts)      # chuyển từ float về int để nó còn vẽ được
         # Vẽ tracking window lên frame
         img = cv2.polylines(frame, [pts], True, 255, 2)
@@ -86,3 +87,4 @@ Tuy nhiên nếu màu sắc hoặc texture (họa tiết) thay đổi nhiều s�
 ##### Tài liệu tham khảo
 1. https://docs.opencv.org/master/d7/d00/tutorial_meanshift.html
 2. https://www.geeksforgeeks.org/track-objects-with-camshift-using-opencv/
+3. https://codelungtung.wordpress.com/2018/03/06/object-tracking-in-video/
