@@ -50,6 +50,8 @@ roi_hist = cv2.calcHist([hsv_roi], [0], mask, [180], [0,180])
 cv2.normalize(roi_hist, roi_hist, 0, 255, cv2.NORM_MINMAX)
 
 # Setup the termination criteria, either 10 iteration or move by atleast 1 pt
+# sau khi các gía trị ban đầu được nắm bắt điều kiện dừng cần được thiết lập
+# nếu centroid ROI ko di chuyển thì dừng hoặc số iteration hơn 10 cũng dừng (vì quá trình dịch chuyển) - nhiều thì tốn thời gian
 term_crit = ( cv2.TERM_CRITERIA_EPS | cv2.TERM_CRITERIA_COUNT, 10, 1 )
 
 while True:
@@ -78,6 +80,9 @@ while True:
 video.release()
 cv2.destroyAllWindows()
 ```
+Không giống như có mô hình Deep Leanring cả Meanshift và Camshift đều không cần training. Ví dụ cần tracking quả quá chúng ta không cần đưa các hình ảnh quả bóng vào thuật toán. Thay vào đó ở đay thuật toán sẽ phân tích màu săc ban đầu của quả bóng và theo dõi nó ngay sau đó.
+
+Tuy nhiên nếu màu sắc hoặc texture (họa tiết) thay đổi nhiều sẽ rất khó để theo dõi đối tượng. Nói chung 2 thuật toán Meanshift và Camshift nên được thiện hiện đối với môi trường ổn định về ánh sáng có thể kiểm soát được.
 ##### Tài liệu tham khảo
 1. https://docs.opencv.org/master/d7/d00/tutorial_meanshift.html
 2. https://www.geeksforgeeks.org/track-objects-with-camshift-using-opencv/
