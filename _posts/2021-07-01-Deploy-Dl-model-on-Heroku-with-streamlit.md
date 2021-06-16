@@ -44,6 +44,7 @@ git init
 heroku login
 ```
 Lúc này nó sẽ đưa mình đến trang đăng nhập, chỉ cần đăng nhập vào đó là được.
+
 **4.** Deploy app
 ```python
 heroku create
