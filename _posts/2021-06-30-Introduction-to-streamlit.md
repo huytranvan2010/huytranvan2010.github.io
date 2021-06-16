@@ -72,5 +72,3 @@ Còn rất nhiều tính năng hay ho các bạn có thể xem thêm tại [tran
 Trên đây mình đã giới thiệu sơ qua về streamlit một công cụ đang được cộng đồng AI rất thích. Streamlit giúp chúng ta demo nhanh chóng các dự án nhỏ không cần custom quá nhiều, bạn có thể dành thời gian tập trung cho các công việc khác quan trọng hơn. Nếu muốn hơn thế nữa hãy sử dự Flask hoặc Django kết hợp cùng HTML, CSS, Jasvasript để xây dựng web apps cho riêng mình.
 ##### Tài liệu tham khảo
 1. https://streamlit.io/ 
-1. https://viblo.asia/p/deploy-heroku-with-streamlit-in-machinelearning-maGK7049Zj2
-2. https://datasciblog.github.io/2019/12/26/building-app/?fbclid=IwAR3oanG6zbXiqbSGgrGU1Xf_p6H_Lo-qIVpP98kT3N5iA_lD9drn4O2DCww
