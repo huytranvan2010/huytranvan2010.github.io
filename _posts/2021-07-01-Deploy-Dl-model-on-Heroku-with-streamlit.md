@@ -5,7 +5,7 @@ tags: [Deploy Model, Streamlit, Heroku]
 comments: true
 ---
 
-Bài trước chúng ta đã tìm hiểu sơ bộ về streamlit. Trong bài này mình muốn chia sẻ cách deploy model (thực ra cái gì cũng được) lên Heroku thông qua streamlit thông qua Github.
+Bài trước chúng ta đã tìm hiểu sơ bộ về Streamlit. Trong bài này mình muốn chia sẻ cách deploy model (thực ra cái gì cũng được) lên Heroku với Streamlit thông qua Github.
 
 Để deploy lên Heroku ngoài các file của project để chạy thông qua Streamlit như bình thường chúng ta cần tạo thêm 3 file:
 * `Procfile` (procurement file) chứa thông tin `web: sh setup.sh && streamlit run [name_app].py`. Ở đây `[name_app].py` là file chạy của bạn. Trong này chứa các câu lệnh để thực thi khi mở app.
@@ -24,7 +24,10 @@ enableCORS = false\n\
 \n\
 " > ~/.streamlit/config.toml
 ```
-**Chú ý:** Nếu dùng OpenCV trên Heroku thì trong file `requirements.txt` nên để `opencv-python-headless` chứ không phải `opencv-contrib-python` để tránh một số lỗi `ImportError: libGL.so.1: cannot open shared object file: No such file or directory`
+
+Tất nhiên rồi chúng ta cần tạo một repository chứa toàn bộ files của project để Heroku kết nối. Thực chất Heroku cung cấp 3 cách để có thể kết nối với project và ở đây mình chia sẻ cách dùng với Github.
+
+**Chú ý:** Nếu dùng project của bạn dùng đến OpenCV thì khi deploy trên Heroku trong file `requirements.txt` nên để `opencv-python-headless` chứ không phải `opencv-contrib-python`, điều này giúp tránh lỗi `ImportError: libGL.so.1: cannot open shared object file: No such file or directory`.
 
 Các bạn có thể xem thêm demo của mình tại [github-huytranvan2010](https://github.com/huytranvan2010/Deploy-DLmodel-with-Streamlit) hoặc tự tạo cho mình một project để chạy thử.
 
