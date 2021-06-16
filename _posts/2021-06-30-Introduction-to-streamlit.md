@@ -64,8 +64,6 @@ if st.checkbox('Show text'):
 * Sử dụng selectbox
 ```python
 option = st.selectbox('Select one', ('The option 1', 'The option 2'))
-
-'You selected: ', option
 ```
 Ngoài ra còn rất nhiều tính năng hay ho các bạn có thể xem thêm tại [trang chủ](https://streamlit.io/ )
 
