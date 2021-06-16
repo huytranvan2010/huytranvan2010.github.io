@@ -9,7 +9,7 @@ Streamlit là một open-source Python lib, nó giúp ta dễ dàng tạo một 
 > **The fastest way to build and share data apps**
 
 Trong bài này chúng ta sẽ đi tìm hiểu sơ bộ trước về streamlit, bài sau chúng ta sẽ thử deploy model.
-##### 1. Cài đặt
+##### Cài đặt
 ```python
 pip install streamlit
 ```
@@ -28,6 +28,7 @@ Trước đây để làm trang web phần giao diện sẽ được thực hi�
 
 Ngay ở trong trang chủ của streamlit có rất nhiều demo về các lĩnh vực, chúng ta có thể tham khảo tại đó.
 
+##### Một số tính năng qua ví dụ
 Thử xem ví dụ dưới đây
 ```python
 import streamlit as st
@@ -65,7 +66,8 @@ if st.checkbox('Show text'):
 ```python
 option = st.selectbox('Select one', ('The option 1', 'The option 2'))
 ```
-Ngoài ra còn rất nhiều tính năng hay ho các bạn có thể xem thêm tại [trang chủ](https://streamlit.io/ )
+
+Còn rất nhiều tính năng hay ho các bạn có thể xem thêm tại [trang chủ](https://streamlit.io/).
 
 Trên đây mình đã giới thiệu sơ qua về streamlit một công cụ đang được cộng đồng AI rất thích. Streamlit giúp chúng ta demo nhanh chóng các dự án nhỏ không cần custom quá nhiều, bạn có thể dành thời gian tập trung cho các công việc khác quan trọng hơn. Nếu muốn hơn thế nữa hãy sử dự Flask hoặc Django kết hợp cùng HTML, CSS, Jasvasript để xây dựng web apps cho riêng mình.
 ##### Tài liệu tham khảo
