@@ -28,17 +28,18 @@ Ví dụ về JSON:
 }
 ```
 
-Python cũng hỗ trợ JSON với built-in package gọi là `json`. Package này cung cấp tất cả các công cụ cần thiết để hoạt động với JSON OBjects bao gồm parsing, serializing, deserializing... Hãy cũng xem một số ví dụ đơn giản về cách chuyển từ JSON object về Python object và ngược lại.
+Python cũng hỗ trợ JSON với built-in package gọi là `json`. Package này cung cấp tất cả các công cụ cần thiết để hoạt động với JSON objects bao gồm parsing, serializing, deserializing... Hãy cũng xem một số ví dụ đơn giản về cách chuyển từ JSON object về Python object và ngược lại.
 
 * **Serialization:** - encoding data into JSON format. Ví dụ chuyển Python list về JSON
-* **Deserialization:** - decoding JSON data. Ví dụ đọc JSON data thành Python list
+* **Deserialization:** - decoding JSON data. Ví dụ chuyển JSON data thành Python list
 
 ### 1. Serialization
 Có thể dùng 2 methods sau để chuyển Python data về JSON format:
 * `dump()`: ghi dữ liệu vào một đối tượng như file ở dạng JSON format (thường lưu ra file bên ngoài)
-* `dumps()`: ghi dữ liệu dạng chuỗi về JSON format (thường để sử dụng JSON ở trong chương trình)
+* `dumps()`: ghi dữ liệu về JSON format (thường để sử dụng JSON ở trong chương trình)
 
 Python và JSON không chia sẻ tất cả kiểu dữ liệu giống nhau. 
+
 Python | JSON
 ------------ | -------------
 dict | object
@@ -77,7 +78,7 @@ From False:  false
 From None:  null
 ```
 
-Cả `dump()` và `dumps()` đều cho phép chúng ta chỉ định `indent` (thụt lề tùy chọn). `indent` xác định số khoảng trắng được sử dụng để thụt dòng, điều này giúp JSON dễ đọc hơn
+Cả `dump()` và `dumps()` đều cho phép chúng ta chỉ định `indent` (thụt lề tùy chọn). `indent` xác định số khoảng trắng được sử dụng để thụt dòng, điều này giúp JSON dễ đọc hơn.
 
 ```python
 json_str = json.dumps(data, indent=4)
@@ -129,7 +130,7 @@ with open('person.json', 'w') as f:
 
 Và đầu ra như này:
 
-```JSON
+```python
 {"name": "John", "age": 30, "city": "New York", "hasChildren": false, "titles": ["engineer", "programmer"]}
 {
     "age"= 30; 
@@ -149,6 +150,7 @@ Deserialization là quá trình chuyển JSON formar về Python object. `json` 
 * `loads()` load JSON data từ string chứa JSON encoded-data. String dạng JSON được đặt trong dấu nháy `''` và chứa các cặp key-value đặt trong `{}` giống như dictionary.
 
 Dưới đây là chuyển đổi giữa các kiểu dữ liệu từ JSON format sang Python object:
+
 JSON | Python
 ------------ | -------------
 object | dict
@@ -177,53 +179,7 @@ print("Nhận được list từ tuple ban đầu: ", decoded_anh)
 ```
 Bạn có thể thấy từ tuple ban đầu chuyển sang JSON format rồi chuyển lại Python object, cái chúng ta nhận được là Python list chứ không phải tuple.
 
-### 3. Working with JSON format in Python
-Trong bài này chúng ta sẽ làm việc với JSON data lớn và cách thao tác với chúng để lấy được dữ liệu cần thiết.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-```python
-import json
-
-Nhận thấy Serializarion và Deserialization không phải là các hoạt động ngược nhau hoàn hảo.
-
-# JSON string
-employee = '{"id": "09", "name": "Huy", "address": "Me Nhu"}'
-
-# Chuyển từ JSON string sang Python dict
-employee_dict = json.loads(employee)
-print(employee_dict)
-print(type(employee_dict))
-
-# Chuyển từ Python dict to JSON
-json_object = json.dumps(employee_dict, indent=4)
-print(json_object)
-print(type(json_object))
-```
-Kết quả nhận được như sau:
-```python
-{'id': '09', 'name': 'Huy', 'address': 'Me Nhu'}
-<class 'dict'>
-{
-    "id": "09",
-    "name": "Huy",
-    "address": "Me Nhu"
-}
-<class 'str'>
-```
-
-### 4. Working with custom object
+### 3. Working with custom object
 Encoding a custom object với `JSONEncoder` mặc định sẽ gây ra lỗi `TypeError`. Chúng ta có thể xác định custom encoding function nó sẽ lưu tên class và tất cả các object variables vào dictionary. Sử dụng function này cho `default` argument trong `json.dump()`.
 
 Cùng xem ví dụ sau:
@@ -294,6 +250,7 @@ print(user)
 
 Ở đây chúng ta lợi dụng tên class để check xem nó có thuộc class ban đầu không (đây chỉ là trick thôi).
 
+Các bạn xem thêm tại [Github-huytranvan2010](https://github.com/huytranvan2010/Python-Tutotial/tree/master/JSON) mình có để code mẫu ở đó.
 ##### Tài liệu tham khảo 
 1. https://www.geeksforgeeks.org/python-json/?ref=lbp 
-2. https://www.python-engineer.com/courses/advancedpython/11-json/ 
+3. https://www.python-engineer.com/courses/advancedpython/11-json/ 
