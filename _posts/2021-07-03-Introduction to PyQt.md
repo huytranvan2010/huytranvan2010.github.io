@@ -5,7 +5,7 @@ tags: [Python tutorial, GUI Application]
 comments: true
 ---
 
-Ngoài web app và mobile app đang chiếm lĩnh thị trường phần mềm vẫn còn nhiều nhu cầu cho **Graphical User Interface (GUI) desktop application. Đối với các nhà phát triển xây dựng ứng dụng dựa trên Python sẽ có rất nhiều lựa chọn như Tkinter, PyQt, PySide2, wxPython... Trong bài này chúng ta cùng tìm hiểu về GUI application với Python và PyQt.
+Ngoài web app và mobile app đang chiếm lĩnh thị trường phần mềm vẫn còn nhiều nhu cầu cho **Graphical User Interface (GUI)** desktop application. Đối với các nhà phát triển xây dựng ứng dụng dựa trên Python sẽ có rất nhiều lựa chọn như Tkinter, PyQt, PySide2, wxPython... Trong bài này chúng ta cùng tìm hiểu về GUI application với Python và PyQt.
 
 **PyQt** như là một liên kết của Python với Qt (bộ các thư viện C++ và các công cụ phát triển cho GUI, network, threads, regulaar expressions, SQL databases, SVG, OpenGL, XML...). PyQt tương thích với Windows, Unix, Linux, macOS, iOS và Android. Có thể cài PyQt với cú pháp sau:
 ```python
@@ -201,7 +201,7 @@ Chú ý
 layout.addWidget(QPushButton('Button (2, 1) + 2 Columns Span'), 2, 1, 1, 2)
 ```
 có thêm 2 arguments ở cuối là `rowSpan` và `columnSpan`. Chúng được sử dụng để widget có thể chiếm nhiều hơn 1 hàng hoặc 1 cột.
-<img src="https://files.realpython.com/media/g-layout.d3784adad447.png">
+<img src="https://files.realpython.com/media/g-layout.d3784adad447.png" style="display:block; margin-left:auto; margin-right:auto">
 
 ##### 2.4. QFormLayout
 QFormLayout sắp xếp các widgets thành 2 cột. Cột đầu tiên thường hiển thị các messages trong labels. Cột thứ hai thường chứa các widgets như `QLineEdit, QComboBox, QSpinBox...`. Những widgets này cho phép người dùng nhập hoặc chỉnh sửa dữ liệu liên quan (regerding) đến thông tin ở cột đầu tiên.
@@ -251,8 +251,8 @@ Nếu chạy đoạn code trên chúng ta sẽ nhận được output như sau:
 Cột đầu tiên để hỏi người dùng một số thông tin. Cột thứ hai cho phép người dùng nhập hoặc chỉnh sửa thông tin mà bạn đã hỏi.
 
 ### 3. Dialogs
-Với PyQt bạn có thể phát triển 2 dạng của GUI desktop application. Phụ thuộc và class bạn sử dụng để tạo main form hay window bạn sẽ có một trong những cái sau:
-* **Main window-style application**: main window của ứng dụng kế thuwad từ `QMainWindow`.
+Với PyQt bạn có thể phát triển 2 dạng của GUI desktop application. Phụ thuộc vào class bạn sử dụng để tạo main form hay window bạn sẽ có một trong những cái sau:
+* **Main window-style application**: main window của ứng dụng kế thừa từ `QMainWindow`.
 * **Dialog-style aplication**: main window của ứng dụng kế thừa từ `QDialog`.
 
 Chúng ta sẽ làm quen với dialog-style application trước. Trong phần tiếp theo sẽ làm quen với window-style application.
