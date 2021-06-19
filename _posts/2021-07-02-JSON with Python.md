@@ -5,7 +5,9 @@ tags: [Python tutorial]
 comments: true
 ---
 
-**JSON (JavaScript Object Notation)** là một định dạng để cấu trúc dữ liệu. Nó thường được sử dụng để lưu trữ và truyền dữ liệu giữa web và server (sử dụng trong database và APIs). JSON đọc được đối với cả người và máy. JSON tồn tại dưới dạng "chuỗi byte" rất hữu ích khi cần truyền data qua mạng. So với XML, JSON nhẹ hơn khá nhiều.
+**JSON (JavaScript Object Notation)** là một định dạng để cấu trúc dữ liệu. Nó thường được sử dụng để lưu trữ, truyền dữ liệu giữa web và server (sử dụng trong database và APIs). JSON đọc được đối với cả người và máy. JSON tồn tại dưới dạng "chuỗi byte" rất hữu ích khi cần truyền data qua mạng. So với XML, JSON nhẹ hơn khá nhiều.
+
+JSON hỗ trợ primitive types (strings, numbers, boolean) cũng như nested arrays và objects.
 Ví dụ về JSON:
 ```python
 {
@@ -25,7 +27,6 @@ Ví dụ về JSON:
     ]
 }
 ```
-JSON hỗ trợ primitive types (strings, numbers, boolean) cũng như nested arrays và objects.
 
 Python cũng hỗ trợ JSON với built-in package gọi là `json`. Package này cung cấp tất cả các công cụ cần thiết để hoạt động với JSON OBjects bao gồm parsing, serializing, deserializing... Hãy cũng xem một số ví dụ đơn giản về cách chuyển từ JSON object về Python object và ngược lại.
 
