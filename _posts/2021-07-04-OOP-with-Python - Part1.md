@@ -312,6 +312,7 @@ AttributeError: 'Student' object has no attribute '__private'
 ```
 Rõ ràng attribute `_protected` vẫn được kế thừa còn attribute `__private` không được kế thừa nên đã báo lỗi.
 
+Khá nhiều rồi, tạm thời tìm hiểu đến đây thôi để bài sau chiến tiếp.
 #### Tài liệu tham khảo
 1. https://www.w3schools.com/python/python_inheritance.asp
 2. https://tuhocict.com/class-trong-python-khai-niem-khai-bao/
