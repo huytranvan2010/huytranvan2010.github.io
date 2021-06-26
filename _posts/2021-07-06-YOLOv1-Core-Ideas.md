@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "YOLOv1"
+title: "YOLOv1 Core Ideas"
 tags: [Object Detection]
 comments: true
 ---
