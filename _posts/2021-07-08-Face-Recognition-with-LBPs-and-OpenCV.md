@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "Face recognition with LBPs and OpenCV"
-tags: [Face recognition]
+title: "Face Recognition with LBPs and OpenCV"
+tags: [Face Recognition]
 comments: true
 ---
 Trong bài trước chúng ta đã tìm hiểu về Face Recognition và một số thuật tán. Trong bài này chúng ta sẽ đi xây dựng hệ thống nhận diện khuôn mặt với Local Bianry Patterns (LBPs) và OpenCV.
