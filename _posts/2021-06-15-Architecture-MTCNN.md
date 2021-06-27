@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Architecture MTCNN"
-tags: [Face Recogntion, MTCNN, FaceNet]
+tags: [Face Recognition, MTCNN, FaceNet]
 comments: true
 ---
 
