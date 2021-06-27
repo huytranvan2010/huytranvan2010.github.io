@@ -43,7 +43,7 @@ Khi có khuôn mặt mới LBPs không cần retrain lại từ đầu như Eige
 Phần implementation các bạn có thể tham khảo tại đây [Github-huytranvan2010](https://github.com/huytranvan2010/Face-Recognition-with-LBPs-and-OpenCV)
 
 ### Kết luận
-Chúng ta vừa thực hiện xong face recognition với LBPs. Quá trình training khá nhanh, tuy nhiên quá trình inference chậm do phải duyệt qua tất cả các ảnh trong bộ dữ liệu. Để cải thiện tốc độ chúng ta có thể phải thay đổi thuật toán nearest neighbor
+Chúng ta vừa thực hiện xong face recognition với LBPs. Quá trình training khá nhanh, tuy nhiên quá trình inference chậm do phải duyệt qua tất cả các ảnh trong bộ dữ liệu. Để cải thiện tốc độ chúng ta có thể phải thay đổi thuật toán nearest neighbor.
 
 ### Tài liệu tham khảo
 1. https://www.pyimagesearch.com/2021/05/03/face-recognition-with-local-binary-patterns-lbps-and-opencv/
