@@ -14,6 +14,7 @@ LBPs sẽ chia ảnh ta thành $7 \times 7$ grid cells. Đối với cell sẽ t
 <img src="https://www.pyimagesearch.com/wp-content/uploads/2021/04/face_reco_lbps_weighting.png">
 
 *Ảnh gốc được chia thành các grid cells và sơ đồ trọng số*
+
 Ảnh có 49 grid cells, mỗi cell sẽ có trọng số riêng của nó khi tính feature chung của khuôn mặt:
 * LBP histogram cho cell trắng (như mắt) có trọng số lớn hơn **4 lần** các cell khác. Đơn giản chỉ cần nhân 4 lần LBP histogram của cell trắng (có tính đến scaling và normalization.
 * Cell xám nhạt (ligh gray cell) - vùng tai, miệng có trọng số 2
@@ -24,7 +25,7 @@ Những trọng số này được tìm ra bằng thực nghiệm bởi Ahonen e
 
 Cuối cùng chúng ta nối các LBP histograms có trọng số từ 49 cells (có một số cell bị bỏ qua như nói ở trên) để hình thành nên final feature vector.
 
-Quá trình nhận dạng khuôn mặt được thực hiện bởi kNN ($k=1$) sử dụng $\chi^{2}$ distance (**do chúng ta đang so sánh giwuax các histogram nên dùng $\chi^{2}$ distance sẽ tốt hơn so với Euclidean distance**).
+Quá trình nhận dạng khuôn mặt được thực hiện bởi kNN ($k=1$) sử dụng $\chi^{2}$ distance (**do chúng ta đang so sánh giữa các histogram nên dùng $\chi^{2}$ distance sẽ tốt hơn so với Euclidean distance**).
 
 So với Eigenfaces thì LBPs chống nhiễu và cho kết quả tốt hơn do nó không dựa trên các raw pixels.
 <img src="https://www.pyimagesearch.com/wp-content/uploads/2021/03/what_is_face_reco_lbps_samples.png">
@@ -39,12 +40,16 @@ Khi có khuôn mặt mới LBPs không cần retrain lại từ đầu như Eige
 
 Để thực hành chúng ta sẽ sử dụng bộ dữ liệu [Caltech faces](http://www.vision.caltech.edu/html-files/archive.html) với khoảng 450 ảnh (27 người). Mỗi ảnh được chụp dưới điều kiện ánh sáng, background, các biểu cảm khuôn mặt (facial expression) khác nhau.
 
+Phần implementation các bạn có thể tham khảo tại đây [Github-huytranvan2010](https://github.com/huytranvan2010/Face-Recognition-with-LBPs-and-OpenCV)
+
 ### Kết luận
 Chúng ta vừa thực hiện xong face recognition với LBPs. Quá trình training khá nhanh, tuy nhiên quá trình inference chậm do phải duyệt qua tất cả các ảnh trong bộ dữ liệu. Để cải thiện tốc độ chúng ta có thể phải thay đổi thuật toán nearest neighbor
 
 ### Tài liệu tham khảo
 1. https://www.pyimagesearch.com/2021/05/03/face-recognition-with-local-binary-patterns-lbps-and-opencv/
 2. https://www.pyimagesearch.com/2018/02/26/face-detection-with-opencv-and-deep-learning/
+3. https://github.com/huytranvan2010
+
 
 
 
