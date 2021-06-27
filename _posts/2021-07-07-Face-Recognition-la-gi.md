@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "Face recognition là gì?"
-tags: [Face recognition]
+title: "Face Recognition là gì?"
+tags: [Face Recognition]
 comments: true
 ---
 
