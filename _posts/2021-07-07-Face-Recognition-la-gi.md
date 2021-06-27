@@ -9,7 +9,7 @@ Face recognition (nhận diện khuôn mặt) là quá trình lấy một bức 
 
 Ban đầu hệ thống nhận diện khuôn mặt dựa trên **facial landmarks** từ ảnh như vị trí, kích thước của mắt, mũi, miệng, má. Tuy nhiên độ chính xác của phương pháp này không cao. Sau này các kỹ thuật toán ML phát triển các đặc trưng được tách ra từ khuôn mặt, các model được huấn luyện để phân loại từ đó xác định khuôn mặt tương ứng với ai. Gần đây nhất các kỹ thuật Deep Learning được sử dụng để nhận dạng khuôn mặt như model FaceNet, OpenFace dựa trên kiến trúc Siamese Network cho kết quả rất tốt.
 
-#### Nhận diện khuôn mặt khác phát hiện khuôn mặt
+### Nhận diện khuôn mặt khác phát hiện khuôn mặt
 Phát hiện khuôn mặt là xác định vị trí của khuôn mặt trong hình ảnh, video.
 Nhận diện khuôn mặt là vừa xác định vị trí khuôn mặt vừa xác định đó là ai. Bài toàn này phức tạp hơn và bao trùm phát hiện khuôn mặt (face detection).
 Quá trình nhận diện khuôn mặt bao gồm 2 bước:
