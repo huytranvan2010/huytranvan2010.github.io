@@ -50,7 +50,7 @@ Sau khi tạo xong dataset chúng ta sẽ đi tạo các encodings (hay embeddin
 
 Ở đây chúng ta không training lại từ đầu mạng tạo encodings mà sử dụng lại pre-trained model (trong thư viện `dlib` và được tích hợp vào `face_recognition` để dễ sử dụng hơn) nhằm tạo ra các face embeddings.
 
-Trong phần này file `encode_faces.py` được chạy để lưu các encodings và names (nếu cần ID thì bổ sung). Các bạn xem thêm file đó để hiểu hơn. Các encodings và names được lưu ra file `encodings.pickle`.
+Trong phần này file `encode_faces.py` được chạy để lưu các encodings và names (nếu cần ID thì bổ sung). Các bạn xem thêm file đó để hiểu hơn, mình có chú thích rất rõ từng phần. Các encodings và names được lưu ra file `encodings.pickle`.
 
 ### Bước 3. Nhận dạng khuôn mặt trong ảnh
 <img src="../images/toi_output.png" style="display:block; margin-left:auto; margin-right:auto">
@@ -66,7 +66,7 @@ Chú ý nếu muốn chạy face recognition trên **CPU** hay các thiết bị
 Phần implementaion khá dài, các bạn có thể xem thêm tại [Github-huytranvan2010](https://github.com/huytranvan2010/Face-Recognition-with-OpenCV-Python-DL). Nếu thấy hữu ích hãy nhấn * cho github của mình và upvote bài viết này.
 
 ### Kết luận
-Như vậy chúng ta đã thực hiện nhận diện khuôn mặt với OpenCV và Deep Learning. Đây là những phần cơ bản để xây dựng hệ thống chấm công dựa trên nhận diện khuôn mặt. Kết hợp với một số kỹ thuật và công cụ khác như phát hiện người thật (so với ảnh)... chúng ta hoàn toàn có thể xây dựng hệ thống chấm công được.
+Như vậy chúng ta đã thực hiện nhận diện khuôn mặt với OpenCV và Deep Learning. Đây là những phần cơ bản để xây dựng hệ thống chấm công dựa trên nhận diện khuôn mặt. Kết hợp với một số kỹ thuật và công cụ khác như phát hiện người thật (so với ảnh)... chúng ta hoàn toàn có thể xây dựng hệ thống chấm công đơn giản cho riêng mình được.
 
 ### Tài liệu tham khảo
 1. https://github.com/ageitgey/face_recognition/blob/master/face_recognition/api.py#L213
