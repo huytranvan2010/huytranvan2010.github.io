@@ -11,7 +11,7 @@ Thư viện `dlib` chứa implementation của "deep learning metric" được s
 
 Thư viện `face_recognition` hỗ trợ tốt cho các hàm trong `dlib` giúp chúng ta làm việc dễ hơn. 
 Cài đặt các thư viện như sau:
-```pythin
+```python
 pip install dlib
 pip install face_recognition
 ```
