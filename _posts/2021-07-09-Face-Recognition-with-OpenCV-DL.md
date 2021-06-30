@@ -63,10 +63,11 @@ Chạy file `recognize_faces_image.py` để nhận diện khuôn mặt trong �
 
 Chú ý nếu muốn chạy face recognition trên **CPU** hay các thiết bị nhúng như **Raspberry** thì chọn detection method là `hog` ở file `recognize_faces_image.py`, còn ban đầu khi lấy encodings từ dataset chúng ta vẫn có thể để `cnn` (chạy lâu hơn nhưng chính xác hơn để phát hiện khuôn mặt). 
 
-### Kết luận
-Như vậy chúng ta đã thực hiện nhận diện khuôn mặt với OpenCV và Deep Learning. Chúng ta hoàn toàn có thể áp dụng những công cụ này để xây dựng máy chấm công tự động dựa trên nhận diện khuôn mặt.
+Phần implementaion khá dài, các bạn có thể xem thêm tại [Github-huytranvan2010](https://github.com/huytranvan2010/Face-Recognition-with-OpenCV-Python-DL). Nếu thấy hữu ích hãy nhấn * cho github của mình và upvote bài viết này.
 
-Nếu thấy hay hãy nhấn sao để ủng hộ [Github-huytranvan2010]()
+### Kết luận
+Như vậy chúng ta đã thực hiện nhận diện khuôn mặt với OpenCV và Deep Learning. Đây là những phần cơ bản để xây dựng hệ thống chấm công dựa trên nhận diện khuôn mặt. Kết hợp với một số kỹ thuật và công cụ khác như phát hiện người thật (so với ảnh)... chúng ta hoàn toàn có thể xây dựng hệ thống chấm công được.
+
 ### Tài liệu tham khảo
 1. https://github.com/ageitgey/face_recognition/blob/master/face_recognition/api.py#L213
 2. https://www.pyimagesearch.com/2018/06/18/face-recognition-with-opencv-python-and-deep-learning/
