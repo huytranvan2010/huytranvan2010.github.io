@@ -32,6 +32,12 @@ Mình xin tóm lại các bước chính như sau:
 
 Source code các bạn có thể xem tại [github-huytranvan2010](https://github.com/huytranvan2010/Drowsiness-Detection), mình có comment rất chi tiết các dòng lệnh.
 
+Mình muốn nói thêm một chút hơi ngoài lề tí. Trong bài này chúng ta có sử dụng face detector trong thư viện dlib thông qua `detector = dlib.get_frontal_face_detector()` dựa trên HOG + Linear SVM. Tuy nhiên khi các bạn muốn chạy real-time trên Raspberry chẳng hạn, nếu tốc độ không đạt như yêu cầu các bạn có thể sử dụng `Haar cascades` để phát hiện khuôn mặt. Nên nhớ `Haar cascades` trả về list of bounding boxes ở dạng [x, y, w, h], do đó muốn đưa vào **shape predictor** để phát hiện facial landmarks các bạn cần chuyển đổi sang dlib's rectangle thông qua câu lệnh sau:
+```python
+rect = dlib.rectangle(int(x), int(y), int(x + w), int(y + h))
+```
+và truyền rect này vào shape predictor như bình thường. Có thể tham khảo thêm tại [link](https://www.pyimagesearch.com/2017/10/23/raspberry-pi-facial-landmarks-drowsiness-detection-with-opencv-and-dlib/)
+
 
 
 
