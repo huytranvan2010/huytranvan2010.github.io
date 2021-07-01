@@ -50,7 +50,7 @@ while True:
         shape = predictor(gray, rect)   # nhận 2 tham số là ảnh đầu vào và vùng phát hiện khuôn mặt, shape.part(i) là cặp tọa độ thứ i
 
         # chuyển về dạng numpy các coordinates
-        shape = face_utils.shape_to_np(shape)   # numpy array (68, 2)
+        shape = face_utils.shape_to_np(shape)   # numpy array (5, 2) do có 5 điểm
 
         # duyệt qua các coordinates of facial landmarks (x, y) và vẽ chúng lên ảnh
         for (i, (x, y)) in enumerate(shape):
