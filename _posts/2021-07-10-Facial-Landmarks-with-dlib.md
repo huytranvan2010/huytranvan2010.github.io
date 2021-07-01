@@ -43,7 +43,7 @@ Cho các training data, tập hợp các regression trees được huấn luyệ
 ### Tìm hiểu dlib's facial landmark detector
 The pre-trained facial landmark detector trong dlib được sử dụng để ước lượng **68 (x, y) -coordinates** tương ứng với tọa độ các facial landmarks trên khuôn mặt.
 
-Chỉ số của 68 tọa độ có thể được biểu diễn như hình dưới (tuy nhiên ở trong Python nó sẽ được đánh số twuf 0 đến 67).
+Chỉ số của 68 tọa độ có thể được biểu diễn như hình dưới (tuy nhiên ở trong Python nó sẽ được đánh số từ 0 đến 67).
 
 <img src="https://www.pyimagesearch.com/wp-content/uploads/2017/04/facial_landmarks_68markup-768x619.jpg">
 
@@ -71,7 +71,7 @@ Câu lệnh số 2 trả về list các rectangle tương ứng với các khuô
 predictor = dlib.shape_predictor(args["shape_predictor"])
 shape = predictor(gray, rect)
 ```
-Đầu tiên chúng ta cần tải pre-trained model cho các facial landmark. Ở câu lệnh số 2 truyền vào 2 tham số là ảnh ban đầu và rect (từng rectangle cho từng khuôn mặt). Kết quả trả về là **shape** có chứa thông tin của 68 facil landmarks. Tọa độ của mỗi facial landmark có thể được trích xuất thông qua câu lệnh sau:
+Đầu tiên chúng ta cần tải pre-trained model cho các facial landmark. Ở câu lệnh số 2 truyền vào 2 tham số là ảnh ban đầu và rect (từng rectangle cho từng khuôn mặt). Kết quả trả về là **shape** có chứa thông tin của 68 facial landmarks. Tọa độ của mỗi facial landmark có thể được trích xuất thông qua câu lệnh sau:
 ```python
 for i in range(68):
     x, y = shape.part(i).x, shape.part(i).y
@@ -82,14 +82,14 @@ for i in range(68):
 Khi đã phát hiện được các facial landmarks thì bây giờ là thời gian để quẩy. Từ đây chúng ta có thể thực hiện một số bài toán như phát hiện facial landmark trực tiếp từ webcam, từ video, trích xuất các vùng đó, thay đổi khuôn mặt, phát hiện chớp mắt (chống ngủ gật khi lái xe), face alignment (căn chỉnh khuôn mặt)...
 
 Đây là khuôn mặt của mình
-<img src="output_image.png" style="display:block; margin-left:auto; margin-right:auto">
+<img src="../images/facial.png" style="display:block; margin-left:auto; margin-right:auto">
 
 Chúng ta có thể thay đổi một chút code để phát hiện facial landmarks real-time từ webcam (load webcam)... Các bạn xem thêm file `video_landmarks.py` để thấy rõ hơn. Source code các bạn tham khảo tại [github-huytranvan2010](https://github.com/huytranvan2010/Facial-landmarks-with-dlib-OpenCV)
 ### Kết luận
 Như vậy chúng ta đã tìm hiểu về facial landmarks và cách phát hiện chúng với thư viện **dlib**. Mình xin tóm gọn nội dung như sau.
 Phát hiện facial landmarks trong ảnh được thực hiện thông qua 2 bước:
-* Định vị vị trí faces trong bức ảnh (thông qua một số mehod of face detection)
-* Apply the shape predictor để đạt được tọa độ (x,y) của các facial landmarks
+* Xác định vị trí faces trong bức ảnh (thông qua một số method of face detection)
+* Sử dụng shape predictor để có được tọa độ (x,y) của các facial landmarks
 
 ### Tài liệu tham khảo
 1. https://www.pyimagesearch.com/2017/04/03/facial-landmarks-dlib-opencv-python/
