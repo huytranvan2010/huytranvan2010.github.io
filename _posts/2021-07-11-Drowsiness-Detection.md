@@ -21,7 +21,7 @@ Lưu ý: các chỉ số trên hình không khớp với chỉ số cho facial l
 
 $$ EAR = \frac{\left\|p_2 - p_6 \right\| + \left\|p_3 - p_5 \right\|}{2\left\|p_1 - p_4 \right\|} $$
 
-$\left\| a - b\right\|$ - Euclidean distance giữa 2 điểm (có thể build lại hoặc dùng thư viện cho nhanh như `scipy`).
+Kí hiệu $ \left\| a - b\right\| $ - Euclidean distance giữa 2 điểm (có thể build lại hoặc dùng thư viện cho nhanh như `scipy`).
 Nhận thấy khi mắt mở giá trị của EAR gần như không đổi quanh một ngưỡng nào đó (trên hình khoảng 0.25), khi mắt nhắm EAR giảm xuống (cần set ngưỡng). Nếu mắt nhắm trong thời gian đủ lâu chúng ta sẽ phát cảnh báo cho tài xế. Thêm nữa do mỗi người có hai mắt nên ta sẽ lấy giá trị trung bình của 2 mắt cho EAR (người bị thiếu một mắt chắc không đủ điều kiện lái xe). Cần test cả mode cho trường hợp lái xe đeo kính (đeo kính râm đen thì khó).
 
 Mình xin tóm lại các bước chính như sau:
