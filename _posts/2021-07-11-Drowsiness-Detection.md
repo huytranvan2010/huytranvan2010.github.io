@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Drowniness detection"
+title: "Drowsiness detection"
 tags: [Facial Landmarks, dlib, OpenCV]
 comments: true
 ---
