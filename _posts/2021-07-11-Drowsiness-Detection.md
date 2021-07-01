@@ -5,7 +5,6 @@ tags: [Facial Landmarks, dlib, OpenCV]
 comments: true
 ---
 
-# Drowsiness-Detection
 Trong bài này chúng ta đi tìm hiểu một ứng dụng của facial landmarks là **drowsiness detection** - phát hiện ngủ gật. Ứng dụng này có thể hỗ trợ các bác tài xế khi lái xe, đặc biệt khi lái xe trong thời gian dài. 
 
 Ý tưởng cho ứng dụng này là sử dụng metric **eye aspect ratio (EAR)** được giới thiệu trong bài báo [Real-Time Eye Blink Detection Using Facial Landmarks.](http://vision.fe.uni-lj.si/cvww2016/proceedings/papers/05.pdf)
