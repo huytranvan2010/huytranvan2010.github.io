@@ -4,41 +4,7 @@ title: "Face Alignment Algorithm"
 tags: [Face Alignmnet, OpenCV, Face Recognition]
 comments: true
 ---
-### Hướng dẫn
-Cây thư mục của project [linkgithub](https://github.com/huytranvan2010/Face-Alignment-Algorithm):
-```python
-.
-├── algorithm_face_alignment.py
-├── cascades
-│   ├── haarcascade_eye.xml
-│   └── haarcascade_frontalface_default.xml
-├── images
-│   ├── boy2.jpg
-│   └── boy.jpg
-├── output
-│   ├── eyes.png
-│   ├── face.png
-│   ├── line1.png
-│   ├── line2.png
-│   ├── rotated1.png
-│   └── rotated2.png
-├── README.md
-└── requirements.txt
-```
-* **cascades** chứa face và eye haar cascades
-* **images** chứa ảnh để test: trong này có chứa 2 ảnh, một ảnh mắt trái thấp hơn, một ảnh mắt trái cao hơn để test cả 2 trường hợp xoay khác chiều
-* **ouput** chứa các ảnh đầu ra trong quá trình chạy để minh họa
-* `requirements.txt` chứa các thư viện
-* `algorithm_face_alignment.py` chính là file chạy
 
-Bạn có thể chạy với cú pháp
-```python
-python algorithm_face_alignment.py --face cascades/haarcascade_frontalface_default.xml --eye cascades/haarcascade_eye.xml --image images/boy.jpg
-```
-hoặc là
-```python
-python algorithm_face_alignment.py --face cascades/haarcascade_frontalface_default.xml --eye cascades/haarcascade_eye.xml --image images/boy2.jpg
-```
 ### Nội dung
 Face alignment là quá trình sắp xếp khuôn mặt sao cho nó thẳng đứng trong ảnh. Face alignment thường được thực hiện như bước tiền xử lý cho các thuật toán nhận diện khuôn mặt. Để thực hiện việc này cần trải qua 2 bước:
 * Xác định cấu trúc hình học của khuôn mặt trong ảnh
@@ -75,7 +41,7 @@ rects_face = face_cascade.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=4
 for (x, y, w, h) in rects_face:
     cv2.rectangle(image, (x, y), (x+w, y+h), (0, 255, 0), 1)
 ```
-<img src="https://github.com/huytranvan2010/Face-Alignment-Algorithm/blob/main/output/face.png" style="display:block; margin-left:auto; margin-right:auto">
+<img src="../images/facealignment/face.png" style="display:block; margin-left:auto; margin-right:auto">
 
 Sau khi phát hiện được khuôn mặt thì trích xuất vùng của khuôn mặt dùng để phát hiện hai mắt.
 
@@ -83,7 +49,7 @@ Sau khi phát hiện được khuôn mặt thì trích xuất vùng của khuôn
 rects_eye = eye_cascade.detectMultiScale(face_ROI_gray, scaleFactor=1.1, minNeighbors=4)
 cv2.rectangle(face_ROI_color, (ex, ey), (ex+ew, ey+eh), (0, 255, 0), 2)
 ```
-<img src="https://github.com/huytranvan2010/Face-Alignment-Algorithm/blob/main/output/eyes.png" style="display:block; margin-left:auto; margin-right:auto">
+<img src="../images/facealignment/eyes.png" style="display:block; margin-left:auto; margin-right:auto">
 
 **Bước 2 - Xác định tâm của hai mắt, vẽ đường nối hai tâm**
 
@@ -105,7 +71,7 @@ center_right_eye = (int(right_eye[0] + right_eye[2] / 2), int(right_eye[1] + rig
 
 cv2.line(face_ROI_color, center_left_eye, center_right_eye, (0, 220, 220), 2)
 ```
-<img src="https://github.com/huytranvan2010/Face-Alignment-Algorithm/blob/main/output/line1.png" style="display:block; margin-left:auto; margin-right:auto">
+<img src="../images/facealignment/line1.png" style="display:block; margin-left:auto; margin-right:auto">
 
 **Bước 3 - Vẽ đường nằm ngang giữa hai mắt, tính góc xoay ảnh**
 > Quy ước: Đường nằm ngang là đường đi qua tâm của mắt nằm bên dưới (có tọa độ y lớn hơn)
@@ -123,7 +89,7 @@ else:
     # Ảnh cần xoay ngược chiều kim đồng hồ counter clockwise direction
     direction = 1
 ```
-<img src="https://github.com/huytranvan2010/Face-Alignment-Algorithm/blob/main/output/line2.png" style="display:block; margin-left:auto; margin-right:auto">
+<img src="../images/facealignment/line2.png" style="display:block; margin-left:auto; margin-right:auto">
 
 Góc cần xoay được xác định dựa vào khoảng cách giữa các điểm. Góc phải được chuyển về `degree`, nếu quay ngược chiều kim đồng hồ thì góc dương, cùng chiều kim đồng hồ thì góc âm.
 
@@ -155,7 +121,7 @@ rotated_face_ROI = cv2.warpAffine(face_ROI_color, M, (w, h))    # có thể dùn
 
 Ảnh sau khi đã được xoay căn chỉnh
 
-<img src="https://github.com/huytranvan2010/Face-Alignment-Algorithm/blob/main/output/rotated1.png" style="display:block; margin-left:auto; margin-right:auto">
+<img src="../images/facealignment/rotated1.png" style="display:block; margin-left:auto; margin-right:auto">
 
 Chi tiết implementation các bạn có thể xem tại [github-huytranvan2010](https://github.com/huytranvan2010/Face-Alignment-Algorithm). Nếu thấy hay hãy để lại cho mình 1 sao nhé.
 
