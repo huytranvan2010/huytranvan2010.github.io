@@ -27,8 +27,8 @@ YOLOv1 không hạn chế trong việc dự đoán vị trí của bounding box.
 
 YOLOv2 sử dụng hàm sigmoid để hạn chế giá trị trong khoảng 0 đến 1, từ đó có thể hạn chế các dự đoán bounding box ở xung quanh grid cell, từ đó giúp mô hình ổn định hơn trong quá trình huấn luyện.
 
-YOLOv2 sẽ dự đoán 5 bounding boxes cho mỗi grid cell. Mỗi bounding box  mô hình lại dự đoán $(t_x, t_y, t_w, t_h)$ và $t_o$. Cho anchor box có kích thước $(p_w, p_h)$ nằm tại grid cell với tọa độ của góc trên bên trái là 
-$(c_x, c_y)$, bounding box được dự đoán $b$ có tâm là $(b_x, b_y)$, kích thước $(b_w, b_h)$. Độ tin cậy (confidence) của dự đoán là sigmoid($\sigma$) của ouptut khác $t_o$, khi đó
+YOLOv2 sẽ dự đoán 5 bounding boxes cho mỗi grid cell. Mỗi bounding box  mô hình lại dự đoán $(t_x, t_y, t_w, t_h)$ và $t_o$. **Cho anchor box có kích thước $(p_w, p_h)$ nằm tại grid cell với tọa độ của góc trên bên trái là 
+$(c_x, c_y)$**, bounding box được dự đoán $b$ có tâm là $(b_x, b_y)$, kích thước $(b_w, b_h)$. Độ tin cậy (confidence) của dự đoán là sigmoid($\sigma$) của ouptut khác $t_o$, khi đó
 
 $$ \begin{aligned}
 b_x &= \sigma(t_x) + c_x\\
@@ -37,6 +37,8 @@ b_w &= p_w e^{t_w}\\
 b_h &= p_h e^{t_h}\\
 \text{Pr}(\text{object}) &\cdot \text{IoU}(b, \text{object}) = \sigma(t_o)
 \end{aligned} $$
+
+Thực chất chúng ta có mối liên hệ giữa anchor box và bounding box, bây giờ như ở trên chúng ta có mối liên hệ giữa anchor box và predicted bounding box. Từ đây nhận thấy thông qua anchor box chúng ta đang đi khớp predicted bounding box với ground-truth box.
 
 <img src="https://lilianweng.github.io/lil-log/assets/images/yolov2-loc-prediction.png">
 
@@ -47,14 +49,16 @@ YOLOv1 gặp vấn đề khó khăn khi phát hiện các vật thể nhỏ (chi
 
 ### 5. Multi-Scale Training
 YOLOv1 có điểm yếu khi phát hiện các đối tượng với các kích cỡ đầu vào khác nhau. Ví dụ YOLOv1 được huấn luyện với các ảnh có kích thước nhỏ của cùng loại vật thể, nó sẽ gặp vấn đề khi phát hiện vật thể tương tự trong ảnh có kích thước lớn hơn. Điều này được giải quyết với YOLOv2, nó được train với kích thước ảnh ngẫu nhiên trong khoảng `320x320` đến `608x608`. Điều này cho phép model học và dự đoán chính xác đối tượng với nhiều kích thước khác nhau. *Kích thước mới của ảnh đầu vào được lấy ngẫu nhiên cứ sau 10 batches.* Do Conv layers YOLOv2 giảm kích thước của ảnh đầu vào theo hệ số 32 nên kích thước mới cần là số chia hết cho 32.
-**6. Darknet 19**: YOLOv1 sử dụng 24 Conv layers và 2 FC layers. Trong khi đó YOLOv2 sử dụng kiến trúc Darknet 19 với 19 Conv layers, 5 MaxPooling layers và 1 softmax layer cho phân loại vật thể. Darknet được viết bằng ngôn ngữ C và CUDA.
+
+### 6. Darknet 19
+YOLOv1 sử dụng 24 Conv layers và 2 FC layers. Trong khi đó YOLOv2 sử dụng kiến trúc Darknet 19 với 19 Conv layers, 5 MaxPooling layers và 1 softmax layer cho phân loại vật thể. Darknet được viết bằng ngôn ngữ C và CUDA.
 
 Với những cải tiến như vậy YOLOv2 chính xác hơn, nhanh hơn so với phiên bản YOLOv1.
 
 ## YOLO9000
-Bởi vì việc vẽ các bounding boxes trên ảnh cho object detection tốn kém hơn nhiều so với việc tag images cho phân loại, bài báo đã đề xuất một cách kết hợp tập small object detection dataset với larget ImagNet để model có thể phát hiện được nhiều classes hơn. Trong suốt quá trình training nếu ảnh đầu vào đến từ classification dataset nó sẽ chỉ backpropagates the classification loss.
+Bởi vì việc vẽ các bounding boxes trên ảnh cho object detection tốn kém hơn nhiều so với việc tag images cho phân loại, bài báo đã đề xuất một cách kết hợp tập small object detection dataset với ImagNet dataset để model có thể phát hiện được nhiều classes hơn. Trong suốt quá trình training nếu ảnh đầu vào đến từ classification dataset nó sẽ chỉ backpropagates the classification loss.
 
-Để có thể kết nối ImageNet labels (1000 classes, fine-grained) với CÔC/PASCAL (< 100 classes, coarse-grained), YOLO9000 xây dựng hierarchical tree từ [WordNet](https://wordnet.princeton.edu/), các labels chung gần với các node gốc còn fin-grained class labels là các node lá (classes trong ImageNet).
+Để có thể kết nối ImageNet labels (1000 classes, fine-grained) với COCO/PASCAL (< 100 classes, coarse-grained), YOLO9000 xây dựng hierarchical tree từ [WordNet](https://wordnet.princeton.edu/), các labels chung gần với các node gốc còn fine-grained class labels là các node lá (classes trong ImageNet).
 
 <img src="https://lilianweng.github.io/lil-log/assets/images/word-tree.png">
 
@@ -69,7 +73,7 @@ Bởi vì việc vẽ các bounding boxes trên ảnh cho object detection tốn
 
 ### Tài liệu tham khảo
 1. https://medium.com/@venkatakrishna.jonnalagadda/object-detection-yolo-v1-v2-v3-c3d5eca2312a
-2. 
+2. https://lilianweng.github.io/lil-log/2018/12/27/object-detection-part-4.html#ssd-single-shot-multibox-detector
 
 
 
