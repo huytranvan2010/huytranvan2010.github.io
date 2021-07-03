@@ -11,7 +11,7 @@ YOLOv3 có kiến trúc khá giống YOLOv2. Tác giả đã thêm các cải ti
 
 **2. Darknet + ResNet as the base model:** - Darknet-53 vẫn dựa trên sự thành công của `3x3`, `1x1` Conv layers giống như kiến trúc Darknet cũ, tuy nhiên ở đây sử dụng thêm residual blocks. Model mới có 53 Conv layers nên gọi là **DarkNet-53**.
 
-**3. Multi-scale prediction** - YOLOv3 sử dụng kiến trúc Feature Pyramid Networks (FPN) để đưa ra các dự đoán từ nhiều scale khác nhau của feature map (3 scales). Việc này giúp YOLOv3 tận dụng các feature map với độ thô - tinh khác nhau cho việc dự đoán. Số predicted boxes sẽ là 3, mỗi predicted boxes có tổng số `NxN(5+80)` (4 coorfinates + 1 objetcness score, 80 classes).
+**3. Multi-scale prediction** - YOLOv3 sử dụng kiến trúc Feature Pyramid Networks (FPN) để đưa ra các dự đoán từ nhiều scale khác nhau của feature map (3 scales). Việc này giúp YOLOv3 tận dụng các feature map với độ thô - tinh khác nhau cho việc dự đoán.
  
 **4. Skip-layer concatenation** - YOLOv3 cũng thêm các liên kết giữa các lớp dự đoán. Mô hình upsample các lớp dự đoán ở các tầng sau và sau đó concatenate với các lớp dự đoán ở các tầng trước đó. Phương pháp này giúp tăng độ chính xác khi predict các object nhỏ.
 
