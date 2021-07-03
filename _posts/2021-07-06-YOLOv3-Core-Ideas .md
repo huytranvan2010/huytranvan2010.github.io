@@ -6,9 +6,10 @@ comments: true
 ---
 
 YOLOv3 có kiến trúc khá giống YOLOv2. Tác giả đã thêm các cải tiến mới trong các nghiên cứu object detection thời điểm đó vào YOLOv2 để tạo ra YOLOv3. Các cải tiến đó bao gồm:
+
 **1. Logistic regression cho confidence score:** - YOLOv3 predict độ tin cậy của bounding box (có chứa vật hay không) sử dụng logistic regression trong khi YOLOv1 và YOLOv2 sử dụng sum of squared errors.
 
-**2. Darknet + ResNet as the base model:** - Darknet-53 vẫn dựa trên sự thành công của `3x3`, `1x1` Conv layers giống như kiến trúc Darknet cũ, tuy nhiên có thên có residual blocks.
+**2. Darknet + ResNet as the base model:** - Darknet-53 vẫn dựa trên sự thành công của `3x3`, `1x1` Conv layers giống như kiến trúc Darknet cũ, tuy nhiên ở đây sử dụng thêm residual blocks.
 
 **3. Multi-scale prediction** - YOLOv3 sử dụng kiến trúc Feature Pyramid Networks (FPN) để đưa ra các dự đoán từ nhiều scale khác nhau của feature map (3 scales). Việc này giúp YOLOv3 tận dụng các feature map với độ thô - tinh khác nhau cho việc dự đoán.
  
@@ -17,3 +18,15 @@ YOLOv3 có kiến trúc khá giống YOLOv2. Tác giả đã thêm các cải ti
 Focal loss không giúp được nhiều cho YOLOv3, điều này có thể do việc sử dụng $\lambda_\text{noobj}$, $\lambda_\text{coord}$ - nó tăng loss dự đoán vị trí của bounding box và giảm loss dự đoán độ tin cậy của background boxes (không chứa object)
 
 <img src="https://aicurious.io/posts/tim-hieu-yolo-cho-phat-hien-vat-tu-v1-den-v5/yolo-v3-darknet-53.png">
+
+*Kiến trúc của YOLOv3*
+
+Về tổng thể YOLOv3 chạy nhanh hơn, chính xác hơn so với SSD. YOLOv3 không chính xác bằng RetinaNet nhưng nhanh hơn gần 4 lần.
+
+<img src="https://lilianweng.github.io/lil-log/assets/images/yolov3-perf.png">
+
+*So sánh tốc độ và mAP của các onject detection model*
+
+### Tài liệu tham khảo
+1. https://lilianweng.github.io/lil-log/2018/12/27/object-detection-part-4.html#ssd-single-shot-multibox-detector
+
