@@ -172,8 +172,12 @@ Ví dụ trên trả về dictionary d có dạng
 {'level': [1, 2, 3, 4, 5, 5, 4, 5, 5, 4, 5, 5], 'page_num': [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], 'block_num': [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], 'par_num': [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], 'line_num': [0, 0, 0, 1, 1, 1, 2, 2, 2, 3, 3, 3], 'word_num': [0, 0, 0, 0, 1, 2, 0, 1, 2, 0, 1, 2], 'left': [0, 24, 24, 51, 51, 161, 106, 106, 150, 24, 24, 199], 'top': [0, 19, 19, 19, 19, 19, 67, 68, 67, 108, 109, 108], 'width': [318, 271, 271, 216, 99, 106, 105, 33, 61, 271, 164, 96], 'height': [159, 121, 121, 41, 41, 41, 28, 27, 28, 32, 31, 32], 'conf': ['-1', '-1', '-1', '-1', 95, 96, '-1', 96, 96, '-1', 96, 96], 'text': ['', '', '', '', 'Noisy', 'image', '', 'to', 'test', '', 'Tesseract', 'OCR']}
 ```
 
+Các bạn xem thêm tại [github-huytranvan2010](https://github.com/huytranvan2010/Tesseract-Guide).
+
+Như vậy chúng ta đã tìm hiểu cách cài đặt cũng như chạy Tesseract với python. Muốn đầu ra cho kết quả tốt thì ảnh cần rõ nét, có độ phân giải cao. Ảnh trước khi đưa vào Tesseract cần được tiền xử lý để có kết quả tốt nhất.
+
 # Tài liệu tham khảo
 1. https://newbedev.com/getting-the-bounding-box-of-the-recognized-words-using-python-tesseract
 2. http://manpages.ubuntu.com/manpages/bionic/man1/tesseract.1.html
 3. https://tesseract-ocr.github.io/tessdoc/FAQ.html
-
+4. https://github.com/huytranvan2010/Tesseract-Guide
