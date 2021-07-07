@@ -5,7 +5,9 @@ tags: [OCR, OpenCV, Tesseract]
 comments: true
 ---
 
-# Cài đặt 
+Hôm nay chúng ta sẽ cùng tìm hiểu một công cụ nhận dạng văn bản Tesseract OCR. Tesseract OCR được bắt đầu phát triển từ những năm 80 của thế kì trước. Sau khi về tay Google nó tiếp tục được phát triển và phát hành dưới dạng open-source. Đây là cung cụ hữu ích giúp nhận dạng văn bản. Chúng ta sẽ xem cách cài đặt và chạy thử với Tesseract xem thế nào.
+
+### Cài đặt 
 Trên Ubuntu có thể dùng lệnh sau:
 ```python
 sudo apt-get install tesseract-ocr
@@ -140,7 +142,7 @@ for b in boxes.splitlines():
 cv2.imshow('img', img)
 cv2.waitKey(0)
 ```
-# Lấy box xung quanh các từ
+### Lấy các box xung quanh các từ
 
 ```python
 # python python get_bboxes_word.py
@@ -176,7 +178,7 @@ Các bạn xem thêm tại [github-huytranvan2010](https://github.com/huytranvan
 
 Như vậy chúng ta đã tìm hiểu cách cài đặt cũng như chạy Tesseract với python. Muốn đầu ra cho kết quả tốt thì ảnh cần rõ nét, có độ phân giải cao. Ảnh trước khi đưa vào Tesseract cần được tiền xử lý để có kết quả tốt nhất.
 
-# Tài liệu tham khảo
+### Tài liệu tham khảo
 1. https://newbedev.com/getting-the-bounding-box-of-the-recognized-words-using-python-tesseract
 2. http://manpages.ubuntu.com/manpages/bionic/man1/tesseract.1.html
 3. https://tesseract-ocr.github.io/tessdoc/FAQ.html
