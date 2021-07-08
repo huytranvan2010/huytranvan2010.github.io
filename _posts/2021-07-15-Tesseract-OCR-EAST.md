@@ -18,7 +18,7 @@ Tóm tắt một số bước chính như sau:
 * Rescale lại boxes so với kích thước ảnh gốc, trích xuất text ROI 
 * Đưa text ROI qua Tesseract, sau đó in kết quả ra (text ROI được đưa trực tiếp vào Tesseract chưa qua xử lý, các bạn có thể thử pre-processing)
 
-Dưới đây là inplementation [github-huytranvan2010]
+Dưới đây là inplementation [github-huytranvan2010](https://github.com/huytranvan2010/Text-recognition-with-Tesseract-and-EAST)
 ```python
 import pytesseract
 import argparse
