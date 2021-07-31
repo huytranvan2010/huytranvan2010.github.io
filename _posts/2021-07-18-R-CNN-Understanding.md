@@ -6,7 +6,7 @@ comments: true
 ---
 
 ## Giới thiệu
-Năm 2012 [Ross Girshick và các cộng sự](https://arxiv.org/pdf/1311.2524.pdf) đã đề xuất phương pháp mới cho object detection - R-CNN. Sau nay nó đã trở thành nền tảng cho các phương pháp như Fast R-CNN, Faster R-CNN và Mask RCNN. Gần đây **FAIR** (Facebook AI Research) đã phát triển *fully functional framework* gọi là **Detectron2** được xây dựng dựa trên các model state-of-the-art Faster R-CNN và Mask R-CNN.
+Năm 2014 [Ross Girshick và các cộng sự](https://arxiv.org/pdf/1311.2524.pdf) đã đề xuất phương pháp mới cho object detection - R-CNN. Sau nay nó đã trở thành nền tảng cho các phương pháp như Fast R-CNN, Faster R-CNN và Mask RCNN. Gần đây **FAIR** (Facebook AI Research) đã phát triển *fully functional framework* gọi là **Detectron2** được xây dựng dựa trên các model state-of-the-art Faster R-CNN và Mask R-CNN.
 
 ### Object detection
 <img src="https://miro.medium.com/max/941/1*spGG34X1S9MlW512UQ86jA.png" style="display:block; margin-left:auto; margin-right:auto">
@@ -110,6 +110,7 @@ t_h &= \log(g_h/p_h)
 Nhìn công thức này chắc phần nào mọi người đã hiểu hơn. Bây giờ chúng ta có ground-truth box và box of the region proposal. Do đó chúng ta có thể xác định được các giá trị $t_x, t_y, t_w, t_h$. Nhiệm vụ của chúng ta đi xây dựng regression model cho 4 đại lượng này với đầu vào là feature vector của region proposal.
 
 Xây dựng loss cho các bài toán regression này:
+
 $$\mathcal{L}_* = \sum_{i=\{1,N\}} (t_*^{i} - d_*^{i}(\mathbf{p}))^2 + \lambda \|\mathbf{w_*}\|^2$$
 
 Trong đó $*$ lần lượt là $x, y, w, h$. Ở đây loss tính riêng cho từng giá trị: 2 tọa độ tâm, width và height chứ không gộp chung lại.
