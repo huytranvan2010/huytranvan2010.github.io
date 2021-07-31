@@ -40,7 +40,7 @@ b_h &= p_h e^{t_h}\\
 
 Thực chất chúng ta có mối liên hệ giữa anchor box và bounding box, bây giờ như ở trên chúng ta có mối liên hệ giữa anchor box và predicted bounding box. Từ đây nhận thấy thông qua anchor box chúng ta đang đi khớp predicted bounding box với ground-truth box.
 
-<img src="https://lilianweng.github.io/lil-log/assets/images/yolov2-loc-prediction.png">
+<img src="https://lilianweng.github.io/lil-log/assets/images/yolov2-loc-prediction.png" style="display:block; margin-left:auto; margin-right:auto">
 
 *Hình 1. YOLOv2 bounding box location prediction*
 
@@ -60,7 +60,7 @@ Bởi vì việc vẽ các bounding boxes trên ảnh cho object detection tốn
 
 Để có thể kết nối ImageNet labels (1000 classes, fine-grained) với COCO/PASCAL (< 100 classes, coarse-grained), YOLO9000 xây dựng hierarchical tree từ [WordNet](https://wordnet.princeton.edu/), các labels chung gần với các node gốc còn fine-grained class labels là các node lá (classes trong ImageNet).
 
-<img src="https://lilianweng.github.io/lil-log/assets/images/word-tree.png">
+<img src="https://lilianweng.github.io/lil-log/assets/images/word-tree.png" style="display:block; margin-left:auto; margin-right:auto">
 
 *Hình 2. The WordTree hierarchy merges labels from COCO and ImageNet. Blue nodes are COCO labels and red nodes are ImageNet labels.*
 

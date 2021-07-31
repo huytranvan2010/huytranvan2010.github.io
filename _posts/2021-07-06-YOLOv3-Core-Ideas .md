@@ -17,13 +17,13 @@ YOLOv3 có kiến trúc khá giống YOLOv2. Tác giả đã thêm các cải ti
 
 Focal loss không giúp được nhiều cho YOLOv3, điều này có thể do việc sử dụng $\lambda_\text{noobj}$, $\lambda_\text{coord}$ - nó tăng loss dự đoán vị trí của bounding box và giảm loss dự đoán độ tin cậy của background boxes (không chứa object)
 
-<img src="https://aicurious.io/posts/tim-hieu-yolo-cho-phat-hien-vat-tu-v1-den-v5/yolo-v3-darknet-53.png">
+<img src="https://aicurious.io/posts/tim-hieu-yolo-cho-phat-hien-vat-tu-v1-den-v5/yolo-v3-darknet-53.png" style="display:block; margin-left:auto; margin-right:auto">
 
 *Kiến trúc của YOLOv3*
 
 Về tổng thể YOLOv3 chạy nhanh hơn, chính xác hơn so với SSD. YOLOv3 không chính xác bằng RetinaNet nhưng nhanh hơn gần 4 lần.
 
-<img src="https://lilianweng.github.io/lil-log/assets/images/yolov3-perf.png">
+<img src="https://lilianweng.github.io/lil-log/assets/images/yolov3-perf.png" style="display:block; margin-left:auto; margin-right:auto">
 
 *So sánh tốc độ và mAP của các onject detection model*
 
