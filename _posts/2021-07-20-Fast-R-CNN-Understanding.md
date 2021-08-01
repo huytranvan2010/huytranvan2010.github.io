@@ -47,7 +47,7 @@ Ví dụ ban đầu phần feature map có kích thước `hxw`, chúng ta muố
 
 <img src="https://lilianweng.github.io/lil-log/assets/images/roi-pooling.png" style="display:block; margin-left:auto; margin-right:auto">
 
-Trong Fast R-CNN các RoI được đưa về kích thước `7x7` (chưa tính số channels). Nhắc lại một lần nữa feature map là output của Conv layer cuối cùng. Lớp Max Pooling cuối trong mạng pre-trained model loại bỏ đi, ở đây đã được thay thể bằng RoI pooling layer.
+Trong Fast R-CNN các RoI được đưa về kích thước `7x7` (chưa tính số channels). Nhắc lại một lần nữa feature map là output của Conv layer cuối cùng. Lớp Max Pooling cuối trong mạng pre-trained model loại bỏ đi, ở đây đã được thay thể bằng RoI pooling layer. Các bạn có thể tham khảo chi tiết hơn về RoI pooling layer [tại đây](https://towardsdatascience.com/understanding-region-of-interest-part-1-roi-pooling-e4f5dd65bb44).
 <img src="https://miro.medium.com/max/941/1*L-RItcTDliYSFT6YMf3-ww.png" style="display:block; margin-left:auto; margin-right:auto">
 
 Fast R-CNN không còn sử dụng Linear SVM để phân loại các classes. Thay vào đó nó sử dụng softmax layer để phân loại.
@@ -118,5 +118,6 @@ Như vậy chúng ta đã cùng tìm hiểu về mô hình Fast R-CNN. Hy vọng
 4. https://towardsdatascience.com/fast-r-cnn-for-object-detection-a-technical-summary-a0ff94faa022
 5. https://www.youtube.com/watch?v=UF4YqCE_1UA&list=PLANbacZNzD9HEbQ-CkACLyAqC3f0U9Plp&index=5
 6. https://github.com/huytranvan2010/Fast-R-CNN-Understanding
+7. https://towardsdatascience.com/understanding-region-of-interest-part-1-roi-pooling-e4f5dd65bb44 
 
 
