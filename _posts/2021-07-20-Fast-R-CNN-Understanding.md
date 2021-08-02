@@ -18,7 +18,7 @@ Không giống như R-CNN từng region proposal được được qua ConvNet t
 Sau khi đưa ảnh qua ConvNet chúng ta nhận được feature map (output sau Conv layer cuối cùng). Dựa vào Selective Search chúng ta xác định được các region proposals và vị trí của nó trên ảnh gốc. Từ đây có thể dễ dàng xác định được phần feature map tương ứng với từng region proposal. Từng feature map này được đưa qua RoI pooling layer và một số FC layers để phân loại và tinh chỉnh bounding box.
 
 Dưới đây là kiến trúc của Fast R-CNN
-<img src="https://lilianweng.github.io/lil-log/assets/images/fast-RCNN.png">
+<img src="https://lilianweng.github.io/lil-log/assets/images/fast-RCNN.png" style="display:block; margin-left:auto; margin-right:auto">
 
 ### RoI pooling layer
 Như đã nói ở trên sau khi đưa ảnh qua ConvNet chúng ta sẽ thu được feature map. Từ đây có thể xác định được phần nào của feature map tương ứng với từng region proposal, quá trình này gọi là **RoI Projection**. Tuy nhiên kích thước của các phần này khác nhau chúng cần resize lại về cùng một kích thước. Điều này cần thiết vì sau đó chúng ta có sử dụng FC layers để đảm bảo khớp dimensions.
