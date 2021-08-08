@@ -23,6 +23,20 @@ $$ sigmoid = \frac{1}{1+e^{-x}} $$
 
 **Chú ý**: $\hat{y}_i$ nằm trong $[0, 1]$. Do đó layer cuối cùng chúng ta sẽ áp dụng `activation='sigmoid'`.
 
+## Làm việc với Keras
+```python
+tf.keras.losses.BinaryCrossentropy(
+    from_logits=False,
+    label_smoothing=0,
+    axis=-1,
+    reduction="auto",
+    name="binary_crossentropy",
+)
+```
+Sử dụng cross-entropy này cho binary (0 or 1) classification problem. Loss function này cần inputs:
+- `y_true`: 0 hoặc 1
+- `y_pred`: số thực biểu thị giá trị (`[-inf, inf]` nếu để `from_logits=True` hoặc xác suất $[0, 1]$ nếu để `from_logits=False`).
+
 ## Tài liệu tham khảo
 1. https://peltarion.com/knowledge-center/documentation/modeling-view/build-an-ai-model/loss-functions/binary-crossentropy 
 2. https://keras.io/api/losses/probabilistic_losses/ 
