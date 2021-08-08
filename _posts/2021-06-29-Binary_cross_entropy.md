@@ -25,6 +25,7 @@ $$ sigmoid = \frac{1}{1+e^{-x}} $$
 
 ## Tài liệu tham khảo
 1. https://peltarion.com/knowledge-center/documentation/modeling-view/build-an-ai-model/loss-functions/binary-crossentropy 
+2. https://keras.io/api/losses/probabilistic_losses/ 
 
 
 
