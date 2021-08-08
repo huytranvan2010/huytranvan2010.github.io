@@ -11,7 +11,7 @@ Autoencoder bao gồm 2 thành phần chính là:
 - **Encoder**: Phần của mạng NN nén ảnh ban đầu về một số bits ít hơn. Không gia được biểu biễn bởi một số bits đó được gọi là **latent-space** (không gian ẩn) và điểm nén lớn nhất được gọi là **bottleneck**. Những bits nén ảnh ban đầu cũng được gọi là **encoding** của input image.
 - **Decoder**: Phần của mạng NN tạo dựng lại input image bằng cách sử dụng **encoding** của image đó.
 
-<img src="https://learnopencv.com/wp-content/uploads/2017/11/AutoEncoder.png">
+<img src="https://learnopencv.com/wp-content/uploads/2017/11/AutoEncoder.png" style="display:block; margin-left:auto; margin-right:auto">
 
 Hình trên biểu diễn một autoencoder đơn giản với 1 hidden layer. Input và output layers có cùng số neurons (do cần cùng biểu diễn một ảnh). Có một số loại autoencoder thường gặp như: **sparse autoencoder, variational autoencoder, denoising autoencoder**. Trong phần này chúng ta sẽ tìm hiểu về denoising autoencoder.
 
