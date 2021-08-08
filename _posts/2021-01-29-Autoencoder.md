@@ -12,7 +12,7 @@ Autoencoder là một unsupervised learning algorithm. Nó thực hiện các c�
 - Nén input data thành latent-space representation (vector nén và đặc trưng cho ảnh đầu vào)
 - Tái tạo lại input data từ latent representation.
 
-<img src="https://www.pyimagesearch.com/wp-content/uploads/2020/02/keras_autoencoder_arch_flow.png">
+<img src="https://www.pyimagesearch.com/wp-content/uploads/2020/02/keras_autoencoder_arch_flow.png" style="display:block; margin-left:auto; margin-right:auto">
 
 Như hình trên nhận thấy autoencoder có 2 thành phần chính là:
 - Encoder $E$, $s=E(x)$, trong đó $s$ là latent representation, $x$ là input data.
@@ -24,7 +24,7 @@ Autoencdoer thường được sử dụng cho:
 - Denoising (loại bỏ noise và tiền xử lý ảnh để tăng độ chính xác cho bài toán OCR)
 - Anomaly/outlier detection (phát hiện các điểm dữ liệu được gán nhãn sai hay điểm dữ liệu nằm ngoài phân phố dữ liệu điển hình)
 
-<img src="https://www.pyimagesearch.com/wp-content/uploads/2020/02/keras_autoencoders_applications.png">
+<img src="https://www.pyimagesearch.com/wp-content/uploads/2020/02/keras_autoencoders_applications.png" style="display:block; margin-left:auto; margin-right:auto">
 
 Ngoài ứng dụng trong Computer Vision, autoencoder còn được sử dụng trong NLP để tạo ra các word wmbeddings.
 
