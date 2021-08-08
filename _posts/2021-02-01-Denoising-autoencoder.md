@@ -147,6 +147,8 @@ plt.imshow(new_img.reshape(28, 28))     # reshape lại. Cái này để chính 
 plt.show()
 ```
 
+Các bạn có thể xem link tham khảo cuối cùng để xem cho tiện hơn.
+
 ## Tài liệu tham khảo
 1. https://learnopencv.com/understanding-autoencoders-using-tensorflow-python/
 2. https://blog.keras.io/building-autoencoders-in-keras.html
