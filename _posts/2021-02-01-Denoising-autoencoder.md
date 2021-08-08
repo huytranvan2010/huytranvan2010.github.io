@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Denoising autoencoder"
-tags: [Encoder]
+tags: [Autoencoder]
 comments: true
 ---
 
