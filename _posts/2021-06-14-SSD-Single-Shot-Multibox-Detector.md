@@ -86,12 +86,13 @@ Kí hiệu $\triangleq$ là đặt vế phải bằng vế phải. $ t_{x}, t_{y
 Tương tự như vậy chúng ta có thể xác định được bộ tham số thể hiện mối liên hệ giữa **predicted box $l$ và default box $d$** bằng cách thay $g$ bằng $l$ trong các phương trình trên. Khi đó khoảng cách giữa predicted box và ground truth box sẽ càng gần nếu khoảng cách giữa các bộ tham số chuẩn hóa giữa chúng càng gần, tức khoảng cách giữa 2 vector $g$ và $l$ càng nhỏ.
 
 Nhắc lại một chút về hàm smooth $L_1^{smooth}$:
+
 $$ L_1^\text{smooth}(x) = \begin{cases}
     0.5 x^2             & \text{if } \vert x \vert < 1\\
     \vert x \vert - 0.5 & \text{otherwise}
 \end{cases} $$
 
-Trường hợp $x$ là một vector thì thay $|x|$ ở vế phải bằng giá trị norm chuẩn bậc 1 của $x$ kí hiệu là $|x|$.
+Trường hợp $x$ là một vector thì thay \(|x|\) ở vế phải bằng giá trị norm chuẩn bậc 1 của $x$ kí hiệu là \(|x|\).
 
 Trong phương trình của hàm localization loss thì các hằng số mà ta đã biết chính là $g$. Biến cần tìm giá trị tối ưu chính là $l$. Sau khi tìm ra được nghiệm tối ưu của $l$ ta sẽ tính ra predicted box nhờ phép chuyển đổi từ default box tương ứng.
 
