@@ -91,7 +91,7 @@ $$ L_1^\text{smooth}(x) = \begin{cases}
     \vert x \vert - 0.5 & \text{otherwise}
 \end{cases} $$
 
-Trường hợp $x$ là một vector thì thay $\left| x\right|$ ở vế phải bằng giá trị norm chuẩn bậc 1 của $x$ kí hiệu là $\left| x\right|$.
+Trường hợp $x$ là một vector thì thay $|x|$ ở vế phải bằng giá trị norm chuẩn bậc 1 của $x$ kí hiệu là $|x|$.
 
 Trong phương trình của hàm localization loss thì các hằng số mà ta đã biết chính là $g$. Biến cần tìm giá trị tối ưu chính là $l$. Sau khi tìm ra được nghiệm tối ưu của $l$ ta sẽ tính ra predicted box nhờ phép chuyển đổi từ default box tương ứng.
 
