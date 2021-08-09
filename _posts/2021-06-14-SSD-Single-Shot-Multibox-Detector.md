@@ -130,7 +130,7 @@ Trong đó $k$ là số thứ tự layer dùng để dự đoán do đó nó n�
 * $k=m$ - tương đương với layer `Conv11_2` và $s_{m} = s_{max} = 0.9.2$. Điều này nghĩa là sao? Tại `Conv11_2` layer sẽ phát hiện object với scale lớn (bản thân `Conv11_2` layer là layer cuối cùng để dự đoán, có kích thước nhot nhất, chia làm ít cell nhất, do đó nó có khả năng phát hiện các vật thể lớn).
 Giả sử chúng ta có $m$ feature maps để dự đoán, chúng ta sẽ tính $s_{k}$ cho $k-th$ feature map.
 
-Đối với layer có 6 dự đoán, chúng ta đặt các tỉ lệ (aspect ratios) khác nhau cho các default boxes và biểu diễn là $a_{r}\in \left\{1, 2, 3, \frac{1}{2}, \frac{1}{3} \right\}$. Sau đó chúng ta có thể tính được height và width cho mỗi default box theo công thức sau:
+Đối với layer có 6 dự đoán, chúng ta đặt các tỉ lệ (aspect ratios) khác nhau cho các default boxes và biểu diễn là $a_{r}\in (1, 2, 3, \frac{1}{2}, \frac{1}{3})$. Sau đó chúng ta có thể tính được height và width cho mỗi default box theo công thức sau:
 
 $$ w_{k}^a = s_{k} * \sqrt{a_r} $$
 
