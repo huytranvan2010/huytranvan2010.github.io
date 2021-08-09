@@ -57,7 +57,7 @@ $$ y^{T} = [\underbrace{x, y, w, h}_{\text{bounding box}}, \underbrace{c_1, c_2,
 ### 3.1. Loss function
 **Matching strategy:** Trong suốt quá trinh training chúng ta cần xác định default boxes khớp với ground-truth. Đối với mỗi groud-truth box chúng ta chọn các default boxes có `jaccard overlap` hay IoU lớn hơn `0.5` (coi là positive examples). 
 
-\( x_{ij}^p = \left\{1, 0 \right\} \) thể hiện matching (sự khớp) của **default box $i$ với ground-truth box $j$** của nhãn thứ $p$. $\sum_{i}x_{ij}^p \geq 1$ - trong quá trình mapping chúng ta có thể có nhiều default bounding box $i$ được map vào cùng 1 ground truth box $j$ với cùng 1 nhãn $p$.
+$x_{ij}^p = {1, 0}$ thể hiện matching (sự khớp) của **default box $i$ với ground-truth box $j$** của nhãn thứ $p$. $\sum_{i}x_{ij}^p \geq 1$ - trong quá trình mapping chúng ta có thể có nhiều default bounding box $i$ được map vào cùng 1 ground truth box $j$ với cùng 1 nhãn $p$.
 
 Loss function bao gồm 2 thành phần: $ L_{loc} $ và $ L_{conf} $ (loss function của bài toán image classification chỉ có $L_{conf}$ thôi):
 
