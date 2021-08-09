@@ -92,7 +92,7 @@ $$ L_1^\text{smooth}(x) = \begin{cases}
     \vert x \vert - 0.5 & \text{otherwise}
 \end{cases} $$
 
-Trường hợp $x$ là một vector thì thay \(|x|\) ở vế phải bằng giá trị norm chuẩn bậc 1 của $x$ kí hiệu là \(|x|\).
+Trường hợp $x$ là một vector thì thay $|x|$ ở vế phải bằng giá trị norm chuẩn bậc 1 của $x$ kí hiệu là $|x|$.
 
 Trong phương trình của hàm localization loss thì các hằng số mà ta đã biết chính là $g$. Biến cần tìm giá trị tối ưu chính là $l$. Sau khi tìm ra được nghiệm tối ưu của $l$ ta sẽ tính ra predicted box nhờ phép chuyển đổi từ default box tương ứng.
 
@@ -108,7 +108,7 @@ Do đó chúng ta cần phải chuẩn hóa kích thước width, height và tâ
 $$ L_{conf}(x, c) = -\sum_{i \in Pos} x_{ij}^{p} \text{log}(\hat{c}_{i}^p) - \sum_{i \in Neg}\text{log}(\hat{c}_{i}^0) $$
 
 $ L_{conf} $ chính là softmax loss trên toàn bộ confidences của các classes ($c$).  
-* Đối với mỗi **positive match prediction**, chúng ta phạt loss function theo confidence score của các nhãn tương ứng. Do positive match prediction nên vùng dự đoán có vật thể chính xác là chứa vật thể. Do đó việc dự đoán nhãn cũng tương tự như bài toán image classification với softmax loss $ -\sum_{i \in Pos} x_{ij}^p \text{log}\hat{c}_{i}^p$. Nhớ lại $x_{ij}^p = \left\{1, 0 \right\}$ thể hiện matching default box $i$ với ground-truth box $j$ cho nhãn $p$, còn $\hat{c}_i^{p}$ chính là xác suất xuất hiện nhãn $p$ trong default box $i$. Điều này cũng tương tự như bài toán classification với nhiều nhãn với loss là $-\sum_{i}^{}y^i \ast log(\hat{y}^i)$
+* Đối với mỗi **positive match prediction**, chúng ta phạt loss function theo confidence score của các nhãn tương ứng. Do positive match prediction nên vùng dự đoán có vật thể chính xác là chứa vật thể. Do đó việc dự đoán nhãn cũng tương tự như bài toán image classification với softmax loss $ -\sum_{i \in Pos} x_{ij}^p \text{log}\hat{c}_{i}^p$. Nhớ lại $x_{ij}^p = {1, 0}$ thể hiện matching default box $i$ với ground-truth box $j$ cho nhãn $p$, còn $\hat{c}_i^{p}$ chính là xác suất xuất hiện nhãn $p$ trong default box $i$. Điều này cũng tương tự như bài toán classification với nhiều nhãn với loss là $-\sum_{i}^{}y^i \ast log(\hat{y}^i)$
 * Đối với mỗi một **negative match prediction**, chúng ta phạt loss function theo confidence score của nhãn ‘0’ là nhãn đại diện cho background không chứa vật thể. Do không chứa vật thể nên chỉ có duy nhất background `0`, xác suất xảy ra background $ x_{ij}^0 = 1$, do đó loss là $ -\sum_{i \in Neg}\text{log}(\hat{c}_{i}^0) $.
 
 Ở đây 
