@@ -109,7 +109,7 @@ $$g(x) = \frac{\gamma\log(q_i)}{1-q_i}-\frac{1}{q_i} \leq \frac{\gamma\beta_2(\f
 - Class đa số (dễ dự đoán) $q_i$ lớn:  $(1-q_i)^\gamma$ nhỏ nên sự ảnh hưởng lên gradient của các class đa số không đáng kể
 - Class thiểu số (khó dự đoán) $q_i$ nhỏ: $(1-q_i)^\gamma$ lớn gần bằng 1, ảnh hưởng lên gradient sẽ lớn. Như vậy khi dự đoán sai class thiểu số, gradient sẽ thay đổi lớn để giảm focal loss.
 
-<img src="plot_focal_loss.png">
+<img src="../images/plot_focal_loss.png" style="display:block; margin-left:auto; margin-right:auto">
 
 *Đồ thị Focal loss $FP(\mathbf{q}) = -\alpha_i (1-q_i)^{\gamma} \log(q_i)$, với $\alpha_i = 1$*
 
