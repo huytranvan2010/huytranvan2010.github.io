@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "MobileNetNet Understanding"
+title: "MobileNet Understanding"
 tags: [Classification]
 comments: true
 ---
