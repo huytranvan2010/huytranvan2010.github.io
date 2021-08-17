@@ -96,13 +96,13 @@ Trong trường hợp tổng quát chúng ta có `stride=s` và `padding=p`.
 
 <img src="https://miro.medium.com/max/941/1*JBi0esF8d4xHnrSwmt664g.png" style="display:block; margin-left:auto; margin-right:auto">
 
-<img src="https://i1.wp.com/nttuan8.com/wp-content/uploads/2020/04/tranpose_convolution.png?resize=768%2C390&ssl=1" width="425"/> <img src="https://i1.wp.com/nttuan8.com/wp-content/uploads/2020/04/tranpose_convolution_stride.png?resize=768%2C390&ssl=1" width="425"/>
-
 <img src="http://d2l.ai/_images/trans_conv_stride2.svg" style="display:block; margin-left:auto; margin-right:auto">
 
-- Với `padding=p` sẽ thực hiện tính toán như với `padding=0`, sau đó loại bỏ `p` hàng, cột ở 4 phía trái, phải, trên, dưới.
+- Với trường hợp tổng quát `padding=p` . Một số tài liệu chỉ cách thực hiện tính toán như với `padding=0`, sau đó loại bỏ `p` hàng, cột ở 4 phía trái, phải, trên, dưới là **KHÔNG ĐÚNG**. Mình sẽ lấy một ví dụ để chỉ ra điều này: Với input `2x2`, kernel `3x3`, `stride=2`, `padding=1` output `4x4`, nếu làm như hướng dẫn **SAI** bên trên chúng ta sẽ nhận được output có kích thước `3x3` chứ không phải `4x4`. Các bạn có thể lấy giấy để thử. 
 
-<img src="https://i1.wp.com/nttuan8.com/wp-content/uploads/2020/04/tranpose_convolution_stride_padding.png?resize=768%2C390&ssl=1" style="display:block; margin-left:auto; margin-right:auto">
+Một cách đơn giản là chúng ta sẽ thêm `padding=p` vào output như hình bên dưới (được tô xám). Sau đó thực hiện tính toán như bình thường như trên vào đặt kết quả vào output vừa được sửa đổi. Những giá trị nằm trên padding sẽ bị loại bỏ.
+
+<img src="../images/transposed_conv.png">
 
 Chúng ta đi tìm hiểu thêm một cách nữa để thực hiện transposed convolution. Ở đây transposed convolution cũng được xác định bởi padding và stride. Padding $p$ và stride $s$ là những giá trị được giả định (xác định trước) để khi thực hiện convolution operation trên output với padding và stride đó chúng ta sẽ nhận lại được đầu ra có spatial dimension giống với input.
 
@@ -164,7 +164,7 @@ Như vậy chúng ta đã tìm hiểu một số kỹ thuật được sử dụ
 2. https://towardsdatascience.com/transposed-convolution-demystified-84ca81b4baba
 3. https://towardsdatascience.com/what-is-transposed-convolutional-layer-40e5e6e31c11
 4. https://github.com/vdumoulin/conv_arithmetic
-5. https://nttuan8.com/bai-2-deep-convolutional-gan-dcgan/
+5. https://www.coursera.org/learn/convolutional-neural-networks/home/week/3
 6. https://www.tensorflow.org/api_docs/python/tf/keras/layers/Conv2DTranspose
 
 
