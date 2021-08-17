@@ -165,6 +165,7 @@ Như vậy chúng ta đã tìm hiểu một số kỹ thuật được sử dụ
 3. https://towardsdatascience.com/what-is-transposed-convolutional-layer-40e5e6e31c11
 4. https://github.com/vdumoulin/conv_arithmetic
 5. https://nttuan8.com/bai-2-deep-convolutional-gan-dcgan/
+6. https://www.tensorflow.org/api_docs/python/tf/keras/layers/Conv2DTranspose
 
 
 
