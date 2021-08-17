@@ -102,7 +102,7 @@ Trong trường hợp tổng quát chúng ta có `stride=s` và `padding=p`.
 
 Một cách đơn giản là chúng ta sẽ thêm `padding=p` vào output như hình bên dưới (được tô xám). Sau đó thực hiện tính toán như bình thường như trên vào đặt kết quả vào output vừa được sửa đổi. Những giá trị nằm trên padding sẽ bị loại bỏ.
 
-<img src="../images/transposed_conv.png">
+<img src="../images/transposed_conv.png" style="display:block; margin-left:auto; margin-right:auto">
 
 Chúng ta đi tìm hiểu thêm một cách nữa để thực hiện transposed convolution. Ở đây transposed convolution cũng được xác định bởi padding và stride. Padding $p$ và stride $s$ là những giá trị được giả định (xác định trước) để khi thực hiện convolution operation trên output với padding và stride đó chúng ta sẽ nhận lại được đầu ra có spatial dimension giống với input.
 
