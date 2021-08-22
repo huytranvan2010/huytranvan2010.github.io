@@ -11,7 +11,7 @@ comments: true
 
 $$ \left< \mathbf{u}_i, \mathbf{u}_j \right> = 0, \text{với}~~ i\neq j,~~ i,j=1,2...k  $$
 
-Hệ vector trực giao luôn **độc lập tuyến tính**. Cái này chứng minh bằng phản ứng. Giả sử nếu hệ vector trực giao phụ thuộc tuyến tính thì ví dụ $\mathbf{u}_i = \sum_{j} \mathbf{u}_j$, nhân cả 2 vế với $\mathbf{u}_i$ được vế trái lớn hơn 0 (do $\mathbf{u}_i \neq \mathbf{0}$), vế phải bằng 0, điều này không đúng. Do đó hệ vector trực giao là độc ập tuyến tính.
+Hệ vector trực giao luôn **độc lập tuyến tính**. Cái này chứng minh bằng phản ứng. Giả sử nếu hệ vector trực giao phụ thuộc tuyến tính thì $\mathbf{u}_i = \sum_{j} \mathbf{u}_j$, nhân cả 2 vế với $\mathbf{u}_i$ được vế trái lớn hơn 0 (do $ \textbf{u}_i \neq \textbf{0} $), vế phải bằng 0, điều này không đúng. Do đó hệ vector trực giao là độc ập tuyến tính.
 
 Một cơ sở là hệ trực giao thì gọi là cơ sở trực giao (vừa là cơ sở, vừa có tính chất trực giao).
 
@@ -21,7 +21,7 @@ $ V \subset \mathbb{R}^n $. Bộ các vector $ \mathbf{u}_1, \mathbf{u}_2 ... \m
 
 **Ví dụ 1**: cơ sở chuẩn của $\mathbb{R}^n$ là cơ sở trực giao (xem lại cơ sở chuẩn của $\mathbb{R}^n$ ở đây).
 
-**Ví dụ 2**: $\mathbf{x}_1=(2, 2, 0)$, $\mathbf{x}_2=(0, -2, 2)$, $\mathbf{x}_3=(3, 2, 1)$. $V = span(\mathbf{x}_1, \mathbf{x}_2, \mathbf{x}_3$. Bộ các vector $\mathbf{u}_1 = (1, 0, 1)$, $\mathbf{u}_2 = (1, 2, -1)$ là cơ sở trực giao của V, bởi vì chúng ta có:
+**Ví dụ 2**: $\mathbf{x}_1=(2, 2, 0)$, $\mathbf{x}_2=(0, -2, 2)$, $\mathbf{x}_3=(3, 2, 1)$. $V = span(\mathbf{x}_1, \mathbf{x}_2, \mathbf{x}_3)$. Bộ các vector $\mathbf{u}_1 = (1, 0, 1)$, $\mathbf{u}_2 = (1, 2, -1)$ là cơ sở trực giao của V, bởi vì chúng ta có:
 
 $$\left< \mathbf{u}_1, \mathbf{u}_2\right> = 0$$
 
