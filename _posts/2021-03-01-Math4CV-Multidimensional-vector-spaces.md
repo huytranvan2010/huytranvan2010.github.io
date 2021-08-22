@@ -81,7 +81,7 @@ $$\alpha \textbf{x} + \beta \textbf{y} = \begin{bmatrix}
 \end{bmatrix}$$
 
 Vector hàng có thể chuyển thành vector cột và ngược lại bằng chuyển vị, chuyển vị của $\textbf{x}$ là $\textbf{x}^T$.
-Ví dụ $\textbf{x}=(1, 2, 3, 4)$,  $\textbf{x}^T=\begin{bmatrix}
+Ví dụ $\textbf{x}=(1, 2, 3, 4)$ thì $\textbf{x}^T=\begin{bmatrix}
  1\\
  2\\
  3\\
