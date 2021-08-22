@@ -18,7 +18,7 @@ a_{2*} \\
 ... \\
 a_{m*}\end{bmatrix}, a_{i*} = [a_{i1}, a_{i2}...a_{in} ], i=1, 2, ..., m  $$
 
-Frobenius norm: $ \left\| \textbf{A} \right\|_F^{2} = \left\| a_{1*} \right\|_2^{2} + \left\| a_{2*} \right\|_2^{2} + ... + \left\| a_{m*} \right\|_2^{2} $
+Frobenius norm: $ || \textbf{A} ||_F^{2} = || a_{1*} ||_2^{2} + || a_{2*} ||_2^{2} + ... + || a_{m*} ||_2^{2} $
 
 Ví dụ biểu diễn ma trận như hàng của các vector cột:
 
@@ -28,7 +28,7 @@ a_{2j} \\
 ... \\
 a_{mj} \end{bmatrix}, j=1, 2, ..., n  $$
 
-Frobenius norm: $ \left\| \textbf{A} \right\|_F^{2} = \left\| a_{* 1} \right\|_2^{2} + \left\| a_{*2} \right\|_2^{2} + ... + \left\| a_{*n} \right\|_2^{2} $
+Frobenius norm: $ || \textbf{A} ||_F^{2} = || a_{* 1} ||_2^{2} + || a_{*2} ||_2^{2} + ... + || a_{*n} ||_2^{2} $
 
 
 Ma trận  $A \in \mathbb{R}^{m \times n} $ có ma trận chuyển vị là ma trận  $A^{T} \in \mathbb{R}^{n \times m} $. Ma trận ban đầu viết dưới dạng vector cột của các hàng, khi chuyển vị hàng sẽ biến thành cột, do đó ma trận chuyển vị có các cột là chuyển vị của các hàng.
@@ -65,8 +65,8 @@ $ \textbf{X} = (a_{i j})$, $i=1..n $ là số thự tự quan sát, $j=1..m$ là
 $$rank(\textbf{A}) \leq min\left\{m, n \right\}$$
 
 Hạng của ma trận bằng số chiều của:
-* Không gian con $span(a_{1 *}, a_{2 *}...a_{m*}) \in \mathbb{R}^{1 \times n}$ - không gian con của các vector hàng (tìm ra số lượng vector lớn nhất đọc lập tuyến tính)
-* Không gian con $span(a_{*1}, a_{*2}...a_{*n}) \in \mathbb{R}^{m \times 1}$ - không gian con của các vector cột (tìm ra số lượng vector lớn nhất đọc lập tuyến tính)
+* Không gian con $\text{span}(a_{1 *}, a_{2 *}...a_{m*}) \in \mathbb{R}^{1 \times n}$ - không gian con của các vector hàng (tìm ra số lượng vector lớn nhất đọc lập tuyến tính)
+* Không gian con $\text{span}(a_{*1}, a_{*2}...a_{*n}) \in \mathbb{R}^{m \times 1}$ - không gian con của các vector cột (tìm ra số lượng vector lớn nhất đọc lập tuyến tính)
 
 Một số tính chất:
 * $rank(\textbf{A}^T) = rank(\textbf{A})$
