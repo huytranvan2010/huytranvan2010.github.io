@@ -13,7 +13,7 @@ Cho vector $\mathbf{x}\in \mathbb{R}^{n}$. Làm sao để xác định vector $\
 **Các tiên đề về norm:**
 
 - Norm không âm: $\left\|\mathbf{x} \right\| \geq 0$, $\left\|\mathbf{x} \right\| = 0$ khi và chỉ khi $\mathbf{x} = \mathbf{0}$
-- $||\alpha \mathbf{x} || = |\alpha| \cdot|| \mathbf{x} ||$, với $\alpha \in \mathbb{R}$
+- $||\alpha \mathbf{x} || = |\alpha| \cdot || \mathbf{x} ||$, với $\alpha \in \mathbb{R}$
 - Bất đẳng thức tam giác: $\left\| \mathbf{x} + \mathbf{y} \right\| \leq \left\|\mathbf{x} \right\| + \left\|\mathbf{y} \right\|$
 
 Ở đây chỉ đưa ra các tiên đề về norm chứ không có định nghĩa cụ thể do chúng ta có nhiều không gian và có nhiều loại norm.
@@ -30,7 +30,7 @@ $$ ||\mathbf{x} ||_{2} = \left (\sum_{i=1}^{n} | x_i |^2  \right )^\frac{1}{2} $
 
 **Minkowski norm**: cho vector $\mathbf{x}\in \mathbb{R}^{n}$
 
-$$ \left\|\mathbf{x} \right\|_{p} = \left (\sum_{i=1}^{n}\left| x_i \right|^p  \right )^\frac{1}{p}, p \geqslant 1 $$, 
+$$ ||\mathbf{x} ||_p = \left (\sum_{i=1}^{n} |x_i|^p  \right )^\frac{1}{p}, p \geq 1 $$, 
 
 **Chebyshev norm**: cho vector $\mathbf{x}\in \mathbb{R}^{n}$
 $$ \left\|\mathbf{x} \right\|_{\infty}=\underset{1\leq i\leq n}{max}\left|x_{i} \right| $$
