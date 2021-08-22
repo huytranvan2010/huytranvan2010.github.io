@@ -76,8 +76,6 @@ Một số tính chất:
 Ví dụ: $\textbf{A} = \begin{bmatrix}
  &2  &0  &-1  &3  &0  &1\\
  &6  &0  &-3  &9  &0  &3\\
-\end{bmatrix}$
-
-$rank(\textbf{A}) = 1$ do $a_{2*} = 3a_{1*}$
+\end{bmatrix}$ ta có $rank(\textbf{A}) = 1$ do $a_{2*} = 3a_{1*}$
 
 Để xác định hạng của ma trận có thể dùng phương pháp Gaussian (giống khi giải hệ phương trình). Các bạn tự tìm hiểu thêm cách thực hiện nhé. 
