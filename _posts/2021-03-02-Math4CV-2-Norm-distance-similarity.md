@@ -13,7 +13,7 @@ Cho vector $\mathbf{x}\in \mathbb{R}^{n}$. Làm sao để xác định vector $\
 **Các tiên đề về norm:**
 
 - Norm không âm: $\left\|\mathbf{x} \right\| \geq 0$, $\left\|\mathbf{x} \right\| = 0$ khi và chỉ khi $\mathbf{x} = \mathbf{0}$
-- $\left\|\alpha \mathbf{x} \right\| = \left| \alpha \right| \left\| \mathbf{x} \right\|$, với $\alpha \in \mathbb{R}$
+- $||\alpha \mathbf{x} || = |\alpha| \cdot|| \mathbf{x} ||$, với $\alpha \in \mathbb{R}$
 - Bất đẳng thức tam giác: $\left\| \mathbf{x} + \mathbf{y} \right\| \leq \left\|\mathbf{x} \right\| + \left\|\mathbf{y} \right\|$
 
 Ở đây chỉ đưa ra các tiên đề về norm chứ không có định nghĩa cụ thể do chúng ta có nhiều không gian và có nhiều loại norm.
@@ -26,7 +26,7 @@ $$ \left\|\mathbf{x} \right\|_{1} = \sum_{i=1}^{n}\left| x_i \right| $$
 
 **Euclidean norm**: cho vector $\mathbf{x}\in \mathbb{R}^{n}$
 
-$$ \left\|\mathbf{x} \right\|_{2} = \left (\sum_{i=1}^{n}\left| x_i \right|^2  \right )^\frac{1}{2} $$
+$$ ||\mathbf{x} ||_{2} = \left (\sum_{i=1}^{n} | x_i |^2  \right )^\frac{1}{2} $$
 
 **Minkowski norm**: cho vector $\mathbf{x}\in \mathbb{R}^{n}$
 
