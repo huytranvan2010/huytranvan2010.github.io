@@ -1,9 +1,11 @@
 ---
 layout: post
-title: "[Math4CV-3] Euclidean spaces. Orthogonality"
+title: "[Math4CV-4] Linear dependence. Subspaces. Basis"
 tags: [Math4CV]
 comments: true
 ---
+
+## Euclidean spaces. Orthogonality - Không gian Euclid, tính trực giao
 
 Không gian Euclid là một trường hợp của không gian vector. Ở trong đó xác định thêm phép tính đặc biệt đó là **inner product (scalar product) (tích vô hướng)**. Inner product của 2 vector $ \mathbf{x}, \mathbf{y} $ được kí hiệu là $ \left< \mathbf{x}, \mathbf{y} \right> $
 
