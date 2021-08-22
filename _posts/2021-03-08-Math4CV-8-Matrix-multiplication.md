@@ -9,7 +9,7 @@ Ma trận $\textbf{A} \in \mathbb{R}^{m \times p} $, ma trận $\textbf{B} \in \
 
 $$c_{ij} = \sum_{k=1}^{p} a_{ik} b_{kj} $$
 
->Nhận xét: $c_{ij}$ sẽ là tích vô hướng của vector hàng $\textbf{a}_{i*}$ của ma trận $\textbf{A}$ với vector cột $\textbf{b}_{*j}$ của ma trận $\textbf{B}$ 
+**Nhận xét:** $c_{ij}$ sẽ là tích vô hướng của vector hàng $ \textbf{a}_{i*}$ của ma trận $ \textbf{A}$ với vector cột $ \textbf{b}_{*j}$ của ma trận $ \textbf{B}$ 
 
 Một số tính chất $\textbf{A}, \textbf{E} \in \mathbb{R}^{m \times p} $, $\textbf{B} \in \mathbb{R}^{p \times n} $:
 
@@ -17,9 +17,10 @@ $$ (\textbf{A} + \textbf{E})\textbf{B} = \textbf{A} \textbf{B} + \textbf{E} \tex
 
 $$ (\textbf{A} \textbf{B})^T = \textbf{B}^T \textbf{A}^T $$
 
-> **Tip**: có ngoài cách nhân ma trận ở trên có thể nhân ma trận đơn giản theo 2 cách nữa như sau:
-    - Cột của ma trận $\textbf{C}$ là tích của ma trận $\textbf{A}$ và cột ma trận $\textbf{B}$ tương ứng. 
-    - Hàng của ma trận $\textbf{C}$ là tích của hàng ma trận $\textbf{A}$ tương ứng và ma trận $\textbf{B}$. 
+**Tip**: có ngoài cách nhân ma trận ở trên có thể nhân ma trận đơn giản theo 2 cách nữa như sau:
+- Cột của ma trận $\textbf{C}$ là tích của ma trận $\textbf{A}$ và cột ma trận $\textbf{B}$ tương ứng. 
+- Hàng của ma trận $\textbf{C}$ là tích của hàng ma trận $\textbf{A}$ tương ứng và ma trận $\textbf{B}$. 
+
 Hãy thử xem, điều trên là đúng đấy.
 
 $\textbf{a} $ là vector hàng có chiều $1 \times n, \textbf{a} \in \mathbb{R}^{1 \times n}$  (hiểu là matrix cũng được).
