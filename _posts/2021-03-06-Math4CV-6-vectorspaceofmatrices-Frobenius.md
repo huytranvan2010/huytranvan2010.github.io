@@ -1,5 +1,6 @@
 ---
 layout: post
+mathjax: true
 title: "[Math4CV-6] Vector space of matrices. Frobenius norm"
 tags: [Math4CV]
 comments: true
