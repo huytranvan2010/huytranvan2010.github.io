@@ -1,5 +1,6 @@
 ---
 layout: post
+mathjax: true
 title: "[Math4CV-3] Euclidean spaces. Orthogonality"
 tags: [Math4CV]
 comments: true

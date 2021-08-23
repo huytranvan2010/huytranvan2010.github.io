@@ -1,5 +1,6 @@
 ---
 layout: post
+mathjax: true
 title: "Selective search for object detection"
 tags: [Object detection, OpenCV]
 comments: true

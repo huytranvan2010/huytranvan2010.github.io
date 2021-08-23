@@ -1,5 +1,6 @@
 ---
 layout: post
+mathjax: true
 title: "Image pyramid with Python"
 tags: [OpenCV, Object Detection, Scikit image]
 comments: true

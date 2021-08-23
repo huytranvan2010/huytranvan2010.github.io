@@ -1,5 +1,6 @@
 ---
 layout: post
+mathjax: true
 title: "[Math4CV-7] Rows and columns of matrix. Transposition. Rank"
 tags: [Math4CV]
 comments: true

@@ -1,5 +1,6 @@
 ---
 layout: post
+mathjax: true
 title: "Object Tracking with Camshift"
 tags: [Object Tracking, OpenCV]
 comments: true

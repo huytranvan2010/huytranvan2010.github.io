@@ -1,5 +1,6 @@
 ---
 layout: post
+mathjax: true
 title: "Face detection with NN - MTCNN"
 tags: [Face Recognition, MTCNN, FaceNet]
 comments: true

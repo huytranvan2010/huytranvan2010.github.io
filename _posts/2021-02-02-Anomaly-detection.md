@@ -1,5 +1,6 @@
 ---
 layout: post
+mathjax: true
 title: "Anomaly detection"
 tags: [Autoencoder]
 comments: true

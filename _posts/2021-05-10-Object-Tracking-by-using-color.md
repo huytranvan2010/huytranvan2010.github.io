@@ -1,5 +1,6 @@
 ---
 layout: post
+mathjax: true
 title: "Object Tracking by Using Color"
 tags: [Object Tracking, OpenCV]
 comments: true

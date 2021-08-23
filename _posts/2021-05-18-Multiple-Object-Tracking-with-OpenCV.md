@@ -1,5 +1,6 @@
 ---
 layout: post
+mathjax: true
 title: "Multiple Object Tracking with OpenCV"
 tags: [Object Tracking, OpenCV]
 comments: true

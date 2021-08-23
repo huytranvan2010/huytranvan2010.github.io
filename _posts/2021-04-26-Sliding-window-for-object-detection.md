@@ -1,5 +1,6 @@
 ---
 layout: post
+mathjax: true
 title: "Sliding windows for Object Detection"
 tags: [Object detection, OpenCV]
 comments: true

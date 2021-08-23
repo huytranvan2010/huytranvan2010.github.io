@@ -1,5 +1,6 @@
 ---
 layout: post
+mathjax: true
 title: "A Full and Comprehensive Style Test"
 tags: [test, style]
 comments: true

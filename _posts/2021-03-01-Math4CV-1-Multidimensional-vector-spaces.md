@@ -1,5 +1,6 @@
 ---
 layout: post
+mathjax: true
 title: "[Math4CV-1] Multidimensional vector spaces"
 tags: [Math4CV]
 comments: true

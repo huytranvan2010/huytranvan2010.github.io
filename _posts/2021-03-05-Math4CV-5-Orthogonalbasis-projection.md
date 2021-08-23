@@ -1,5 +1,6 @@
 ---
 layout: post
+mathjax: true
 title: "[Math4CV-5] Orthogonal basis. Projection"
 tags: [Math4CV]
 comments: true

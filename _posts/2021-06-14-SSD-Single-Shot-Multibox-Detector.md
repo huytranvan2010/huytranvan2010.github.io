@@ -1,5 +1,6 @@
 ---
 layout: post
+mathjax: true
 title: "SSD - Single Shot Multibox Detector"
 tags: [Object Detection, OpenCV]
 comments: true

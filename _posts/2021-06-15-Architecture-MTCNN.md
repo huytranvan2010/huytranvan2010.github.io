@@ -1,5 +1,6 @@
 ---
 layout: post
+mathjax: true
 title: "Architecture MTCNN"
 tags: [Face Recognition, MTCNN, FaceNet]
 comments: true

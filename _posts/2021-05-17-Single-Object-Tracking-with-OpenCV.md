@@ -1,5 +1,6 @@
 ---
 layout: post
+mathjax: true
 title: "Single Object Tracking with OpenCV"
 tags: [Object Tracking, OpenCV]
 comments: true
