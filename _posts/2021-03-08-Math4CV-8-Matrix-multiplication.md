@@ -1,5 +1,6 @@
 ---
 layout: post
+mathjax: true
 title: "[Math4CV-8] Matrix multiplication"
 tags: [Math4CV]
 comments: true

@@ -1,5 +1,6 @@
 ---
 layout: post
+mathjax: true
 title: "[Math4CV-2] Norm of vectors. Distance. Similarity"
 tags: [Math4CV]
 comments: true

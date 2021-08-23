@@ -1,5 +1,6 @@
 ---
 layout: post
+mathjax: true
 title: "[Math4CV-4] Linear dependence. Subspaces. Basis"
 tags: [Math4CV]
 comments: true

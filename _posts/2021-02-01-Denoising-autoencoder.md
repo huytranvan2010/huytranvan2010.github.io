@@ -1,5 +1,6 @@
 ---
 layout: post
+mathjax: true
 title: "Denoising autoencoder"
 tags: [Autoencoder]
 comments: true

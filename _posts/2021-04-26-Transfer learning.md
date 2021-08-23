@@ -1,5 +1,6 @@
 ---
 layout: post
+mathjax: true
 title: "Transfer Learning"
 tags: [Transfer learning, Feature Extractor]
 comments: true

@@ -1,5 +1,6 @@
 ---
 layout: post
+mathjax: true
 title: "Autoencoder"
 tags: [Autoencoder]
 comments: true

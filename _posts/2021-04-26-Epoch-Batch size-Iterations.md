@@ -1,5 +1,6 @@
 ---
 layout: post
+mathjax: true
 title: "Epochs, Batch size, Iterations"
 tags: [Gradient Descent]
 comments: true

@@ -1,5 +1,6 @@
 ---
 layout: post
+mathjax: true
 title: You're up and running!
 tags:
   - test
