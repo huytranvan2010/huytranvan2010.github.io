@@ -7,7 +7,7 @@
   </head>
   <body>
     <!--config MathJax-->
-    <script>
+    <!-- <script>
       window.MathJax = {
         tex: {
         inlineMath: [['$', '$'], ['\\(', '\\)']]
@@ -20,7 +20,9 @@
 
     <script type="text/javascript" id="MathJax-script" async
       src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
-    </script>
+    </script> -->
+
+    
 
 
     {% include nav.html %}
@@ -38,5 +40,31 @@
     </div>
 
     {% include analytics.html %}
+
+    <!-- Config MathJax  -->
+	<script>
+		window.MathJax = {
+			tex: {
+			inlineMath: [['$', '$'], ['\\(', '\\)']]
+			},
+			skipHtmlTags: [
+				'script', 'noscript', 'style', 'textarea', 'pre'
+			],
+		};
+	</script>
+	<script type="text/javascript" id="MathJax-script" async
+	  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+	</script>
+
+	{% if page.layout == 'post' %}
+	<script src="/js/toc.js"></script>
+	<script src="/js/btnTop.js"></script>
+	<script type="text/javascript">
+	$(document).ready(function() {
+		$('#toc').toc();
+	});
+	</script>
+	{% endif %}
+  
   </body>
 </html>
