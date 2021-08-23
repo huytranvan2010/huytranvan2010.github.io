@@ -9,7 +9,7 @@ Ma trận $\textbf{A} \in \mathbb{R}^{m \times p} $, ma trận $\textbf{B} \in \
 
 $$c_{ij} = \sum_{k=1}^{p} a_{ik} b_{kj} $$
 
-**Nhận xét:** $c_{ij}$ sẽ là tích vô hướng của vector hàng  $\textbf{a}_{i*}$ của ma trận $\textbf{A}$ với vector cột $textbf{b}_{*j}$ của ma trận $\textbf{B}$ 
+**Nhận xét:** $c_{ij}$ sẽ là tích vô hướng của vector hàng  \\(\textbf{a}_{i*}\\) của ma trận $\textbf{A}$ với vector cột $textbf{b}_{*j}$ của ma trận $\textbf{B}$ 
 
 Một số tính chất $\textbf{A}, \textbf{E} \in \mathbb{R}^{m \times p} $, $\textbf{B} \in \mathbb{R}^{p \times n} $:
 
