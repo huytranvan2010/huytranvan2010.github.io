@@ -80,3 +80,5 @@ Ví dụ: $\textbf{A} = \begin{bmatrix}
 \end{bmatrix}$ ta có $rank(\textbf{A}) = 1$ do $a_{2*} = 3a_{1*}$
 
 Để xác định hạng của ma trận có thể dùng phương pháp Gaussian (giống khi giải hệ phương trình). Các bạn tự tìm hiểu thêm cách thực hiện nhé. 
+
+
