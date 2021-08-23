@@ -109,3 +109,22 @@ Maruku
     <div id="awesome">
       <p>This is great isn't it?</p>
     </div>
+
+$\  anh em $   anhem\
+
+$c_{ij}$ sẽ là tích vô hướng của vector hàng  $\textbf{a}_{i*}$ của ma trận $\textbf{A}$ với vector cột $\textbf{b}_{*j}$ của ma trận $\textbf{B}$ 
+
+$_{a*}$
+_{a_}  _{_}  
+
+ _{ a_{          
+_{anh}_
+
+_{a}_{a}
+
+ }_{anh} a_b {_}
+
+ \\[ *{  a*} \\]
+ _{ a_}
+
+ _{d _{
