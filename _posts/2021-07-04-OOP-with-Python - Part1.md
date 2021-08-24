@@ -339,7 +339,7 @@ AttributeError: 'Student' object has no attribute '__private'
 ```
 Rõ ràng attribute `_protected` vẫn được kế thừa còn attribute `__private` không được kế thừa nên đã báo lỗi.
 
-Có hàm `issubclass(classA, classB) để kiểm tra class A có phải là class con của class B hay không. `isinstance(obj, classA)` để kiểm tra obj có phải là instance của class A hoặc class con của class A hay không.
+Có hàm `issubclass(classA, classB)` để kiểm tra class A có phải là class con của class B hay không. `isinstance(obj, classA)` để kiểm tra obj có phải là instance của class A hoặc class con của class A hay không.
 
 **Đa kế thừa (Multiple Inheritance)**
 
