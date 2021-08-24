@@ -444,5 +444,6 @@ Khá nhiều rồi, tạm thời tìm hiểu đến đây thôi để bài sau c
 1. https://www.w3schools.com/python/python_inheritance.asp
 2. https://tuhocict.com/class-trong-python-khai-niem-khai-bao/
 3. https://www.tutorialsteacher.com/python/property-function 
-4. https://www.tutorialspoint.com/python/python_classes_objects.htm
+4. https://www.tutorialspoint.com/python/python_classes_objects.
+5. http://www.srikanthtechnologies.com/blog/python/mro.aspx
 
