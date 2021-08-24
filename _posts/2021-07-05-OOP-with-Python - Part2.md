@@ -53,7 +53,7 @@ class Person:
     # getter method để truy cập giá trị của attribute __age
     def get_age(self):
         return self.__age
-    # setter method để thay đổi giá trị cảu attribute __age
+    # setter method để thay đổi giá trị của attribute __age
     def set_age(self, age):
         if age > 0 :
             self.__age = age
@@ -98,7 +98,7 @@ class Person:
     # getter method để truy cập giá trị của attribute __age
     def get_age(self):
         return self.__age
-    # setter method để thay đổi giá trị cảu attribute __age
+    # setter method để thay đổi giá trị của attribute __age
     def set_age(self, age):
         if age > 0 :
             self.__age = age
@@ -223,7 +223,7 @@ Chúng ta cùng để ý khối code sau:
 Một số điểm cần lưu ý:
 * Getter, setter (cả deleter) đều sử dụng chung một tên, đó cũng là tên của property để gọi. Ví dụ ở trên có tạo `age` property để truy xuất cho attribute `__age` thì cần tạo getter, setter và deletre với cùng một tên `age`.
 * Phương thức getter cần đánh dấu với **@property**
-* Phương thức setter cần đánh dấu với **<tên property>.setter**, phương thức deleter cần đánh dấu với **<tên property>.deleter**. Ví dụ với `age` property thì setter phải đánh dấu `@age.setter`, deleter phải đánh dấu `age.deleter`.
+* Phương thức setter cần đánh dấu với **@tên property.setter**, phương thức deleter cần đánh dấu với **@tên property.deleter**. Ví dụ với `age` property thì setter phải đánh dấu **@age.setter**, deleter phải đánh dấu **@age.deleter**.
 
 ### 8. Magic method (dunder method)
 Magic method hay dunder method là các method có tiền tố và hậu tố là 2 dấu gạch dưới `__`. Một số ví dụ của dunder method như `__init__`, `__add__`, `__len__`, `__repr__` etc.
@@ -284,6 +284,72 @@ del book  # xóa object
 
 Ở bên trên chúng ta đã định nghĩa một số magic method (dunder) như `__str__`, `__len__`, `__del__`. Lúc này chúng ta có thể in thông tin của object... (nói chung tùy theo mình điều chỉnh).
 
+### Nạp chồng toán tử
+
+Toán tử Python làm việc bằng các hàm được dựng sẵn, nhưng một toán tử có thể được sử dụng để thực hiện nhiều hoạt động khác nhau. Ví dụ với toán tử ' + ', bạn có thể cộng số học hai số với nhau, có thể kết hợp hai danh sách, hoặc nối hai chuỗi khác nhau lại…
+
+Tính năng này trong Python gọi là nạp chồng toán tử, cho phép cùng một toán tử được sử dụng khác nhau tùy từng ngữ cảnh.
+
+Bên trên chúng ta đã tìm hiểu một số magic method rồi. Trong phần này chúng ta sẽ áp dụng magic method để thực hiện nạp chồng toán tử. 
+
+Ví dụ để nạp chồng toán tử + chúng ta sử dụng phương thức `__add__()` như sau:
+
+```python
+class Point:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+    def __str__(self):
+        return "Tọa độ: ({}, {})".format(self.x, self.y)
+
+    def __add__(self, other):
+        x = self.x + other.x
+        y = self.y + other.y
+        return Point(x, y)
+
+point_1 = Point(1, 1)
+point_2 = Point(2, 2)
+
+print(point_1 + point_2)
+```
+
+Kết quả nhận được là:
+```python
+Tọa độ: (3, 3)
+```
+
+Khi thực hiện point_1 + point_2, Python sẽ gọi ra `p1.__add__(p2)`.
+
+<img src="https://1.bp.blogspot.com/-FnIuZ0OPYk8/VcJSm4w254I/AAAAAAAAIpA/Y6_3b2r53TA/s1600/operator_overloading.PNG" style="display:block; margin-left:auto; margin-right:auto">
+
+Chúng ta thử một ví dụ cho nạp chồng phép toán so sánh cho khoảng cách từ một điểm đến gốc tọa độ:
+
+```python
+class Point:
+     def __init__(self, x = 0, y = 0):
+        self.x = x
+        self.y = y
+
+     def __str__(self):
+        return "({},{})".format(self.x, self.y)
+
+     def __lt__(self, other):
+        self_dis = (self.x ** 2) + (self.y ** 2)
+        other_dis = (other.x ** 2) + (other.y ** 2)
+        return self_dis < other_dis
+
+point_1 = Point(1, 1)
+point_2 = Point(2, 2)
+print(point_1 < point_2)
+print(point_2 < point_1)
+```
+Kết quả là 
+```python
+True
+False
+```
+
 Phần cuối này mình muốn bổ sung thêm khái niệm:
 * **Class** − A user-defined prototype for an object that defines a set of attributes that characterize any object of the class. The attributes are data members (class variables and instance variables) and methods, accessed via dot notation.
 * **Instance** − An individual object of a certain class. An object obj that belongs to a class Circle, for example, is an instance of the class Circle.
@@ -295,4 +361,5 @@ Như vậy chúng ta đã tìm hiểu những khái niệm quan trong nhất c�
 2. https://tuhocict.com/class-trong-python-khai-niem-khai-bao/
 3. https://www.tutorialsteacher.com/python/property-function 
 4. https://www.tutorialspoint.com/python/python_classes_objects.htm
+5. https://quantrimang.com/nap-chong-toan-tu-trong-python-160450
 
