@@ -48,7 +48,7 @@ Do đó
 
 $$\textbf{A} \textbf{x} = x_1 \textbf{A}\textbf{u}_1 + x_1 \textbf{A}\textbf{u}_1 + \dots + x_n \textbf{A}\textbf{u}_n$$
 
-Theo định nghĩa của cơ sở chuẩn $\textbf{A}\textbf{u}_{i}$ chính là cột $a_{*i}$ của matrix $\textbf{A}$.
+Theo định nghĩa của cơ sở chuẩn $\textbf{A}\textbf{u}_i$ chính là cột $a_{*i}$ của matrix $\textbf{A}$.
 
 
 

@@ -171,11 +171,11 @@ Phương thức `calculate_birth_year()` không sử dụng bất kì thông tin
 
 ### 4. Tính đóng gói (Encapsulation) - public, private, protected 
 Tính đóng gói hạn chế quyền truy cập vào trạng thái bên trong của đối tượng. Điều này ngăn chặn dữ liệu bị sửa đổi trực tiếp. 
-Bên C++ chúng ta có các khái niệm public (truy cập bất kì đâu), protected (truy cập trong class nội bộ và class kế thừa), private (trup cập trong class bộ). Trong Python không có các khái niệm này, thay vào đó nó sử dụng kỹ thuật **name mangling**. 
+Bên C++ chúng ta có các khái niệm public (truy cập bất kì đâu), protected (truy cập trong class nội bộ và class kế thừa), private (truy cập trong class bộ). Trong Python không có các khái niệm này, thay vào đó nó sử dụng kỹ thuật **name mangling**. 
 
 Mặc định các thành viên trong class có thể truy cập từ mọi chỗ (giống public). Để hạn chế quyền truy cập có thể thực hiện như sau:
 * Thêm `_` (dấu gạch dưới) trước tên thành viên để chỉ cho phép truy cập trong class nội bộ và class kế thừa (giống protected)
-* Thêm `__` (2 dấu gạch dưới) trước tên thành viên để chỉ cho phép truy cập nội bộ (giống private)
+* Thêm `__` (2 dấu gạch dưới) trước tên thành viên để chỉ cho phép truy cập nội bộ (giống private) tránh việc thay đổi không mong muốn.
 
 ```python
 class Shoes:
@@ -190,12 +190,12 @@ class Shoes:
     def setMaxPrice(self, price):
         self.__maxprice = price
 
-c = Computer()
+c = Shoes()
 c.sell()
 
 # Thay đổi giá trị tiếp thông qua attribute
 # Do đang để private cho thuộc tính nên không thay đổi được
-c.__maxprice = 1000
+c.__maxprice = 1000     # chỗ này kiểu như tạo một attribute mới bên ngoài
 c.sell()
 
 # Phải sử dụng hàm setter để thay đổi giá maxprice
@@ -204,10 +204,37 @@ c.sell()
 ```
 Đầu ra sẽ là 
 ```python
-900
-900
-100
+Giá sản phẩm: 900
+Giá sản phẩm: 900
+Giá sản phẩm: 1000
 ```
+
+Nhận thấy phải dùng một hàm giống setter trong C++ để thay đổi giá trị của biến private (bắt đầu bằng __).
+
+Thêm ví dụ nữa:
+```python
+class Student:
+    def __init__(self, name):
+        self.__name = name
+  
+    def displayName(self):
+        print(self.__name)
+  
+s = Student("Santhosh")
+s.displayName()
+  
+# Báo lỗi
+print(s.__name)
+```
+Đầu ra như sau:
+```python
+Santhosh
+Traceback (most recent call last):
+  File "test.py", line 138, in <module>
+    print(s.__name)
+AttributeError: 'Student' object has no attribute '__name'
+```
+Khi chúng ta truy cập trực tiếp nó sẽ báo lỗi ngay.
 
 ### 5. Inheritance (tính kế thừa)
 Tính kế thừa cho phép chúng ta định nghĩa class mà kế thừa các phương thức và thuộc tính từ class khác. Class mẹ gọi là base class (class cơ sở), class con (kế thừa từ class mẹ) gọi là derived class (class kế thừa). Class con có thể kế thừa từ nhiều base class gọi là đa kế thừa (multiple inheritance).

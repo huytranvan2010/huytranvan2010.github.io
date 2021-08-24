@@ -66,7 +66,7 @@ $ \textbf{X} = (a_{i j})$, $i=1..n $ là số thự tự quan sát, $j=1..m$ là
 $$rank(\textbf{A}) \leq min\left\{m, n \right\}$$
 
 Hạng của ma trận bằng số chiều của:
-* Không gian con $\text{span}(a_{1 *}, a_{2 *}...a_{m*}) \in \mathbb{R}^{1 \times n}$ - không gian con của các vector hàng (tìm ra số lượng vector lớn nhất đọc lập tuyến tính)
+* Không gian con $\text{span}(a_{1*}, a_{2*}...a_{m*}) \in \mathbb{R}^{1 \times n}$ - không gian con của các vector hàng (tìm ra số lượng vector lớn nhất đọc lập tuyến tính)
 * Không gian con $\text{span}(a_{*1}, a_{*2}...a_{*n}) \in \mathbb{R}^{m \times 1}$ - không gian con của các vector cột (tìm ra số lượng vector lớn nhất đọc lập tuyến tính)
 
 Một số tính chất:
