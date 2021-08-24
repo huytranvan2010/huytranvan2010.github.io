@@ -339,6 +339,106 @@ AttributeError: 'Student' object has no attribute '__private'
 ```
 Rõ ràng attribute `_protected` vẫn được kế thừa còn attribute `__private` không được kế thừa nên đã báo lỗi.
 
+**Đa kế thừa (Multiple Inheritance)**
+
+Giống như C++ thì trong Python một lớp có thể được định nghĩa từ nhiều lớp cha. Điều này được gọi là đa kế thừa.
+
+```python
+class LopCha1:
+     pass
+
+class LopCha2:
+     pass
+
+class LopCon(LopCha1, LopCha2):
+     pass
+```
+
+<img src="https://st.quantrimang.com/photos/image/2018/12/03/INHERITANCE-1.jpg" style="display:block; margin-left:auto; margin-right:auto">
+
+Lớp con được định nghĩa từ nhiều lớp cha và kế thừa đặc tính của cả hai lớp cha.
+
+Các lớp cha có thể có các thuộc tính hoặc các phương thức giống nhau. Lớp con sẽ ưu tiên thừa kế thuộc tính, phương thức của **lớp đứng đầu tiên** trong danh sách thừa kế.
+
+**Kế thừa đa cấp (Multilevel Inheritance)**
+
+Ngoài việc có thể kế thừa từ các lớp cha, bạn còn có thể tạo lớp con mới kế thừa các lớp con trước đó. Đây gọi là kế thừa đa cấp (Multilevel Inheritance).
+
+```python
+class LopCha:
+     pass
+
+class LopCon1(LopCha):
+     pass
+
+class LopCon2(LopCon1):
+     pass
+```
+
+<img src="https://st.quantrimang.com/photos/image/2018/12/03/INHERITANCE-2.jpg" style="display:block; margin-left:auto; margin-right:auto">
+
+**Thứ tự truy xuất phương thức (Method Resolution Order)**
+
+Thứ tự truy xuất phương thức (MRO) là thứ tự mà Python tìm kiếm một phương thức trong hệ thống phân cấp các lớp. Đặc biệt nó đóng vai trò quan trọng đa kế thừa vì phương thức đơn có thể được tìm thấy trong nhiều lớp.
+
+Trong đa thừa kế, bất kỳ thuộc tính cần được truy xuất nào, đầu tiên nó sẽ được tìm kiếm trong lớp hiện tại. Nếu không tìm thấy, tìm kiếm tiếp tục vào lớp cha đầu tiên rồi tiếp tục từ trái qua phải. Vậy thứ tự truy xuất sẽ là **[LopCon, LopCha1, LopCha2, object]**.
+
+Nói một cách dễ hiểu, MRO dùng để hiển thị danh sách/tuple các class cha của một class nào đó. MRO được sử dụng theo hai cách (phải lấy tên class để gọi):
+- `__mro__`: trả về một tuple
+- `mro()`: trả về một danh sách.
+
+```python
+class A:
+    def process(self):
+        print('A process()')
+
+class B:
+    def process(self):
+        print('B process()')
+
+class C(A, B):
+    pass
+
+obj = C()
+obj.process()
+
+print(C.__mro__)     # print MRO for class C
+```
+Kết quả là:
+```python
+A process()
+(<class '__main__.C'>, <class '__main__.A'>, <class '__main__.B'>, <class 'object'>)
+```
+
+Thêm một ví dụ nữa:
+```python
+class A:
+    def process(self):
+        print('A process()')
+
+class B:
+    def process(self):
+        print('B process()')
+
+class C(A, B):
+    def process(self):
+        print('C process()')
+
+class D(C,B):
+    pass
+
+obj = D()
+obj.process()
+print(D.mro())
+```
+Kết quả là:
+```python
+C process()
+[<class '__main__.D'>, <class '__main__.C'>, <class '__main__.A'>, <class '__main__.B'>, <class 'object'>]
+```
+
+<img src="http://www.srikanthtechnologies.com/blog/python/mro_3.jpg" style="display:block; margin-left:auto; margin-right:auto">
+
 Khá nhiều rồi, tạm thời tìm hiểu đến đây thôi để bài sau chiến tiếp.
 #### Tài liệu tham khảo
 1. https://www.w3schools.com/python/python_inheritance.asp
