@@ -10,9 +10,11 @@ Trong bài trước chúng ta đã tìm hiểu về hàm [softmax](https://huytr
 ## Chain rule
 
 Trước này chúng ta đã biết cách tính đạo hàm cho hàm đơn giản như:
+
 $$\frac{\mathrm{d} x^2}{\mathrm{d} x} = 2x  ~~~~~~ \frac{\mathrm{d} e^x}{\mathrm{d} x} = e^x$$
 
 Đối với các hàm phức hợp:
+
 $$z_1 = z_1(x_1, x_2) ~~~~~~ z_2 = z_2(x_1, x_2) ~~~~~~ p = p(z_1, z_2)$$
 
 trong đó $z_1, z_2$ khả vi. Khi đó **chain rule** có thể được hiểu như sau:
@@ -41,6 +43,7 @@ $$ L = - \sum_i y_i log(\hat{y}_i) $$
 $$\hat{y}(\mathbf{z})_i = \frac{e^{z_i}}{\sum_{k=1}^{n} e^{z_k}}$$
 
 Đi xác định đạo hàm của loss theo các predicted nodes (units).
+
 $$ 
 \begin{align}
 \frac{\partial L}{\partial z_i} &= - \sum_k y_k \frac{\partial log(\hat{y}_k)}{\partial z_i} \\
@@ -85,6 +88,7 @@ Chốt lại từ (4) và (5) chúng ta có:
 $$ \frac{\partial L}{\partial w_{pq}} = \sum_k\frac{\partial L}{\partial z_k}\frac{\partial z_k}{\partial w_{pq}} = \sum_k(\hat{y}_k - y_k)\delta_{kq} a_p = a_p(\hat{y}_q - y_q)$$ 
 
 hay 
+
 $$ \frac{\partial L}{\partial w_{ij}} = a_i(\hat{y}_j - y_j) $$
 
 Như vậy chúng ta đã làm từng bước tính đạo hàm của loss so với weights cho output layer. Một cách tổng quát hơn.
