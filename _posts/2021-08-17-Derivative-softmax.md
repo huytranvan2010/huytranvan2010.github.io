@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Đạo hàm của Softmax"
-tags: [Calculus]
+tags: [Giải Tích, Đạo Hàm]]
 comments: true
 ---
 
