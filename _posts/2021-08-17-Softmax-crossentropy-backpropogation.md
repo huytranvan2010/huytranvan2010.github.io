@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Backpropogation với softmax và crossentropy"
-tags: [Giải Tích, Đạo Hàm]]
+tags: [Giải Tích, Đạo Hàm]
 comments: true
 ---
 
