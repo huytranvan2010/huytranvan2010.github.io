@@ -1,11 +1,11 @@
 ---
 layout: post
-title: "Backpropogation với softmax và crossentropy"
+title: "Backpropagation với softmax và crossentropy"
 tags: [Giải Tích, Đạo Hàm]
 comments: true
 ---
 
-Trong bài trước chúng ta đã tìm hiểu về hàm [softmax](https://huytranvan2010.github.io/Derivative-softmax/). Trong này chúng ta sẽ đi phân tích thuật toán backpropogation với hàm softmax và crossentropy- thuật toán được ứng dụng trong mạng Neural Network rất thành công.
+Trong bài trước chúng ta đã tìm hiểu về hàm [softmax](https://huytranvan2010.github.io/Derivative-softmax/). Trong này chúng ta sẽ đi phân tích thuật toán backpropagation với hàm softmax và crossentropy- thuật toán được ứng dụng trong mạng Neural Network rất thành công.
 
 ## Chain rule
 
