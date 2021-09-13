@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Đạo hàm của Softmax"
-tags: [Giải Tích, Đạo Hàm]]
+tags: [Giải Tích, Đạo Hàm]
 comments: true
 ---
 
