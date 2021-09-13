@@ -56,7 +56,8 @@ Nhớ lại bài trước, đạo hàm của softmax theo từng thành phần
 
 $$ \frac{\partial \hat{y}_k}{\partial z_i} =  \hat{y}_k(\delta_{ki} - \hat{y}_i) $$
 
-với $ \delta_{ki} = \begin{cases} 
+với 
+$ \delta_{ki} = \begin{cases} 
 1 & if & k=i \\ 
 0 & if & k \neq i 
 \end{cases} $
