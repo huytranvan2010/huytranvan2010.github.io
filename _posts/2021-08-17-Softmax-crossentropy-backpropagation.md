@@ -152,6 +152,8 @@ $$
 \end{align*}
 $$
 
+Như vậy chúng ta đã cùng tìm hiểu backpropagation algorithm cho hệ số của output layer. Hy vọng các bạn tìm thấy điều gì hữu ích từ bài viết.
+
 ## Tài liệu tham khảo 
 1. https://peterroelants.github.io/posts/neural-network-implementation-part02/
 2. https://stats.stackexchange.com/questions/235528/backpropagation-with-softmax-cross-entropy 
