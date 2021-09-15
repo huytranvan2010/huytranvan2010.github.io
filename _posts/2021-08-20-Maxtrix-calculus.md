@@ -256,14 +256,18 @@ $$
 
 $$ \nabla_\mathbf{x} \mathbf{Ax} = \mathbf{A}^T $$
 
-Có thể ghi gọn hơn như sau: $\mathbf{Ax} = 
+ $\mathbf{a_i}$ là vector hàng thứ $i$ của ma trận $\mathbf{A}$ ta có thể ghi gọn hơn như sau: 
+
+$$\mathbf{Ax} = 
 \begin{bmatrix}
 \mathbf{a_1}\mathbf{x}\\
 \mathbf{a_2}\mathbf{x}\\
 \vdots\\
 \mathbf{a_m}\mathbf{x}
 \end{bmatrix}
-$ trong đó $\mathbf{a_i}$ là vector hàng thứ $i$ của ma trận $\mathbf{A}$. Từ công thức (5) chúng ta có 
+$$
+
+Từ công thức (5) chúng ta có 
 
 $$
 \nabla_\mathbf{x} \mathbf{Ax} = 
