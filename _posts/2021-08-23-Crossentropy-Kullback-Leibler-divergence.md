@@ -212,7 +212,7 @@ Hàm số $f: \mathbb{R} \rightarrow \mathbb{R}$ được gọi là K-Lipschitz 
 
 $$|f(x_1) - f(x_2)| \leq K |x_1 - x_2| $$
 
-$$K$$ - hằng số Lipschitz cho hàm $$f$$. Hàm số khả vi, liên tục trên toàn miên xác định thì liên tục Lipschitz, bởi vì đạo hàm được ước lượng thông qua $$\frac{\left | f(x_1) - f(x_2) \right |}{\left | x_1 - x_2 \right |}$$ bị chặn. Tuy nhiên hàm số liên tục Lipschitz chưa chắc đã khả vi trên toàn miền, ví dụ $$f(x) = \left | x \right |$$.
+$$K$$ - hằng số Lipschitz cho hàm $$f$$. Hàm số khả vi, liên tục trên toàn miên xác định thì liên tục Lipschitz, bởi vì đạo hàm được ước lượng thông qua $$\frac{\lvert f(x_1) - f(x_2) \rvert}{\lvert x_1 - x_2 \rvert}$$ bị chặn. Tuy nhiên hàm số liên tục Lipschitz chưa chắc đã khả vi trên toàn miền, ví dụ $$f(x) = \lvert x \rvert$$.
 
 Như vậy để áp dụng Wasserstein GAN, chúng ta chỉ cần tìm hàm liên tục 1-lipschitz. Kiến trúc mạng của discriminator sẽ được giữ nguyên và chúng ta chỉ bỏ qua hàm sigmoid ở cuối. Như vậy hàm dự báo output chính là một linear projection và đó là một hàm liên tục 1-lipchitz. Kết quả dự báo sau cùng sẽ đưa ra một điểm số scalar thay vì xác suất. Điểm này có thể được hiểu là điểm đánh giá chất lượng hình ảnh được sinh ra theo mức độ giống với ảnh thật. Tính chất của discriminator đã thay đổi từ phân loại ảnh reak/fake sang chấm điểm chất lượng ảnh nên để phù hợp với mục tiêu thì chúng ta thay đổi tên của discriminator thành critic.
 
