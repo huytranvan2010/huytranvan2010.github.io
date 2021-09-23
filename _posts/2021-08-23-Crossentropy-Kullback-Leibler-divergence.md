@@ -93,7 +93,7 @@ D_{\text{KL}}(p||q) = \sum_{i=1}^n p_i log \left ( \frac{p_i}{q_i} \right ) &=  
 &= \sum_{i=1}^n p_i f \left ( \frac{q_i}{p_i} \right ) \geq f \left ( \sum_{i=1}^{n}p_i \frac{q_i}{p_i} \right ) = log(1) = 0  ~~ \forall x \in (0, 1]
 \end{align*}$$
 
-Kết hợp 2 trường hợp ta có $$D_{\text{KL}}(p||q)$$ có giá trị nhỏ nhất bằng 0 với $$x \in (0, 1]$$. Dấu = xảy ra khi:
+Kết hợp 2 trường hợp ta có $$D_{\text{KL}}(p \| q)$$ có giá trị nhỏ nhất bằng 0 với $$x \in (0, 1]$$. Dấu = xảy ra khi:
 
 $$ \frac{q_1}{p_1} = \frac{q_2}{p_2} = \dots = \frac{q_n}{p_n} = \lambda $$
 
