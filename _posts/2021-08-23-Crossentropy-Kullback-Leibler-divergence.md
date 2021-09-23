@@ -175,7 +175,7 @@ L(G, D^*) & = \int_x p_r(x) \log \bigg( \frac{p_r(x)}{p_r(x) + p_g(x)} \bigg) + 
 \end{align*}
 $$
 
-$G^{*}$ mà tối ưu nhất sẽ cho $p_g(x)$ trùng với $p_r(x)$ thì khoảng cách Jensen-Johnson $D_{JS}(p_r(x) \parallel  p_g(x)) = 0$ và khi đó $L(G, D^*) = -2\log2$ như chúng ta sẽ nhận được ở bên dưới. tôi
+$G^*$ mà tối ưu nhất sẽ cho $p_g(x)$ trùng với $p_r(x)$ thì khoảng cách Jensen-Johnson $D_{JS}(p_r(x) \parallel  p_g(x)) = 0$ và khi đó $L(G, D^*) = -2\log2$ như chúng ta sẽ nhận được ở bên dưới. tôi
 
 **Global optimal**
 
