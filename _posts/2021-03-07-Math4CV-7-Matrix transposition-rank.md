@@ -23,7 +23,7 @@ Frobenius norm: $ || \textbf{A} ||_F^{2} = || a_{1*} ||_2^{2} + || a_{2*} ||_2^{
 
 Ví dụ biểu diễn ma trận như hàng của các vector cột:
 
-$$ \textbf{A} = \begin{bmatrix} a_{*1} a_{* 2} ... a_{*n}\end{bmatrix}, a_{*j} = \begin{bmatrix}
+$$ \textbf{A} = \begin{bmatrix} a_{* 1} a_{* 2} ... a_{*n}\end{bmatrix}, a_{*j} = \begin{bmatrix}
 a_{1j} \\ 
 a_{2j} \\
 ... \\
@@ -71,7 +71,7 @@ Hạng của ma trận bằng số chiều của:
 
 Một số tính chất:
 * $rank(\textbf{A}^T) = rank(\textbf{A})$
-* $rank(\textbf{A}) = dim(span(a_{1*}, a_{2*}...a_{m*}))$
+* $rank(\textbf{A}) = dim(span(a_{1 * }, a_{2 * }...a_{m * }))$
 * $rank(\textbf{A}) = dim(span(a_{*1}, a_{*2}...a_{*n}))$
 
 Ví dụ: $\textbf{A} = \begin{bmatrix}
