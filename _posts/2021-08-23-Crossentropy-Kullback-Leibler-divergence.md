@@ -97,7 +97,7 @@ Kết hợp 2 trường hợp ta có $$D_{\text{KL}}(p \| q)$$ có giá trị nh
 
 $$ \frac{q_1}{p_1} = \frac{q_2}{p_2} = \dots = \frac{q_n}{p_n} = \lambda $$
 
-Điều này đồng nghĩa với việc phân phối $p(x)$ và $q(x)$ đồng nhất nhất. Như ở trên chúng ta có $D_{\text{KL}}(p||q) = H(p, q) - H(p)$, do đó dễ dàng suy ra $H(p, q) \geq H(p)$.
+Điều này đồng nghĩa với việc phân phối $p(x)$ và $q(x)$ đồng nhất nhất. Như ở trên chúng ta có $D_{\text{KL}}(p \|q) = H(p, q) - H(p)$, do đó dễ dàng suy ra $H(p, q) \geq H(p)$.
 
 Tích chất của Kullback Leibler divergence:
 - Không bị chặn
