@@ -10,10 +10,10 @@ Trong bài này chúng ta đi tìm hiểu một ứng dụng của facial landma
 Ý tưởng cho ứng dụng này là sử dụng metric **eye aspect ratio (EAR)** được giới thiệu trong bài báo [Real-Time Eye Blink Detection Using Facial Landmarks.](http://vision.fe.uni-lj.si/cvww2016/proceedings/papers/05.pdf)
 
 Cùng nhớ lại các vị trí của facial landmarks được tạo ra từ facial landmark detector trong thư viện dlib.
-<img src="https://camo.githubusercontent.com/4d074bd6665655e2b8267d665a0cf72d5002ff2eecac61ecf3c516a6b6605880/68747470733a2f2f7777772e7079696d6167657365617263682e636f6d2f77702d636f6e74656e742f75706c6f6164732f323031372f30342f66616369616c5f6c616e646d61726b735f36386d61726b75702d373638783631392e6a7067">
+<img src="https://camo.githubusercontent.com/4d074bd6665655e2b8267d665a0cf72d5002ff2eecac61ecf3c516a6b6605880/68747470733a2f2f7777772e7079696d6167657365617263682e636f6d2f77702d636f6e74656e742f75706c6f6164732f323031372f30342f66616369616c5f6c616e646d61726b735f36386d61726b75702d373638783631392e6a7067" style="display:block; margin-left:auto; margin-right:auto">
 
 Đối với mỗi mắt chúng ta có 6 facial landmarks. 
-<img src="https://www.pyimagesearch.com/wp-content/uploads/2017/04/blink_detection_plot.jpg">
+<img src="https://www.pyimagesearch.com/wp-content/uploads/2017/04/blink_detection_plot.jpg" style="display:block; margin-left:auto; margin-right:auto">
 
 *Facial landmarks khi mắt mở và mắt nhắm*
 Lưu ý: các chỉ số trên hình không khớp với chỉ số cho facial landmarks của mắt nhận được từ dlib.

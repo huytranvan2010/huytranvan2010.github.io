@@ -218,7 +218,7 @@ Như vậy để áp dụng Wasserstein GAN, chúng ta chỉ cần tìm hàm li�
 
 Để hiểu rõ hơn sự khác biệt giữa kiến trúc GAN và WGAN chúng ta cùng theo dõi hình bên dưới:
 
-<img src="https://miro.medium.com/max/700/1*M_YipQF_oC6owsU1VVrfhg.jpeg">
+<img src="https://miro.medium.com/max/700/1*M_YipQF_oC6owsU1VVrfhg.jpeg" style="display:block; margin-left:auto; margin-right:auto">
 
 Tổng kết lại ta có sự khác biệt giữa GAN và WGAN đó là :
 - Bỏ hàm sigmoid ở critic model và thay vào đó là linear projection.
@@ -228,7 +228,7 @@ critic sẽ được huấn luyện nhiều lượt hơn so với generator và 
 - Ràng buộc độ lớn weights của mô hình về một khoảng giới hạn sau mỗi mini-batch.
 - Sử dụng RMSProp để cập nhật gradient descent với momentum = 0.
 
-<img src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2019/05/Algorithm-for-the-Wasserstein-Generative-Adversarial-Networks-1.png">
+<img src="https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2019/05/Algorithm-for-the-Wasserstein-Generative-Adversarial-Networks-1.png" style="display:block; margin-left:auto; margin-right:auto">
 
 Ở đây đang sử dụng clipping weights sau khi update weights. Cách này làm giảm khả năng học của mô hình do giới hạn các giá trị nhận được của weights. Chúng ta có thể dùng một cách khác là **gradient penalty** để làm cho hàm số thỏa mãn Lipschitz continuous.
 
