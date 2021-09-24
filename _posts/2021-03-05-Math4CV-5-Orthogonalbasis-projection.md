@@ -12,7 +12,7 @@ comments: true
 
 $$ \left< \mathbf{u}_i, \mathbf{u}_j \right> = 0, \text{với}~~ i\neq j,~~ i,j=1,2...k  $$
 
-Hệ vector trực giao luôn **độc lập tuyến tính**. Cái này chứng minh bằng phản ứng. Giả sử nếu hệ vector trực giao phụ thuộc tuyến tính thì $\mathbf{u}_i = \sum_{j} \mathbf{u}_j$, nhân cả 2 vế với $\mathbf{u}_i$ được vế trái lớn hơn 0 (do $ \textbf{u}_i \neq \textbf{0} $), vế phải bằng 0, điều này không đúng. Do đó hệ vector trực giao là độc ập tuyến tính.
+Hệ vector trực giao luôn **độc lập tuyến tính**. Cái này chứng minh bằng phản ứng. Giả sử nếu hệ vector trực giao phụ thuộc tuyến tính thì $\mathbf{u}\_i = \sum_{j} \mathbf{u}\_j$, nhân cả 2 vế với $\mathbf{u}\_i$ được vế trái lớn hơn 0 (do $ \textbf{u}\_i \neq \textbf{0} $), vế phải bằng 0, điều này không đúng. Do đó hệ vector trực giao là độc ập tuyến tính.
 
 Một cơ sở là hệ trực giao thì gọi là cơ sở trực giao (vừa là cơ sở, vừa có tính chất trực giao).
 
@@ -92,7 +92,7 @@ Hệ phương trình cho projection trong không gian Euclid đưcọ đơn gi�
 
 Ví dụ: Tìm projection của vector $\mathbf{x}$ lên không gian con $V=span(\mathbf{x}_1, \mathbf{x}_2, \mathbf{x}_2)$, ở đây $\mathbf{x}_1 = (2, 0, 2, 3, 3, -1, 4, -2, 0, 2)$, $\mathbf{x}_2 = (0, -2, 2, -3, -1, -3, -4, 2, 2, 0)$, $\mathbf{x}_3 = (3, -1, 4, 3, 4, -3, 4, -2, 1, 3)$
 
-Nhận thấy bộ vector $\mathbf{u}_1 = (1, -1, 2, 0, 1, -2, 0, 0, 1, 1)$, $\mathbf{u}_2 = (1, 1, 0, 3, 2, 1, 4, -2, -1, 1)$ là cơ sở trực giao của $V$ (có thể biểu diễn $\mathbf{x}_1$, $\mathbf{x}_2$, $\mathbf{x}_3$ thông qua $\mathbf{u}_1$ và $\mathbf{u}_2$). Chúng ta tìm $\mathbf{x}_* = \alpha_1 \mathbf{u}_1 + \alpha_2 \mathbf{u}_2$
+Nhận thấy bộ vector $\mathbf{u}\_1 = (1, -1, 2, 0, 1, -2, 0, 0, 1, 1)$, $\mathbf{u}\_2 = (1, 1, 0, 3, 2, 1, 4, -2, -1, 1)$ là cơ sở trực giao của $V$ (có thể biểu diễn $\mathbf{x}\_1$, $\mathbf{x}\_2$, $\mathbf{x}\_3$ thông qua $\mathbf{u}\_1$ và $\mathbf{u}\_2$). Chúng ta tìm $\mathbf{x}\_ * = \alpha\_1 \mathbf{u}\_1 + \alpha\_2 \mathbf{u}\_2$
 
 $$
 \begin{matrix}
@@ -102,5 +102,3 @@ $$
 $$
 
 Đi tìm projection cho $\mathbf{x} = (1, -1, 2, -2, 0, -2, 0, 0, 1, 2)$ ta nhận được $\alpha_1 = 1$, $\alpha_2 = -7/38$
-
-
