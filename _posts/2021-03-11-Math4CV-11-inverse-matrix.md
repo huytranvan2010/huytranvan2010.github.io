@@ -36,7 +36,7 @@ Ma trận vuông $\textbf{A}$ gọi là ma trận trực giao nếu:
 
 $$\textbf{A} \cdot \textbf{A}^T = \textbf{A}^T \cdot \textbf{A} = \textbf{I}$$
 
-nhận thấy $a_{i*} \cdot a_{j*}^T = 0, ~ i \neq j$ ngược lại $a_{i*} \cdot a_{j*}^T = 1, ~ i = j$ 
+nhận thấy $a_{i *} \cdot a_{j * }^T = 0, ~ i \neq j$ ngược lại $a_{i * } \cdot a_{j * }^T = 1, ~ i = j$ 
 
 Một số tính chất:
 - Các hàng của ma trận trực giao tạo thành cơ sở trực chuẩn của $\mathbb{R}^{1 \times n}$
