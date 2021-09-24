@@ -8,11 +8,11 @@ layout: default
   <h1>{{ page.title }}</h1>
 
   <div>
-    <span class="date">
+    <span class="date">   <!--chỗ này cho date-->
       {{ page.date | date: "%Y-%m-%d" }}
     </span>
 
-    <ul class="tag">
+    <ul class="tag">  <!--chỗ này cho tags-->
       {% for tag in page.tags %}
       <li>
         <a href="{{ site.url }}{{ site.baseurl }}/tags#{{ tag }}">
@@ -23,7 +23,7 @@ layout: default
     </ul>
   </div>
 
-  <div class="entry">
+  <div class="entry">   <!--Chỗ này là nội dung bài viết-->
     {{ content }}
   </div>
 
