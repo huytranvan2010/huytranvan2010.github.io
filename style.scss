@@ -375,7 +375,7 @@ img {
 nav {
   float: right;
   margin-top: 23px; // @TODO: Vertically middle align
-  font-family: $helveticaNeue;
+  font-family: $Roboto;   //$helveticaNeue;   // cái cũ dùng cái này
   font-size: 18px;
 
   @include mobile {
@@ -387,14 +387,14 @@ nav {
 
   a {
     margin-left: 20px;
-    color: $darkGray;
+    color: $cyan;   //$darkGray;  // màu cũ trên laptop
     text-align: right;
     font-weight: 300;
     letter-spacing: 1px;
 
     @include mobile {
       margin: 0 10px;
-      color: $blue;
+      color: $blue;   // màu của blog, about trên điện thoại
     }
   }
 }
