@@ -36,13 +36,13 @@ Ma trận vuông $\textbf{A}$ gọi là ma trận trực giao nếu:
 
 $$\textbf{A} \cdot \textbf{A}^T = \textbf{A}^T \cdot \textbf{A} = \textbf{I}$$
 
-nhận thấy $a_{i*} \cdot a_{j*}^T = 0, ~ i \neq j$ ngược lại $a_{i*} \cdot a_{j*}^T = 1, ~ i = j$ 
+nhận thấy $a_{i * } \cdot a_{j * }^T = 0, ~ i \neq j$ ngược lại $a_{i * } \cdot a_{j * }^T = 1, ~ i = j$ 
 
 Một số tính chất:
 - Các hàng của ma trận trực giao tạo thành cơ sở trực chuẩn của $\mathbb{R}^{1 \times n}$
 - Các cột của ma trận trực giao tạo thành cơ sở trực chuẩn trong $\mathbb{R}^{n \times 1}$
-- Nếu ma trận $\textbf{A}$ trực giao thì $(\textbf{A} \textbf{u}, \textbf{A} \textbf{v}) = (\textbf{u}, \textbf{v})$, $||\textbf{A} \textbf{u}||_2 = ||\textbf{u}||_2$. Ánh xạ tuyến tính bằng ma trận trực giao giữ nguyên khoảng cách và tích vô hướng trong không gian Euclid.
-- Frobenius norm của ma trận trực giao: $||\textbf{A}||_F = \sqrt{n}$
+- Nếu ma trận $\textbf{A}$ trực giao thì $(\textbf{A} \textbf{u}, \textbf{A} \textbf{v}) = (\textbf{u}, \textbf{v})$, $\Vert \textbf{A} \textbf{u} \Vert_2 = \Vert \textbf{u} \Vert_2$. Ánh xạ tuyến tính bằng ma trận trực giao giữ nguyên khoảng cách và tích vô hướng trong không gian Euclid.
+- Frobenius norm của ma trận trực giao: $\Vert \textbf{A} \Vert_F = \sqrt{n}$
 
 
 
