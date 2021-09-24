@@ -23,11 +23,11 @@ Có rất nhiều loại norm khác nhau, hay dùng nhất là norm $L1$ và nor
 
 **Manhattan norm**: cho vector $\mathbf{x}\in \mathbb{R}^{n}$
 
-$$ \left\|\mathbf{x} \right\|_{1} = \sum_{i=1}^{n}\left| x_i \right| $$
+$$ \left\| \mathbf{x} \right\|_{1} = \sum_{i=1}^{n}\left| x_i \right| $$
 
 **Euclidean norm**: cho vector $\mathbf{x}\in \mathbb{R}^{n}$
 
-$$ ||\mathbf{x} ||_{2} = \left (\sum_{i=1}^{n} | x_i |^2  \right )^\frac{1}{2} $$
+$$ \Vert \mathbf{x} \Vert_{2} = \left (\sum_{i=1}^{n} \left\| x_i \right\|^2  \right )^\frac{1}{2} $$
 
 **Minkowski norm**: cho vector $\mathbf{x}\in \mathbb{R}^{n}$
 

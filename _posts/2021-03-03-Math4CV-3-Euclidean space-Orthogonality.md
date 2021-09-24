@@ -17,7 +17,7 @@ Norm liên hệ với inner product thông qua công thức sau:
 $$ || \mathbf{x} || = \sqrt{\left< \mathbf{x}, \mathbf{x} \right>} $$
 
 Norm này thỏa mãn các tiên đề về norm, cụ thể như sau:
-- $ || \mathbf{x} || = \sqrt{\left< \mathbf{x}, \mathbf{x} \right>} \geq 0$. Dấu bằng xảy ra khi và chỉ khi $ \mathbf{x} = \mathbf{0} $
+- $ \Vert \mathbf{x} \Vert = \sqrt{\left< \mathbf{x}, \mathbf{x} \right>} \geq 0$. Dấu bằng xảy ra khi và chỉ khi $ \mathbf{x} = \mathbf{0} $
 - $ \alpha || \mathbf{x} || = \sqrt{ \left< \alpha \mathbf{x}, \alpha \mathbf{x} \right>} = \sqrt{ \alpha^2 \left< \mathbf{x}, \mathbf{x} \right>} = |\alpha| \cdot || \mathbf{x} || $
 - Bất đẳng thức Cauchy - Bunyakovsky - Schwartz: 
 

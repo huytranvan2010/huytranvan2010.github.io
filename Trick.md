@@ -1,0 +1,2 @@
+- Dấu ||: `\left\| \right\|` hoặc `\lvert \rvert`
+- Dấu || ||: `\Vert \Vert`
