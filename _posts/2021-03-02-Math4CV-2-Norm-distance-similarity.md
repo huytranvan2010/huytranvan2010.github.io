@@ -14,7 +14,7 @@ Cho vector $\mathbf{x}\in \mathbb{R}^{n}$. Làm sao để xác định vector $\
 **Các tiên đề về norm:**
 
 - Norm không âm: $\left\|\mathbf{x} \right\| \geq 0$, $\left\|\mathbf{x} \right\| = 0$ khi và chỉ khi $\mathbf{x} = \mathbf{0}$
-- $|| {\alpha} \mathbf{x} || = | {\alpha} | \cdot || \mathbf{x} ||$, với $\alpha \in \mathbb{R}$
+- $\Vert  {\alpha} \mathbf{x} \Vert  = | {\alpha} | \cdot \Vert  \mathbf{x} \Vert $, với $\alpha \in \mathbb{R}$
 - Bất đẳng thức tam giác: $\left\| \mathbf{x} + \mathbf{y} \right\| \leq \left\|\mathbf{x} \right\| + \left\|\mathbf{y} \right\|$
 
 Ở đây chỉ đưa ra các tiên đề về norm chứ không có định nghĩa cụ thể do chúng ta có nhiều không gian và có nhiều loại norm.
@@ -31,7 +31,7 @@ $$ ||\mathbf{x} ||_{2} = \left (\sum_{i=1}^{n} | x_i |^2  \right )^\frac{1}{2} $
 
 **Minkowski norm**: cho vector $\mathbf{x}\in \mathbb{R}^{n}$
 
-$$ ||\mathbf{x} ||_p = \left (\sum_{i=1}^{n} |x_i|^p  \right )^\frac{1}{p}, p \geq 1 $$, 
+$$ \Vert \mathbf{x} \Vert _p = \left (\sum_{i=1}^{n} |x_i|^p  \right )^\frac{1}{p}, p \geq 1 $$, 
 
 **Chebyshev norm**: cho vector $\mathbf{x}\in \mathbb{R}^{n}$
 $$ \left\|\mathbf{x} \right\|_{\infty}=\underset{1\leq i\leq n}{max}\left|x_{i} \right| $$
@@ -45,15 +45,15 @@ $$ \left\|\mathbf{x} \right\|_{-\infty}=\underset{1\leq i\leq n}{min}\left|x_{i}
 $C[a, b]$ là tập hợp các hàm liên tục $x(t)$ trên đoạn $[a, b]$. Đây là không gian vector tuyến tính (để dễ hiểu có thể coi hàm liên tục là một mảng có số chiều vô cùng lớn).
 - Minkovski norm ($p \geq 1$):
 
-$$||x||_p = (\int_{a}^{b}|x(t)|^p dt)^{1/p}$$
+$$\Vert x \Vert _p = (\int_{a}^{b}|x(t)|^p dt)^{1/p}$$
 
 - Manhetten norm ($p \geq 1$):
 
-$$||x||_1 = (\int_{a}^{b}|x(t)| dt)$$
+$$\Vert x \Vert _1 = (\int_{a}^{b}|x(t)| dt)$$
 
 - Chebyshev norm:
 
-$$||x||_\infty = \underset{a \leq t \leq b}{\text{max}}|x(t)|$$
+$$\Vert x \Vert _\infty = \underset{a \leq t \leq b}{\text{max}}|x(t)|$$
 
 **Distance (dissimilarity)**
 
