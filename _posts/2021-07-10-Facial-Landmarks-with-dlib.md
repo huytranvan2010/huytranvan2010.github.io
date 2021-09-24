@@ -45,7 +45,7 @@ The pre-trained facial landmark detector trong dlib được sử dụng để �
 
 Chỉ số của 68 tọa độ có thể được biểu diễn như hình dưới (tuy nhiên ở trong Python nó sẽ được đánh số từ 0 đến 67).
 
-<img src="https://www.pyimagesearch.com/wp-content/uploads/2017/04/facial_landmarks_68markup-768x619.jpg">
+<img src="https://www.pyimagesearch.com/wp-content/uploads/2017/04/facial_landmarks_68markup-768x619.jpg" style="display:block; margin-left:auto; margin-right:auto">
 
 ### Detecting facial landmarks with dlib, OpenCv and Python
 Các bạn xem ở file `facial_landmarks.py` để theo dõi các bước bên dưới.

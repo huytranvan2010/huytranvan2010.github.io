@@ -11,7 +11,7 @@ Thuật toán nhận diện khuôn mặt LBPs lần đầu tiên được giới
 
 LBPs sẽ chia ảnh ta thành $7 \times 7$ grid cells. Đối với cell sẽ thực hiện tính **Local Binary Histogram**. Việc tính các histogram có thể đánh mất spatial information (thông tin về không gian), tuy nhiên việc tính histogram có thể mã hóa một số thông tin của mắt, mũi, miệng... Bằng việc chia ảnh thành cách grid cells chúng ta có thể đưa **locality** (tính cục bộ) vào trong final feature vector. Một số cells sẽ có trọng số lớn hơn đóng góp vào final feature (ví dụ các vùng góc mang ít thông tin nhận diện khuôn mặt hơn sơ với các vùng bên trong như mắt, mũi, miệng). Điều này cho phép chúng ta có một công cụ mạnh để phân biệt các features của khuôn mặt. Xem hình bên dưới để thấy rõ hơn.
 
-<img src="https://www.pyimagesearch.com/wp-content/uploads/2021/04/face_reco_lbps_weighting.png">
+<img src="https://www.pyimagesearch.com/wp-content/uploads/2021/04/face_reco_lbps_weighting.png" style="display:block; margin-left:auto; margin-right:auto">
 
 *Ảnh gốc được chia thành các grid cells và sơ đồ trọng số*
 
@@ -28,7 +28,7 @@ Cuối cùng chúng ta nối các LBP histograms có trọng số từ 49 cells 
 Quá trình nhận dạng khuôn mặt được thực hiện bởi kNN ($k=1$) sử dụng $\chi^{2}$ distance (**do chúng ta đang so sánh giữa các histogram nên dùng $\chi^{2}$ distance sẽ tốt hơn so với Euclidean distance**).
 
 So với Eigenfaces thì LBPs chống nhiễu và cho kết quả tốt hơn do nó không dựa trên các raw pixels.
-<img src="https://www.pyimagesearch.com/wp-content/uploads/2021/03/what_is_face_reco_lbps_samples.png">
+<img src="https://www.pyimagesearch.com/wp-content/uploads/2021/03/what_is_face_reco_lbps_samples.png" style="display:block; margin-left:auto; margin-right:auto">
 
 Nhận thấy face recognition với LBPs khá đơn giản:
 * Trích xuất face ROI (dùng face detection)
