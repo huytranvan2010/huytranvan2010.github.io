@@ -51,7 +51,7 @@ footer-links:
   stackoverflow: # your stackoverflow profile, e.g. "users/50476/bart-kiers"
   tumblr: # https://<username>.tumblr.com
   twitter: 
-  youtube: https://www.youtube.com/channel/UC0qHZSRXqTq7fSdkBkOmfuw # channel/<your_long_string> or user/<user-name>
+  youtube: channel/UC0qHZSRXqTq7fSdkBkOmfuw # channel/<your_long_string> or user/<user-name>
 
 # Text under the icons in footer
 footer-text: © huytranvan2010
