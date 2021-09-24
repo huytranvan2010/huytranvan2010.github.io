@@ -158,7 +158,6 @@ cv2.destroyAllWindows()
 - Dùng KCF nếu cần FPS cao nhưng độ chính xác có thể thấp hơn
 - Dùng MOSSE khi cần tốc độ
 
-# Tài liệu tham khảo
-https://www.pyimagesearch.com/2018/07/30/opencv-object-tracking/
-
-https://learnopencv.com/object-tracking-using-opencv-cpp-python/ 
+## Tài liệu tham khảo
+1. https://www.pyimagesearch.com/2018/07/30/opencv-object-tracking/
+2. https://learnopencv.com/object-tracking-using-opencv-cpp-python/ 
