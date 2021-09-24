@@ -356,9 +356,9 @@ img {
   color: $darkGray;
   cursor: pointer;
   font-family: $Roboto; //$helveticaNeue;
-  font-weight: 300;
-  font-size: 25px;
-  letter-spacing: 1px;
+  font-weight: bold;
+  font-size: 23px;
+  // letter-spacing: 1px; // khoang cach cac tu
 }
 
 .site-description {
