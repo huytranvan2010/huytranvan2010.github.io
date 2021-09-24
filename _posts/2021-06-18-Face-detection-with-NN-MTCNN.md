@@ -8,29 +8,29 @@ comments: true
 
 Face detection có thể thực hiện bằng nhiều cách ví dụ Haarcascade bên OpenCV hay sử dụng mạng NN. Trong bài này chúng ta sẽ đề cập đến MTCNN - Multi task cascaded convolutional network. MTCNN bao gồm 2 mạng CNN (P-Net, R-Net và O-Net), MTCNN vượt trội về hiệu suất phát hiện khuôn mặt mà vẫn đảm bảo tốc độ real-time. 
 
-<img src="../images/NN_MTCNN/0.png" style="display:block; margin-left:auto; margin-right:auto>
+<img src="../images/NN_MTCNN/0.png" style="display:block; margin-left:auto; margin-right:auto">
 
 Hình trên thể hiện kiến trúc của mạng MTCNN. Chúng ta cùng đi vào các bước trong MTCNN.
 ## Bước 1
 Ảnh đầu vào được sử dụng để tạo **image pyramid** (các ảnh với nhiều kích thước khác nhau). Mục đích của chúng ta là có thể phát hiện được khuôn mặt với nhiều kích thước khác nhau.
 
-<img src="../images/NN_MTCNN/1.png" style="display:block; margin-left:auto; margin-right:auto>
+<img src="../images/NN_MTCNN/1.png" style="display:block; margin-left:auto; margin-right:auto">
 
 Đối với mỗi ảnh trong **image pyramid** chúng ta cho kernel có kích thước `12x12` trượt qua với `stride = 2` (khuôn mặt thường lớn hơn 2 pixels nên hiếm khi bỏ sót). Kernel này chỉ đấy lấy một phần của ảnh thôi chứ không có thực hiện operation gì ở đây . Kernel bắt đầu từ góc trên bên trái phần của ảnh có tọa độ 2 góc là (0, 0) và (12, 12). Sau khi dịch phải hoặc xuống dưới sẽ có 2 tọa độ là (0+2a, 0+2b), (12+2a, 12+2b). Mỗi phần của bức ảnh được đưa qua mạng **P-Net**, đầu ra của mạng là tọa độ bounding box nếu phát hiện ra có khuôn mặt. 
 Ví dụ đầu ra mạng P-Net
 
-<img src="../images/NN_MTCNN/2.png" style="display:block; margin-left:auto; margin-right:auto>
+<img src="../images/NN_MTCNN/2.png" style="display:block; margin-left:auto; margin-right:auto">
 
 Một số bounding boxes có confidence thấp hơn ngưỡng nào đó sẽ bị loại bỏ.
 Do kernel `12x12` cố định kích thước nên đối với ảnh có kích thước lớn trong **image pyramid** chúng ta có thể phát hiện được những khuôn mặt nhỏ hơn. Tương tự như vậy nó cũng giúp chúng ta phát hiện các khuôn mặt lớn hơn trong những ảnh có kích thước nhỏ trong **image pyramid**.
 
-<img src="../images/NN_MTCNN/3.png" style="display:block; margin-left:auto; margin-right:auto>
+<img src="../images/NN_MTCNN/3.png" style="display:block; margin-left:auto; margin-right:auto">
 
 Đối với các bounding box tìm được trong các ảnh của **image pyramid** chúng ta cần rescale chúng về kích thước của ảnh gốc (dễ dàng thực hiện được thông qua scale factor).
 Sau khi đã rescale về kích thước ảnh gốc lại có nhiều bounding box overlap với nhau. **Non-maximum supression (NMS)** sẽ giúp chúng ta giảm số lượng bounding boxes bị chồng chập.
 Kích thước của bounding box cũng được chuyển về so với kích thước ảnh gốc (không phải kích thước tương đối nữa).
 
-<img src="../images/NN_MTCNN/4.png" style="display:block; margin-left:auto; margin-right:auto>
+<img src="../images/NN_MTCNN/4.png" style="display:block; margin-left:auto; margin-right:auto">
 
 Cuối cùng bounding box sẽ được reshape lại thành hình vuông.
 
@@ -38,7 +38,7 @@ Xem thêm tại [link sau.](https://youtu.be/w4tigQn-7Jw)
 
 ## Bước 2
 
-<img src="../images/NN_MTCNN/5.png" style="display:block; margin-left:auto; margin-right:auto>
+<img src="../images/NN_MTCNN/5.png" style="display:block; margin-left:auto; margin-right:auto">
 
 Đôi khi ảnh chỉ chứa một phần của khuôn mặt. Ví dụ trong ảnh trên chỉ chụp được một phần khuôn mặt của người bên phải. Trong trường hợp này bounding box chỉ là một phần bên trái (trong bức ảnh). Để giải quyết vấn đề này chúng ta sẽ thêm những `pixels=0` còn thiếu bên phải vào. Quá trình này gọi là **padding**.
 
