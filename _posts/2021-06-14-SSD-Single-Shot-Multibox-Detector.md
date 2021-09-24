@@ -16,7 +16,8 @@ Tại thời điểm dự đoán, mạng NN sẽ dự đoán confidence xuất h
 SSD300 đạt được 74.3% mAP với 59 FPS trên VOC2017, SSD500 đạt được 76.9% mAP với 22 FPS vượt trội hơn hẳn so với [Faster R-CNN (73.2% mAP với 7 FPS)](https://towardsdatascience.com/review-faster-r-cnn-object-detection-f5685cb30202) và [YOLOv1 (63.4% mAP với 45 FPS)](https://towardsdatascience.com/yolov1-you-only-look-once-object-detection-e1f3ffec8a89). Hiện này YOLO đã có đến phiên bản thứ 5 cải thiện hơn rất nhiều, chúng ta sẽ không bàn ở đây.
 
 ## 1. Multbox Detector
-![](../images/2021-06-14/0.jpeg)
+<img src="../images/2021-06-14/0.jpeg" style="display:block; margin-left:auto; margin-right:auto">
+
 *SSD: Multiple bounding boxes for localization (loc) and confidence (cof)*
 
 SSD chỉ cần ảnh đầu vào và các ground-truth boxes cho mỗi object trong quá trình training.
@@ -26,16 +27,22 @@ SSD chỉ cần ảnh đầu vào và các ground-truth boxes cho mỗi object t
 * Ứng với mỗi bounding box chúng ta sẽ tính confidence cho tất cả classes **c class scores** $(c_{1}, c_{2},...,c_{n})$ (chú ý hơi khác với YOLO, YOLO dự đoán objectness confidence của box - có object hay không, và tiếp theo dự đoán class scores) và **4 offsets** tương đối so với default boxes.
 * Trong quá trình training, đầu tiên chúng ta cần khớp default boxes với ground-truth boxes. Ví dụ ở trên chúng ta khớp 2 default boxes với mèo và một default box với chó, chúng được coi là các positive examples.
 * Cuối cùng chúng ta sẽ có $ m\times n\times k\times (c+4) $ outputs
-![3](../images/2021-06-14/3.png)
+
+<img src="../images/2021-06-14/3.png" style="display:block; margin-left:auto; margin-right:auto">
+
 Đó cũng là lý do bài báo có tên là *SSD: Single Shot Multibox Detector*
 Bây giờ người ta hay sử dụng **ResNet** làm base model hơn.
 
 ## 2. SSD Network architecture
-![1](../images/2021-06-14/1.png)
+
+<img src="../images/2021-06-14/1.png" style="display:block; margin-left:auto; margin-right:auto">
+
 *SSD(top) and YOLO(bottom)*
 
 SSD được xây dựng dựa trên bas model VVG-16 có loại bỏ các lớp fully connected layers. Thay vì sử dụng các lớp FC như mạng VGG-16 ban đầu SSD sử dụng các lớp convolution phụ (bắt đầu từ lớp `Conv6`). **Việc này giúp model có thể trích xuất đặc trưng ở nhiều tỉ lệ khác nhau và giảm kích thước đầu vào ở các Conv layer tiếp theo.**
-![2](../images/2021-06-14/2.png)
+
+<img src="../images/2021-06-14/2.png" style="display:block; margin-left:auto; margin-right:auto">
+
 *Kiến trúc VGG-16*
 
 Để có thể phát hiện chính xác hơn nhiều layers khác nhau của feature map đã được cho đi qua Conv layer `3x3` để phát hiện vật thể như hình bên trên.
@@ -93,7 +100,7 @@ $$ L_1^\text{smooth}(x) = \begin{cases}
     \vert x \vert - 0.5 & \text{otherwise}
 \end{cases} $$
 
-Trường hợp $x$ là một vector thì thay $|x|$ ở vế phải bằng giá trị norm chuẩn bậc 1 của $x$ kí hiệu là $|x|$.
+Trường hợp $\textbf{x}$ là một vector thì thay $\lvert x \rvert$ ở vế phải bằng giá trị norm chuẩn bậc 1 của $\textbf{x}$ kí hiệu là $\Vert x \Vert$.
 
 Trong phương trình của hàm localization loss thì các hằng số mà ta đã biết chính là $g$. Biến cần tìm giá trị tối ưu chính là $l$. Sau khi tìm ra được nghiệm tối ưu của $l$ ta sẽ tính ra predicted box nhờ phép chuyển đổi từ default box tương ứng.
 
@@ -109,7 +116,7 @@ Do đó chúng ta cần phải chuẩn hóa kích thước width, height và tâ
 $$ L_{conf}(x, c) = -\sum_{i \in Pos} x_{ij}^{p} \text{log}(\hat{c}_{i}^p) - \sum_{i \in Neg}\text{log}(\hat{c}_{i}^0) $$
 
 $ L_{conf} $ chính là softmax loss trên toàn bộ confidences của các classes ($c$).  
-* Đối với mỗi **positive match prediction**, chúng ta phạt loss function theo confidence score của các nhãn tương ứng. Do positive match prediction nên vùng dự đoán có vật thể chính xác là chứa vật thể. Do đó việc dự đoán nhãn cũng tương tự như bài toán image classification với softmax loss $ -\sum_{i \in Pos} x_{ij}^p \text{log}\hat{c}_{i}^p$. Nhớ lại $x_{ij}^p = {1, 0}$ thể hiện matching default box $i$ với ground-truth box $j$ cho nhãn $p$, còn $\hat{c}_i^{p}$ chính là xác suất xuất hiện nhãn $p$ trong default box $i$. Điều này cũng tương tự như bài toán classification với nhiều nhãn với loss là $-\sum_{i}^{}y^i \ast log(\hat{y}^i)$
+* Đối với mỗi **positive match prediction**, chúng ta phạt loss function theo confidence score của các nhãn tương ứng. Do positive match prediction nên vùng dự đoán có vật thể chính xác là chứa vật thể. Do đó việc dự đoán nhãn cũng tương tự như bài toán image classification với softmax loss $ -\sum_{i \in Pos} x _ {ij}^p \text{log}\hat{c} _ {i}^p$. Nhớ lại $x _ {ij}^p = {1, 0}$ thể hiện matching default box $i$ với ground-truth box $j$ cho nhãn $p$, còn $\hat{c}_i^{p}$ chính là xác suất xuất hiện nhãn $p$ trong default box $i$. Điều này cũng tương tự như bài toán classification với nhiều nhãn với loss là $-\sum _ {i}^{}y^i \ast log(\hat{y}^i)$
 * Đối với mỗi một **negative match prediction**, chúng ta phạt loss function theo confidence score của nhãn ‘0’ là nhãn đại diện cho background không chứa vật thể. Do không chứa vật thể nên chỉ có duy nhất background `0`, xác suất xảy ra background $ x_{ij}^0 = 1$, do đó loss là $ -\sum_{i \in Neg}\text{log}(\hat{c}_{i}^0) $.
 
 Ở đây 
