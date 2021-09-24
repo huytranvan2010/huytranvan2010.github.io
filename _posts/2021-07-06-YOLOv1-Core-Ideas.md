@@ -19,12 +19,13 @@ Không giống như các mô hình two-stages như R-CNN, Fast-RCNN, Faster-RCNN
 
 Như vậy tổng cộng chúng ta sẽ có $S \times S \times (5B + C)$ giá trị đầu ra ($7 \times 7 \times (2\times 5 + 20)=1470$). Đây chính là tensor shape của layer cuối cùng model. Hình bên dưới thể hiện đầu ra của model.
 
-<img src="https://miro.medium.com/max/941/1*YG6heD55fEmZeUKRSlsqlA.png">
+<img src="https://miro.medium.com/max/941/1*YG6heD55fEmZeUKRSlsqlA.png" style="display:block; margin-left:auto; margin-right:auto">
 
 Cùng phân tích hình trên trong quá trình inference. 
-<img src="https://lilianweng.github.io/lil-log/assets/images/yolo.png">
 
-Đầu ra của model chúng ra nhận được $Pr(object)\cdot IOU_{pred}^{truth}$ cho mỗi bounding box, đối với mỗi grid cell chúng ta nhận được $Pr(class_i|object)$ (dùng chung cho tất cả bounding box). 
+<img src="https://lilianweng.github.io/lil-log/assets/images/yolo.png" style="display:block; margin-left:auto; margin-right:auto">
+
+Đầu ra của model chúng ra nhận được $Pr(object)\cdot IOU_{pred}^{truth}$ cho mỗi bounding box, đối với mỗi grid cell chúng ta nhận được $Pr(class_i \mid object)$ (dùng chung cho tất cả bounding box). 
 
 Do đó kết quả nhận được cuối cùng cho một bounding box sẽ là:
 
@@ -35,7 +36,7 @@ Công thức trên cho ta giá trị vừa tính xác suất có mặt $class_i$
 ### Network architecture
 Kiến trúc của YOLOv1 dựa trên GoogleNet, thay vì dùng inception block nó sẽ sử dụng các Conv layers $1 \times 1$ và $3 \times 3$.
 
-<img src="https://miro.medium.com/max/2438/1*q5feieizWKYq7dpWjYvCOw.png">
+<img src="https://miro.medium.com/max/2438/1*q5feieizWKYq7dpWjYvCOw.png" style="display:block; margin-left:auto; margin-right:auto">
 
 **Model YOLOv1 bao gồm 24 Conv layers và 2 FC layers.** Phiên bản Fast YOLO (YOLO-tiny) chỉ sử dụng 9 Conv layers và ít filters hơn trong các layer đó.
 
@@ -72,7 +73,7 @@ $$ \mathcal{L}_\text{cls}={\sum_{i=0}^{S^2} \mathbb{1}_i^\text{obj}  \sum_{c \in
 
 $1^{obj}_{i}=1$ nếu cell thứ $i$ chứa object (chỉ tính classification class khi biết trong cell có chứa object). 
 
-$p_i(c)=Pr(class_i|object)$ (được tính chung cho cả grid cell)
+$p_i(c)=Pr(class_i \mid object)$ (được tính chung cho cả grid cell)
 
 Như vậy tổng loss sẽ là
 $$ \mathcal{L} = \mathcal{L}_\text{loc} + \mathcal{L}_\text{obj} +\mathcal{L}_\text{cls} $$
@@ -104,10 +105,10 @@ $$ Pr(class_i | object) \cdot Pr(object) \cdot IOU_{pred}^{truth} = Pr(class_i) 
 
 Tương ứng với mỗi bounding box chúng ta sẽ có 20 giá trị $Pr(class_i) \cdot IOU_{pred}^{truth}$ thể hiện score của từng class trong bounding box có tính tới khớp với ground truth box. Tổng cộng chúng ta có $98 x 20 = 1960 $ các giá trị như này cho 98 bounding boxes. Thực chất việc đưa về tensor $7 \times 7 \times 30 = 1470$ giúp chúng ta giảm số tham số trong mô hình.
 
-<img src="../images/yolov1.png">
+<img src="../images/yolov1.png" style="display:block; margin-left:auto; margin-right:auto">
 
 Chúng ta sẽ có tổng cộng 98 bounding boxes. Quá trình NMS có thể được tóm tắt như hình dưới đây
-<img src="../images/yolov1_1.png">
+<img src="../images/yolov1_1.png" style="display:block; margin-left:auto; margin-right:auto">
 
 Để đơn giản gọi là $Pr(class_i) \cdot IOU_{pred}^{truth}$ là **class confidence**
 * Đối với class **X** đầu tiên cho tất cả bounding boxes, nếu class confidence **X** của box nào nhỏ hơn **threshold** thì set class confidence của box đó = 0
@@ -118,7 +119,8 @@ Chúng ta sẽ có tổng cộng 98 bounding boxes. Quá trình NMS có thể đ
 * Lặp lại các bước trên lần lượt cho các class còn lại.
 
 Sau khi thực hiện xong các bước trên sẽ đến bước vẽ các bounding box. Đối với mỗi bounding sẽ chọn ra class có confidence lớn nhất. Giá trị của class confidence này phải lớn hơn 0. Khi đó bounding box là hợp lệ có chứa thông tin class, class confidence và các thông số hình học, từ đây là vẽ được rồi. 
-<img src="../images/yolov1_2.png">
+
+<img src="../images/yolov1_2.png" style="display:block; margin-left:auto; margin-right:auto"> 
 
 ### Kết luận
 Như vậy chúng ta đã cùng tìm hiểu các ý chính trong YOLOv1. YOLOv1 có nhược điểm là chỉ preidict được duy nhất một vật thể trong grid cell. Độ chính xác chưa được tốt như các state-of-the-art thời bấy giờ.
