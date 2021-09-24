@@ -354,9 +354,9 @@ img {
 
 .site-name {
   margin: 0;
-  color: $darkGray;
+  color: $cyan;   //$darkGray;  //màu cũ
   cursor: pointer;
-  font-family: $helveticaNeue; //$helveticaNeue;
+  font-family: $Roboto; //$helveticaNeue;
   font-weight: 500;
   font-size: 23px;
   // letter-spacing: 1px; // khoang cach cac tu
@@ -365,6 +365,7 @@ img {
 .site-description {
   margin: -5px 0 0 0;
   color: $gray;
+  font-family: $Roboto;   // thêm cho Computer vision
   font-size: 16px;
 
   @include mobile {
