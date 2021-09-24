@@ -18,10 +18,10 @@ $$ || \mathbf{x} || = \sqrt{\left< \mathbf{x}, \mathbf{x} \right>} $$
 
 Norm này thỏa mãn các tiên đề về norm, cụ thể như sau:
 - $ \Vert \mathbf{x} \Vert = \sqrt{\left< \mathbf{x}, \mathbf{x} \right>} \geq 0$. Dấu bằng xảy ra khi và chỉ khi $ \mathbf{x} = \mathbf{0} $
-- $ \alpha || \mathbf{x} || = \sqrt{ \left< \alpha \mathbf{x}, \alpha \mathbf{x} \right>} = \sqrt{ \alpha^2 \left< \mathbf{x}, \mathbf{x} \right>} = |\alpha| \cdot || \mathbf{x} || $
+- $ {\alpha} \Vert \mathbf{x} \Vert = \sqrt{ \left< \alpha \mathbf{x}, \alpha \mathbf{x} \right>} = \sqrt{ \alpha^2 \left< \mathbf{x}, \mathbf{x} \right>} = \left\| \alpha \right\|  \cdot \Vert \mathbf{x} \Vert $
 - Bất đẳng thức Cauchy - Bunyakovsky - Schwartz: 
 
-$$ \left| \left< \mathbf{x}, \mathbf{y} \right> \right| \leq || \mathbf{x} || \cdot || \mathbf{y} || $$
+$$ \left\| \left< \mathbf{x}, \mathbf{y} \right> \right\| \leq \Vert \mathbf{x} \Vert \cdot \Vert \mathbf{y} \Vert $$
 
 Một ví dụ của inner product là **dot product**. Cho $ \mathbf{x}, \mathbf{y} \in \mathbb{R}^n$. Dot product được kí hiệu là $  (\mathbf{x}, \mathbf{y})$ hay $ \mathbf{x} \cdot \mathbf{y} $:
 

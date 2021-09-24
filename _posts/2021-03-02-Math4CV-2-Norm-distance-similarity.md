@@ -14,7 +14,7 @@ Cho vector $\mathbf{x}\in \mathbb{R}^{n}$. Làm sao để xác định vector $\
 **Các tiên đề về norm:**
 
 - Norm không âm: $\left\|\mathbf{x} \right\| \geq 0$, $\left\|\mathbf{x} \right\| = 0$ khi và chỉ khi $\mathbf{x} = \mathbf{0}$
-- $\Vert  {\alpha} \mathbf{x} \Vert  = \left\| {\alpha} \right\| \cdot \Vert  \mathbf{x} \Vert $, với $\alpha \in \mathbb{R}$
+- $\Vert  \alpha \mathbf{x} \Vert  = \left\| {\alpha} \right\| \cdot \Vert  \mathbf{x} \Vert $, với $\alpha \in \mathbb{R}$
 - Bất đẳng thức tam giác: $\left\| \mathbf{x} + \mathbf{y} \right\| \leq \left\|\mathbf{x} \right\| + \left\|\mathbf{y} \right\|$
 
 Ở đây chỉ đưa ra các tiên đề về norm chứ không có định nghĩa cụ thể do chúng ta có nhiều không gian và có nhiều loại norm.
@@ -31,14 +31,14 @@ $$ \Vert \mathbf{x} \Vert_{2} = \left (\sum_{i=1}^{n} \left\| x_i \right\|^2  \r
 
 **Minkowski norm**: cho vector $\mathbf{x}\in \mathbb{R}^{n}$
 
-$$ \Vert \mathbf{x} \Vert _p = \left (\sum_{i=1}^{n} \left\| x_i \right\|^p  \right )^\frac{1}{p}, p \geq 1 $$, 
+$$ \Vert \mathbf{x} \Vert_p = \left (\sum_{i=1}^{n} \left\| x_i \right\|^p  \right )^\frac{1}{p}, p \geq 1 $$, 
 
 **Chebyshev norm**: cho vector $\mathbf{x}\in \mathbb{R}^{n}$
-$$ \left\|\mathbf{x} \right\|_{\infty}=\underset{1\leq i\leq n}{max}\left|x_{i} \right| $$
+$$ \left\| \mathbf{x} \right\|_{\infty}=\underset{1\leq i\leq n}{max} \left\|x_{i} \right\| $$
 
 **Negative infinity norm:** cho vector $\mathbf{x}\in \mathbb{R}^{n}$
 
-$$ \left\|\mathbf{x} \right\|_{-\infty}=\underset{1\leq i\leq n}{min}\left|x_{i} \right| $$
+$$ \left\|\mathbf{x} \right\|_{-\infty}=\underset{1\leq i\leq n}{min}\left\| x_{i} \right\| $$
 
 **Norm trong không gian của các hàm liên tục**
 
