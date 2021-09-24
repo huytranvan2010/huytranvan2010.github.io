@@ -29,7 +29,7 @@ a_{2j} \\
 ... \\
 a_{mj} \end{bmatrix}, j=1, 2, ..., n  $$
 
-Frobenius norm: $ \Vert \textbf{A} \Vert_F^{2} = \Vert a_{* 1} \Vert_2^{2} + \Vert a_{*2} \Vert_2^{2} + ... + \Vert a_{*n} \Vert_2^{2} $
+Frobenius norm: $ \Vert \textbf{A} \Vert_F^{2} = \Vert a_{* 1} \Vert_2^{2} + \Vert a_{ * 2} \Vert_2^{2} + ... + \Vert a_{ * n} \Vert_2^{2} $
 
 
 Ma trận  $A \in \mathbb{R}^{m \times n} $ có ma trận chuyển vị là ma trận  $A^{T} \in \mathbb{R}^{n \times m} $. Ma trận ban đầu viết dưới dạng vector cột của các hàng, khi chuyển vị hàng sẽ biến thành cột, do đó ma trận chuyển vị có các cột là chuyển vị của các hàng.
