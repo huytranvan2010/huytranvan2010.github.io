@@ -67,6 +67,7 @@ Các bước hoạt động chính của Fast R-CNN
 *VGG16 architecture*
 
 **4.** Thêm một nhánh để tinh chỉnh bounding box (làm tương tự R-CNN)
+
 <img src="https://github.com/huytranvan2010/R-CNN-Fast-R-CNN-Faster-R-CNN-YOLO-Object-Detection-Algorithms/raw/main/images/FastRCNNpipeline.jpeg" style="display:block; margin-left:auto; margin-right:auto">
 
 ## Loss function
