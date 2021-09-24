@@ -16,14 +16,14 @@ Quá trình nhận diện khuôn mặt bao gồm 2 bước:
 * Face detection: sử dụng các phương pháp như **Harr cascades**, **HOG + Linear SVM**, deep learning (MTCNN...)
 * Lấy khuôn mặt phát hiện được rồi xác định ai trong đó: ví dụ sử dụng **model FaceNet dựa trên Siamese Network, Local Bianry Patterns (LBPs), Eigenfaces...**
 
-<img src="https://www.pyimagesearch.com/wp-content/uploads/2021/03/what_is_face_reco_steps.png">
+<img src="https://www.pyimagesearch.com/wp-content/uploads/2021/03/what_is_face_reco_steps.png" style="display:block; margin-left:auto; margin-right:auto">
 
 Thực chất có thể gộp 2 bước làm một tuy nhiên làm như vậy ảnh sẽ có nhiều nhiễu (background) ảnh hưởng đến độ chính xác.
 
 Chúng ta sẽ tìm hiểu qua một số thuật toán nhận diện khuôn mặt.
 
 ### Eigenfaces
-<img src="https://www.pyimagesearch.com/wp-content/uploads/2021/03/what_is_face_reco_eigenfaces_combo.png">
+<img src="https://www.pyimagesearch.com/wp-content/uploads/2021/03/what_is_face_reco_eigenfaces_combo.png" style="display:block; margin-left:auto; margin-right:auto">
 
 Thuật toán Eigenfaces sử dụng PCA (principal component analysis) để xây dựng low-dimensional representation của ảnh khuôn mặt.
 
@@ -37,11 +37,11 @@ Có được những eigenvectors, khuôn mặt có thể được biểu diễn
 
 Eigenfaces algorithm dựa trên PCA để xây dựng low-dimensional representation của ảnh khuôn mặt, Local Binary Patterns (LBPs) lại dựa trên feature extraction.
 
-<img src="https://www.pyimagesearch.com/wp-content/uploads/2021/03/what_is_face_reco_lbps_samples.png">
+<img src="https://www.pyimagesearch.com/wp-content/uploads/2021/03/what_is_face_reco_lbps_samples.png" style="display:block; margin-left:auto; margin-right:auto">
 
 LBPs sẽ chia ảnh ta thành $7 \times 7$ grid cells. Bằng việc chia ảnh thành cách grid cells chúng ta có thể đưa **locality** (tính cục bộ) vào trong final feature vector. Một số cells sẽ có trọng số lớn hơn đóng góp vào final feature (ví dụ các vùng góc mang ít thông tin nhận diện khuôn mặt hơn sơ với các vùng bên trong như mắt, mũi, miệng). Xem hình bên dưới để thấy rõ hơn.
 
-<img src="https://www.pyimagesearch.com/wp-content/uploads/2021/03/what_is_face_reco_lbps_cells.png">
+<img src="https://www.pyimagesearch.com/wp-content/uploads/2021/03/what_is_face_reco_lbps_cells.png" style="display:block; margin-left:auto; margin-right:auto">
 
 Cuối cùng chúng ta nối các LBP histograms có trọng số từ 49 cells để hình thành nên final feature vector.
 
@@ -50,7 +50,7 @@ Quá trình nhận dạng khuôn mặt được thực hiện bởi kNN sử d�
 So với Eigenfaces thì LBPs chống nhiễu và cho kết quả tốt hơn do nó không dựa trên các raw pixels.
 
 ### Deep learning-based face recogtion
-<img src="https://miro.medium.com/max/651/1*hWBNCVbG-ngJ2aAiqg4Nzw.png">
+<img src="https://miro.medium.com/max/651/1*hWBNCVbG-ngJ2aAiqg4Nzw.png" style="display:block; margin-left:auto; margin-right:auto">
 
 Model ở đây dựa trên Siamese network, triplet loss. Trong các bài sau mình sẽ nói rõ hơn về nhận diện khuôn mặt với Deep learning.
 
