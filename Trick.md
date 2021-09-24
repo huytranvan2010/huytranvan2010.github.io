@@ -1,6 +1,7 @@
 - Dấu ||: `\left\| \right\|` hoặc `\lvert \rvert`
 - Dấu || ||: `\Vert \Vert`
-- Cẩn thận hai dấu `_` thành viết in nghiêng trong Mathjax, có thể dùng `\_`
-- Có để đóng ngoặc nhọn các kí tự như `{\alpha}` hoặc viết cách các kí tự khác ra như `_ aaa _`
+- Cẩn thận hai dấu `_` thành viết in nghiêng trong Mathjax, có thể dùng `\_` (do HTML, markdown) hoặc viết cách các kí tự khác ra như `_ aaa _`
+- 2 dấu `*` cũng tương tự nên để cách các kí tự khác
+- Có để đóng ngoặc nhọn các kí tự như `{\alpha}`
 - 
 - 
