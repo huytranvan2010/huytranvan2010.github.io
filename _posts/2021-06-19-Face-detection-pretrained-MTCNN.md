@@ -65,6 +65,7 @@ def draw_faces(face):
 ## Tài liệu tham khảo
 1. https://github.com/ipazc/mtcnn
 2. https://machinelearningmastery.com/how-to-perform-face-detection-with-classical-and-deep-learning-methods-in-python-with-keras/
+3. https://github.com/huytranvan2010/Face-detection-MTCNN
 
 
 
