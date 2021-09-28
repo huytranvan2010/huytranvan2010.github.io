@@ -62,6 +62,8 @@ def draw_faces(face):
     cv2.imshow("face", data)
     cv2.waitKey(0)
 ```
+Đối với nhận diện khuôn mặt cũng làm tương tự, chúng ta cần lấy các frame và detect khuôn mặt trên đó thôi. Các bạn tham khảo thêm source code [tại đây](https://github.com/huytranvan2010/Face-detection-MTCNN).
+
 ## Tài liệu tham khảo
 1. https://github.com/ipazc/mtcnn
 2. https://machinelearningmastery.com/how-to-perform-face-detection-with-classical-and-deep-learning-methods-in-python-with-keras/

@@ -16,7 +16,7 @@ Hình trên thể hiện kiến trúc của mạng MTCNN. Chúng ta cùng đi v�
 
 <img src="../images/NN_MTCNN/1.png" style="display:block; margin-left:auto; margin-right:auto">
 
-Đối với mỗi ảnh trong **image pyramid** chúng ta cho kernel có kích thước `12x12` trượt qua với `stride = 2` (khuôn mặt thường lớn hơn 2 pixels nên hiếm khi bỏ sót). Kernel này chỉ đấy lấy một phần của ảnh thôi chứ không có thực hiện operation gì ở đây . Kernel bắt đầu từ góc trên bên trái phần của ảnh có tọa độ 2 góc là (0, 0) và (12, 12). Sau khi dịch phải hoặc xuống dưới sẽ có 2 tọa độ là (0+2a, 0+2b), (12+2a, 12+2b). Mỗi phần của bức ảnh được đưa qua mạng **P-Net**, đầu ra của mạng là tọa độ bounding box nếu phát hiện ra có khuôn mặt. 
+Đối với mỗi ảnh trong **image pyramid** chúng ta cho kernel có kích thước `12x12` trượt qua với `stride = 2` (khuôn mặt thường lớn hơn 2 pixels nên hiếm khi bỏ sót). Kernel này chỉ lấy một phần của ảnh thôi chứ không thực hiện o bất kỳ operation nào ở đây. Kernel bắt đầu từ góc trên bên trái phần của ảnh có tọa độ 2 góc là (0, 0) và (12, 12). Sau khi dịch phải hoặc xuống dưới sẽ có 2 tọa độ là (0+2a, 0+2b), (12+2a, 12+2b). Mỗi phần của bức ảnh được đưa qua mạng **P-Net**, đầu ra của mạng là tọa độ bounding box nếu phát hiện ra có khuôn mặt. 
 Ví dụ đầu ra mạng P-Net
 
 <img src="../images/NN_MTCNN/2.png" style="display:block; margin-left:auto; margin-right:auto">
@@ -62,14 +62,13 @@ Một lần nữa cũng phải loại bỏ các boxes có confidence thấp, c�
 Ở bước cuối cùng chúng ta sẽ đóng gói để nhận được dictionary với các **keys** là: `box, confidence, keypoints`. `Box` chứa tọa độ của bounding boxes, `confidence` chứa confidence level của mỗi box, `keypoint` chứa các tọa độ của facial landmarks (eye, nose, endpoints of the mounth).
 
 ## Một số lưu ý
-MTCNN đáp áp dụng nhiều kỹ thuật để có hiệu quả cao mà vẫn đảm bảo được tốc độ tính toán. Dùng `stride=2` đá giúp giảm số lượng tính toán chỉ còn gần 1/4 so với ban đầu. Mô hình cũng không xác định ngay các facical landmarks cho tới bước cuối cùng ở **O-Net** giúp mô hình nhanh hơn.
+MTCNN đáp áp dụng nhiều kỹ thuật để có hiệu quả cao mà vẫn đảm bảo được tốc độ tính toán. Dùng `stride=2` giúp giảm số lượng tính toán chỉ còn gần 1/4 so với ban đầu. Mô hình cũng không xác định ngay các facical landmarks cho tới bước cuối cùng ở **O-Net** giúp mô hình nhanh hơn.
 
 Độ chính xác cao nhờ sử dụng một số mạng NN, mạng NN sau có thể tinh chỉnh kết quả của mạng NN trước đó. Model này cũng áp dụng **image pyramid** để có thể phát hiện được khuôn mặt với nhiều kích thước khác nhau.
 
 Mô hình có hiệu quả cao này có thể dùng để phát hiện các đối tượng khác. Hãy thử xem sao?
 
-Xem thêm thông tin **implementation** tại đây https://github.com/ipazc/mtcnn 
-Link trên có hướng dẫn cách chạy, xem thêm dành cho video https://towardsdatascience.com/mtcnn-face-detection-cdcb20448ce0 
+Xem thêm thông tin **implementation** các mạng [tại đây](https://github.com/ipazc/mtcnn).
 
 ## Tài liệu tham khảo
 1. https://towardsdatascience.com/how-does-a-face-detection-program-work-using-neural-networks-17896df8e6ff
