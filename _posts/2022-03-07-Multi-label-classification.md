@@ -210,11 +210,7 @@ Công thức chung của accuracy
 
 $$A = \frac{TP + TN}{\text{no of examples}}$$
 
-Tuy nhiên trong bài toán multi-label classification đôi khi chỉ quan tâm tới các example có true label hoặc predicted labels bằng 1, do đó công thức cho accuracy sẽ hơi khác chút.
-
-$$A = \frac{TP}{TP + FP + FN}$$
-
-$$ \text{Accuracy\_macro} = \frac{\sum_{j=1}^{k}A_{macro}^j}{k}$$
+$$ \text{Accuracy macro} = \frac{\sum_{j=1}^{k}A_{macro}^j}{k}$$
 
 trong đó $k$ - số classes.
 Đơn giản có thể lấy riêng dự đoán của từng class (tương ứng một cột trong ma trận true labels hay prediction) rồi xác định accuracy cho class đó. 
@@ -224,7 +220,7 @@ Nhớ lại công thức của precision:
 
 $$Precison = \frac{TP}{TP + FP}$$
 
-$$ \text{Precision\_macro} = \frac{\sum_{j=1}^{k}P_{macro}^j}{k}$$
+$$ \text{Precision macro} = \frac{\sum_{j=1}^{k}P_{macro}^j}{k}$$
 
 trong đó $k$ - số classes.
 
@@ -246,7 +242,7 @@ Nhớ lại công thức của Recall:
 
 $$Recall = \frac{TP}{TP + FN}$$
 
-$$ \text{Recall\_macro} = \frac{\sum_{j=1}^{k}R_{macro}^j}{k}$$
+$$ \text{Recall macro} = \frac{\sum_{j=1}^{k}R_{macro}^j}{k}$$
 
 Tương tự như trên, có thể lấy riêng dự đoán của từng class (tương ứng một cột trong ma trận true labels hay prediction) rồi xác định Recall cho class đó.
 
@@ -284,7 +280,7 @@ for i in range (len(label_names)):
 
 **Micro-average accuracy**
 
-Công thức tổng quát chung
+Công thức tổng quát:
 
 $$
 \text{micro-average accuracy} = \frac{\sum_{c=1}^C\text{TP}c}{\sum_{c=1}^C(\text{TP}c + \text{FP}c)}
@@ -295,12 +291,14 @@ Nhìn lên công thức tính accracy cho từng class ở phần macro-average 
 **Micro-average precision**
 
 Công thức tổng quát:
+
 $$
 \text{micro-average precision} = \frac{\sum_{c=1}^C\text{TP}c}{\sum_{c=1}^C(\text{TP}c + \text{FP}c)}
 $$
 
 **Micro-average recall**
 Công thức tổng quát:
+
 $$
 \text{micro-average recall} = \frac{\sum_{c=1}^C\text{TP}c}{\sum_{c=1}^C(\text{TP}c + \text{FN}c)}
 $$
@@ -368,7 +366,7 @@ hist = model.fit(X_train, y_train, validation_data=(X_test, y_test), verbose=1, 
 
 # 4. Kết luận
 
-Như vậy chúng ta đã tìm hiểu một số khía cạnh của bài toán multi-label classification. Các nội dung chính đã đà cập là:
+Như vậy chúng ta đã tìm hiểu một số khía cạnh của bài toán multi-label classification. Các nội dung chính đã đề cập là:
 - Multi-label classification
 - Các phương pháp giải quyết
 - Các metrics đánh giá model
