@@ -6,14 +6,19 @@ comments: true
 ---
 
 ## Giới thiệu
-Năm 2014 [Ross Girshick và các cộng sự](https://arxiv.org/pdf/1311.2524.pdf) đã đề xuất phương pháp mới cho object detection - R-CNN. Sau nay nó đã trở thành nền tảng cho các phương pháp như Fast R-CNN, Faster R-CNN và Mask RCNN. Gần đây **FAIR** (Facebook AI Research) đã phát triển *fully functional framework* gọi là **Detectron2** được xây dựng dựa trên các model state-of-the-art Faster R-CNN và Mask R-CNN.
+Năm 2014 [Ross Girshick và các cộng sự](https://arxiv.org/pdf/1311.2524.pdf) đã đề xuất phương pháp mới cho object detection - R-CNN. Sau nay nó đã trở thành nền tảng cho các phương pháp như Fast R-CNN, Faster R-CNN và Mask R-CNN. Gần đây **FAIR** (Facebook AI Research) đã phát triển *fully functional framework* gọi là **Detectron2** được xây dựng dựa trên các model state-of-the-art Faster R-CNN và Mask R-CNN.
 
 ### Object detection
 <img src="https://miro.medium.com/max/941/1*spGG34X1S9MlW512UQ86jA.png" style="display:block; margin-left:auto; margin-right:auto">
 
-Nhớ lại một chút về các bài toán: classification đi xác định trong ảnh có vật thể gì, localization đi xác định vị trí của vật thể đó trong ảnh (ở đây ám chỉ có 1 vật thể). Tuy nhiên đối với object detection trong ảnh có thể có nhiều vật thể, chúng ta vừa phải xác định các vật thể đó là gì và vị trí của chúng ở đâu. Object detection bao hàm cả classification và localization. 
+Nhớ lại một chút về các bài toán: 
+- Classification là đi xác định trong ảnh có vật thể gì
+- Localization là đi xác định vị trí của vật thể đó trong ảnh (ở đây ám chỉ có 1 vật thể). 
 
-Trước R-CNN để giải quyết các bài toán object detection thời bấy giờ có các phương pháp như Sliding window + Image Pyramid hay họ Deformable Part Model...
+Tuy nhiên đối với bài toán object detection trong ảnh có thể có nhiều vật thể, chúng ta vừa phải xác định các vật thể đó là gì và vị trí của chúng ở đâu. Object detection bao hàm cả classification và localization. 
+
+Trước khi R-CNN xuất hiện, để giải quyết các bài toán object detection thời bấy giờ có các phương pháp như Sliding window + Image Pyramid hay họ Deformable Part Model...
+
 <img src="https://miro.medium.com/max/1400/1*zbBVqsIM9eYiQpG5LZ5Opw.gif" style="display:block; margin-left:auto; margin-right:auto">
 
 *Kỹ thuật Sliding window*
@@ -22,12 +27,12 @@ Do các objects trong ảnh có nhiều kích thước khác nhau, do đó muố
 - Giữ nguyên kích thước window, thay đổi kích thước ảnh
 - Giữ nguyên kích thước ảnh, thay đổi kích thước window
 
-Dưới đây thể hiện việc thay đổi kích thước ảnh (chúng ta có Image Pyramid) và giữ nguyên kích thước window. Khi đó vật thể lớn sẽ được phát hiện trong ảnh có kích thước nhỏ, vật thể nhỏ sẽ được phát hiện trong ảnh có kích thước lớn.
+Dưới đây thể hiện việc thay đổi kích thước ảnh (chúng ta có Image Pyramid) và giữ nguyên kích thước window. Khi đó vật thể lớn sẽ được phát hiện trong ảnh có kích thước nhỏ (vì lúc này kích thước ảnh thu lại), vật thể nhỏ sẽ được phát hiện trong ảnh có kích thước lớn.
 <img src="https://miro.medium.com/max/1400/1*IehhuG5NMWayHcDbV43X3w.png" style="display:block; margin-left:auto; margin-right:auto">
 
 *Thay đổi scale của image để phát hiện các vật thể*
 
-Tuy nhiên phương pháp Sliding Window + Image Pyramid có thể tạo ra một số lượng window cực kỳ lớn. Thời gian training và inference chậm.
+Tuy nhiên phương pháp Sliding Window + Image Pyramid có thể tạo ra một số lượng windows cực kỳ lớn khiến gian training và inference chậm.
 
 Để giải quyết vấn đề đó thì **Region proposal algorithms** đã ra đời. Có một số phương pháp để tạo ra các region proposals như Selective Search, Colour Contrast, Edge Boxes, Super Pixel Straddling... Trong số chúng thì Selective Search và Edge Boxes hiệu quả hơn. Selective Search còn được gọi là **Class-agnostic detector.**
 
@@ -48,7 +53,7 @@ Cái tên R-CNN bắt nguồn từ các kỹ thuật được sử dụng trong 
 - Region proposals
 - CNN
 
-Trong bài báo gốc tác giả sử dụng mô hình CNN AlexNet (chiến thắng trong cuộc thi năm 2012 phân loại trên bộ dữ liệu ImageNet). Tác giả cũng so sánh performance khi dùng các backbone khác nhau. Đến thời điểm hiện tại nếu dùng các pre-trained mới hơn như ResNet chẳng hạn performance có thể được nâng lên.
+Trong bài báo gốc tác giả sử dụng mô hình CNN AlexNet (chiến thắng trong cuộc thi năm 2012 phân loại trên bộ dữ liệu ImageNet). Tác giả cũng so sánh performance khi dùng các backbone khác nhau. Đến thời điểm hiện tại nếu dùng các pre-trained mới hơn như ResNet chẳng hạn, performance có thể được nâng lên.
 
 Dưới đây là mô hình AlexNet.
 
@@ -59,31 +64,35 @@ Chúng ta cùng xem các bước chung của mô hình R-CNN
 <img src="https://lilianweng.github.io/lil-log/assets/images/RCNN.png" style="display:block; margin-left:auto; margin-right:auto">
 
 Ở đây chúng ta đi tìm hiểu các bước hoạt động chính của R-CNN trong quá trình **training**, khi inference thì đơn giản hơn nhiều (ở đây mình tập trung vào quá trình training):
-**1.** Pre-train CNN model trên ImageNet
+**1.** Pre-train CNN model trên ImageNet hoặc có thể chọn pre-trained model có sẵn
 
 **2.** Dùng Selective search để tạo ra khoảng 2000 region proposals. Các vùng này có kích thước khác nhau, có thể chứa object hoặc không.
 
 **3.** Các region proposals được resize lại về cùng kích thước cho phù hợp với mạng CNN (pre-trained CNN như AlexNet). Cuối cùng nhận được **warped region**.
 
 **4.** Fine-tuning pre-trained CNN model dựa trên các **warped regions** cho $K+1$ classes. $K$ ở đây chính là số classes trong bộ object detection dataset. Cần cộng thêm 1 để tính đến background. 
-Việc Fine tuning này giúp cải thiện performance so với việc dùng trực tiếp pre-trained model. Trong quá trình Fine tuning dùng SGD với learning rate nhỏ 0.001. Mỗi mini-batch lấy 32 positive examples và 96 negative examples (vì chủ yếu là background)
+Việc Fine tuning này giúp cải thiện performance so với việc dùng trực tiếp pre-trained model. Trong quá trình Fine tuning dùng SGD với learning rate nhỏ 0.001. Mỗi mini-batch lấy 32 positive examples và 96 negative examples (vì chủ yếu là background). VIệc fine-tuning này chính là đi phân loại các positive và negative examples thuộc về $K+1$ classes.
+
 <img src="https://miro.medium.com/max/941/1*eHAnGauSpqAmaTBKlLxKWg.png" style="display:block; margin-left:auto; margin-right:auto">
+
 Do các region proposals được chuyển về warped image để tương thích với đầu vào của backbone nên ảnh có bị biến dạng. Việc sử dụng luôn pre-trained CNN model trên **warped imgaes** cho kết quả không tốt nên đã thực hiện Fine tuning.
 
 **5.** Train linear SVM cho mỗi class. Region proposals được đi qua CNN bên trên và trích xuất ra feature vector. Lưu tất cả feature vector cho từng class. Sau đó sẽ train **binary SVM classifier** cho từng class độc lập với nhau. 
 <img src="https://miro.medium.com/max/941/1*0EX24p7MtsRrWnoueztrtQ.png" style="display:block; margin-left:auto; margin-right:auto">
 Việc lấy positive và negative example cho từng class cho **SVM** như sau: positive chỉ là các ground-truth boxes của class đó, negative là các region proposals có IoU < 0.3 so với các instances của class đó. Những proposals có IoU > 0.3 so với các ground-truth của từng class bị bỏ qua.
 
+Rõ ràng việc training này không thuojc kiểu end-to-end mà có sự gián đoạn từ model này sang model kia. Đây cũng chính là nhược điểm của R-CNN.
+
 **6.** Để tăng độ chính xác cho bounding box một mô hình regession đã đào tạo được sử dụng để xác định 4 offset values. Ví dụ như khi region proposal chứa người nhưng chỉ có phần thân và nửa mặt người, nửa mặt người còn lại không có trong region proposal đó. Khi đó offset values có thể giúp mở rộng region proposal để lấy được toàn bộ người. 
 <img src="https://miro.medium.com/max/941/1*NmYBHf1PtxcoSdLX9oOuMA.png" style="display:block; margin-left:auto; margin-right:auto">
 
 Trong R-CNN còn phân tích sự ảnh hưởng của việc dùng lớp **FC 6** hay **FC 7** lên performance của model với fine tuning và không có fine tuning. Phần này khá dài nên mình không viết ra ở đây.
 ## Bounding Box Regression 
-Đầu vào cho regressor là cặp $(\textbf{p}_i, \textbf{g}_i)$ - $\textbf{p}_i$ có 4 giá trị tương ứng $p_x, p_y, p_w, p_h$ của region proposal (tọa độ tâm, width và height), $\textbf{g}_i$ cũng tương tự như vậy có $g_x, g_y, g_w, g_h$ nhưng cho ground-truth bounding boxes. (Cái này thực hiện sau SVM để biết thuộc class nào).
+Đầu vào cho regressor là cặp $(\textbf{p}_i, \textbf{g}_i)$ - $\textbf{p}_i$ có 4 giá trị tương ứng $p_x, p_y, p_w, p_h$ của region proposal (các tọa độ của tâm, width và height), $\textbf{g}_i$ cũng tương tự như vậy có $g_x, g_y, g_w, g_h$ cho ground-truth bounding boxes. (Cái này thực hiện sau SVM để biết thuộc class nào).
 
 Regressor sẽ học scale-invariant transformation giữa 2 tâm và log-scale transformation giữa các width và height.
 
-Chúng ta có thể tinh chỉnh vị trí của bounding box dựa trên các công thức sau. Nên nhớ $p_x, p_y, p_w, p_h$ là những giá trị đã biết dựa trên vị trí của region proposal. $d_x(\mathbf{p}), d_y(\mathbf{p}), d_w(\mathbf{p}), d_y(\mathbf{p})$ là những giá trị dự đoán được từ regression model.
+Chúng ta có thể tinh chỉnh vị trí của bounding box dựa trên các công thức sau. Nên nhớ $p_x, p_y, p_w, p_h$ là những giá trị đã biết dựa trên vị trí của region proposal. $d_x(\mathbf{p}), d_y(\mathbf{p}), d_w(\mathbf{p}), d_y(\mathbf{p})$ là những giá trị dự đoán được từ regression model. Và đối với dự đoán như này thì tọa độ tâm, width, height của vùng dự đoán có chứa vật thể là:
 
 $$\begin{aligned}
 \hat{g}_x &= p_w d_x(\mathbf{p}) + p_x \\
@@ -96,7 +105,7 @@ $$\begin{aligned}
 
 *Chuyển đổi giữa ground-truth box và bounding box từ region proposal*
 
-Lợi ích của việc chuyển đổi này thay vì dùng giá trị tuyệt đối luôn vì $d_i(\mathbf{p})$ với $i \in \{ x, y, w, h \}$ có thể nhận bất kỳ giá trị nào trong khoảng (-∞, +∞). 
+Lợi ích của việc chuyển đổi này thay vì dùng giá trị tuyệt đối luôn vì $d_i(\mathbf{p})$ với $i \in \{ x, y, w, h \}$ có thể nhận bất kỳ giá trị nào trong khoảng $(-\infty, +\infty)$ chúng ta cần thực hiện một số điều chỉnh để chặn giá trị trong khoảng cho phép.
 
 Dưới đây chính là label ban đầu chúng ta có:
 
@@ -107,7 +116,7 @@ t_w &= \log(g_w/p_w) \\
 t_h &= \log(g_h/p_h)
 \end{aligned}$$
 
-Nhìn công thức này chắc phần nào mọi người đã hiểu hơn. Bây giờ chúng ta có ground-truth box và box of the region proposal. Do đó chúng ta có thể xác định được các giá trị $t_x, t_y, t_w, t_h$. Nhiệm vụ của chúng ta đi xây dựng regression model cho 4 đại lượng này với đầu vào là feature vector của region proposal.
+Nhìn công thức này chắc phần nào mọi người đã hiểu hơn. Bây giờ chúng ta có ground-truth box và box of the region proposal. Do đó chúng ta có thể xác định được các giá trị $t_x, t_y, t_w, t_h$. Nhiệm vụ của chúng ta đi xây dựng regression model cho 4 đại lượng này với đầu vào là feature vector của region proposal. Nếu $d_x, d_y, d_w, d_h$ dự đoán của region proposal khớp với $t_x, t_y, t_w, t_h$ của true proposal ban đầu có nghĩa là dự đoán trùng khớp nhau.
 
 Xây dựng loss cho các bài toán regression này:
 
