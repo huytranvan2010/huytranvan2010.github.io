@@ -80,8 +80,8 @@ Các bước hoạt động chính của Fast R-CNN
 Fast R-CNN sử dụng multi-task loss. Dưới đây là một số kí hiệu:
 - $u$ - true label class, $u \in 0, 1, \dots, K$. $u=0$ tương ứng với background
 - $p$ - xác suất tương ứng với các class cho từng RoI, $p = (p_0, \dots, p_K)$, các giá trị này được lấy từ softmax layer.
-- $v$ - true bounding box target, $v = (v_x, v_y, v_w, v_h)$
-- $t^u$ - predicted bounding box correction, $t^u = (t^u_x, t^u_y, t^u_w, t^u_h)$. Cái này cũng tương tự như mô hình R-CNN.
+- $v$ - true bounding box target, $v = (v_x, v_y, v_w, v_h)$. Các giá trị này chính là offsets của ground-truth bounding box so với RoI.
+- $t^u$ - predicted bounding box correction, $t^u = (t^u_x, t^u_y, t^u_w, t^u_h)$. Cái này cũng tương tự như mô hình [R-CNN](https://huytranvan2010.github.io/R-CNN-Understanding/). Các giá trị này chính là offsets của predicted bounbing box so với RoI. Nếu các giá trị này trùng với các giá trị ở trên thì predicted bounding box sẽ trùng với ground truth bounding box.
 
 Mỗi training RoI được gán nhãn với true label class $u$ và true bounding box target $v$. Đối với background nó không có ground-truth bounding box do đó loss của background bằng 0. Chúng ta đưa vào kí hiệu sau:
 
