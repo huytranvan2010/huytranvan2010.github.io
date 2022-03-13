@@ -64,29 +64,33 @@ Chúng ta cùng xem các bước chung của mô hình R-CNN
 <img src="https://lilianweng.github.io/lil-log/assets/images/RCNN.png" style="display:block; margin-left:auto; margin-right:auto">
 
 Ở đây chúng ta đi tìm hiểu các bước hoạt động chính của R-CNN trong quá trình **training**, khi inference thì đơn giản hơn nhiều (ở đây mình tập trung vào quá trình training):
-**1.** Pre-train CNN model trên ImageNet hoặc có thể chọn pre-trained model có sẵn
+**1.** Pre-train CNN model trên ImageNet hoặc có thể chọn pre-trained model có sẵn như VGG, ResNet...
 
-**2.** Dùng Selective search để tạo ra khoảng 2000 region proposals. Các vùng này có kích thước khác nhau, có thể chứa object hoặc không.
+**2.** Dùng Selective search để tạo ra khoảng 2000 region proposals cho mỗi ảnh. Các vùng này có kích thước khác nhau, có thể chứa object hoặc không.
 
 **3.** Các region proposals được resize lại về cùng kích thước cho phù hợp với mạng CNN (pre-trained CNN như AlexNet). Cuối cùng nhận được **warped region**.
 
 **4.** Fine-tuning pre-trained CNN model dựa trên các **warped regions** cho $K+1$ classes. $K$ ở đây chính là số classes trong bộ object detection dataset. Cần cộng thêm 1 để tính đến background. 
-Việc Fine tuning này giúp cải thiện performance so với việc dùng trực tiếp pre-trained model. Trong quá trình Fine tuning dùng SGD với learning rate nhỏ 0.001. Mỗi mini-batch lấy 32 positive examples và 96 negative examples (vì chủ yếu là background). VIệc fine-tuning này chính là đi phân loại các positive và negative examples thuộc về $K+1$ classes.
+
+Việc Fine tuning này giúp cải thiện performance so với việc dùng trực tiếp pre-trained model. Trong quá trình Fine tuning dùng SGD với learning rate nhỏ 0.001. Mỗi mini-batch lấy 32 positive examples và 96 negative examples (vì chủ yếu là background). Việc fine-tuning này chính là đi phân loại các positive và negative examples thuộc về $K+1$ classes.
 
 <img src="https://miro.medium.com/max/941/1*eHAnGauSpqAmaTBKlLxKWg.png" style="display:block; margin-left:auto; margin-right:auto">
 
 Do các region proposals được chuyển về warped image để tương thích với đầu vào của backbone nên ảnh có bị biến dạng. Việc sử dụng luôn pre-trained CNN model trên **warped imgaes** cho kết quả không tốt nên đã thực hiện Fine tuning.
 
 **5.** Train linear SVM cho mỗi class. Region proposals được đi qua CNN bên trên và trích xuất ra feature vector. Lưu tất cả feature vector cho từng class. Sau đó sẽ train **binary SVM classifier** cho từng class độc lập với nhau. 
+
 <img src="https://miro.medium.com/max/941/1*0EX24p7MtsRrWnoueztrtQ.png" style="display:block; margin-left:auto; margin-right:auto">
+
 Việc lấy positive và negative example cho từng class cho **SVM** như sau: positive chỉ là các ground-truth boxes của class đó, negative là các region proposals có IoU < 0.3 so với các instances của class đó. Những proposals có IoU > 0.3 so với các ground-truth của từng class bị bỏ qua.
 
-Rõ ràng việc training này không thuojc kiểu end-to-end mà có sự gián đoạn từ model này sang model kia. Đây cũng chính là nhược điểm của R-CNN.
+Rõ ràng việc training này không thuộc kiểu end-to-end mà có sự gián đoạn từ model này sang model kia. Đây cũng chính là nhược điểm của R-CNN.
 
 **6.** Để tăng độ chính xác cho bounding box một mô hình regession đã đào tạo được sử dụng để xác định 4 offset values. Ví dụ như khi region proposal chứa người nhưng chỉ có phần thân và nửa mặt người, nửa mặt người còn lại không có trong region proposal đó. Khi đó offset values có thể giúp mở rộng region proposal để lấy được toàn bộ người. 
 <img src="https://miro.medium.com/max/941/1*NmYBHf1PtxcoSdLX9oOuMA.png" style="display:block; margin-left:auto; margin-right:auto">
 
 Trong R-CNN còn phân tích sự ảnh hưởng của việc dùng lớp **FC 6** hay **FC 7** lên performance của model với fine tuning và không có fine tuning. Phần này khá dài nên mình không viết ra ở đây.
+
 ## Bounding Box Regression 
 Đầu vào cho regressor là cặp $(\textbf{p}_i, \textbf{g}_i)$ - $\textbf{p}_i$ có 4 giá trị tương ứng $p_x, p_y, p_w, p_h$ của region proposal (các tọa độ của tâm, width và height), $\textbf{g}_i$ cũng tương tự như vậy có $g_x, g_y, g_w, g_h$ cho ground-truth bounding boxes. (Cái này thực hiện sau SVM để biết thuộc class nào).
 
