@@ -51,13 +51,13 @@ Và khi chúng ta thay đổi IoU threshold, False Positive có thể chuyển t
 Precision là tỉ lệ các dự đoán đúng (khớp với ground truth boxes) so với tổng số các dự đoán (predicted bounding boxes) do đó:
 
 $$ 
-\text{Precision} = \frac{\text{true object detection}}{{\text{all predicted boxes}}} = \frac{TP}{TP + FP}
+\text{Precision} = \frac{\text{true object detection}}{\text{all predicted boxes}} = \frac{TP}{TP + FP}
 $$
 
 Recall (độ nhạy) thể hiện tỉ lệ dự đoán đúng trên tổng số ground truth.
 
 $$ 
-\text{Recall} = \frac{\text{true object detection}}{{\text{all ground truth boxes}}}  = \frac{TP}{\text{\# ground truth boxes}}
+\text{Recall} = \frac{\text{true object detection}}{\text{all ground truth boxes}}  = \frac{TP}{\text{\# ground truth boxes}}
 $$
 
 Nhận thấy một model tốt phải có cả precision và recall cao. Bạn đọc có thể tự suy luận từ hai công thức trên. Chúng ta cũng chỉ cần biết TP, FP và số lượng ground truth boxes là có thể xác định được precision và recall.
@@ -78,7 +78,7 @@ Chúng ta sẽ tính AP (average precision) thông qua một ví dụ dưới đ
 
 Cùng xem dòng rank#3, precision và recall được tính như nào mà có kết quả như vậy:
 - **Precision** = 2/3 = 0.67 (dự đoán đúng được 2 quả táo TP và dự đoán một quả khác thành quả táo FP)
-- **Recall** = 2/5 = 0.4 (do có tổng cộng 5 quả táo $TP + FN = \# \text{ground-truth boxes}$ và dự đoán đúng được 2 quả táo TP)
+- **Recall** = 2/5 = 0.4 (do có tổng cộng 5 quả táo $TP + FN = \text{all ground-truth boxes}$ và dự đoán đúng được 2 quả táo TP)
 
 Nhận thấy giá trị của recall không giảm khi chúng ta đi xuống theo chiều giảm confidence score tuy nhiên precision lại đi theo đường zigzag (có thể tăng lên nhưng xu hướng chung là giảm).
 
