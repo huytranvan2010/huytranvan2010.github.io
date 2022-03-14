@@ -64,29 +64,30 @@ Chúng ta cùng xem các bước chung của mô hình R-CNN
 <img src="https://lilianweng.github.io/lil-log/assets/images/RCNN.png" style="display:block; margin-left:auto; margin-right:auto">
 
 Ở đây chúng ta đi tìm hiểu các bước hoạt động chính của R-CNN trong quá trình **training**, khi inference thì đơn giản hơn nhiều (ở đây mình tập trung vào quá trình training):
-**1.** Pre-train CNN model trên ImageNet hoặc có thể chọn pre-trained model có sẵn như VGG, ResNet...
+**Bước 1.** Download pre-trained model cho classification task, ví dụ các mô hình như AlexNet, ResNet... được train trên bộ dữ liệu ImageNet.
 
-**2.** Dùng Selective search để tạo ra khoảng 2000 region proposals cho mỗi ảnh. Các vùng này có kích thước khác nhau, có thể chứa object hoặc không.
+**Bước 2.** Dùng Selective search để tạo ra khoảng 2000 region proposals cho mỗi ảnh. Các vùng này có kích thước khác nhau, có thể chứa object hoặc không.
 
-**3.** Các region proposals được resize lại về cùng kích thước cho phù hợp với mạng CNN (pre-trained CNN như AlexNet). Cuối cùng nhận được **warped region**.
+**Bước 3.** Các region proposals được resize lại về cùng kích thước cho phù hợp với mạng CNN (pre-trained CNN như AlexNet), thường là `224x224`. Cuối cùng nhận được **warped region**.
 
-**4.** Fine-tuning pre-trained CNN model dựa trên các **warped regions** cho $K+1$ classes. $K$ ở đây chính là số classes trong bộ object detection dataset. Cần cộng thêm 1 để tính đến background. 
+**Bước 4.** Fine-tuning pre-trained CNN model dựa trên các **warped regions** cho $K+1$ classes. $K$ ở đây chính là số classes trong bộ object detection dataset. Cần cộng thêm 1 để tính đến background. 
 
-Việc Fine tuning này giúp cải thiện performance so với việc dùng trực tiếp pre-trained model. Trong quá trình Fine tuning dùng SGD với learning rate nhỏ 0.001. Mỗi mini-batch lấy 32 positive examples và 96 negative examples (vì chủ yếu là background). Việc fine-tuning này chính là đi phân loại các positive và negative examples thuộc về $K+1$ classes.
+Việc [Fine tuning](https://www.youtube.com/watch?v=_GfPYLNQank&t=2481s) này giúp cải thiện performance so với việc dùng trực tiếp pre-trained model do học được những đặc trưng riêng từ bộ dữ liệu ban đầu. Trong quá trình Fine tuning dùng SGD với learning rate nhỏ 0.001. Mỗi mini-batch lấy 32 positive examples và 96 negative examples (vì chủ yếu là background). Việc fine-tuning này chính là đi phân loại các positive và negative examples thuộc về $K+1$ classes. Positive example ở đây phải có $IoU \ge 0.5$ so với ground-truth box, còn lại được coi là negative examples.
 
 <img src="https://miro.medium.com/max/941/1*eHAnGauSpqAmaTBKlLxKWg.png" style="display:block; margin-left:auto; margin-right:auto">
 
 Do các region proposals được chuyển về warped image để tương thích với đầu vào của backbone nên ảnh có bị biến dạng. Việc sử dụng luôn pre-trained CNN model trên **warped imgaes** cho kết quả không tốt nên đã thực hiện Fine tuning.
 
-**5.** Train linear SVM cho mỗi class. Region proposals được đi qua CNN bên trên và trích xuất ra feature vector. Lưu tất cả feature vector cho từng class. Sau đó sẽ train **binary SVM classifier** cho từng class độc lập với nhau. 
+**Bước 5.** Train binary SVM cho mỗi class. Region proposals được đi qua CNN bên trên và trích xuất ra feature vector. Lưu tất cả feature vectors cho từng class. Sau đó sẽ train **binary SVM classifier** cho từng class độc lập với nhau. Ví dụ sau khi lưu feature vectors cho các proposals chúng ta sẽ có postive example cho class "CAT" và negative examples cho class "CAT". Lúc này có thể train binary SVM classifier cho class "CAT".
 
 <img src="https://miro.medium.com/max/941/1*0EX24p7MtsRrWnoueztrtQ.png" style="display:block; margin-left:auto; margin-right:auto">
-
+Bước
 Việc lấy positive và negative example cho từng class cho **SVM** như sau: positive chỉ là các ground-truth boxes của class đó, negative là các region proposals có IoU < 0.3 so với các instances của class đó. Những proposals có IoU > 0.3 so với các ground-truth của từng class bị bỏ qua.
 
-Rõ ràng việc training này không thuộc kiểu end-to-end mà có sự gián đoạn từ model này sang model kia. Đây cũng chính là nhược điểm của R-CNN.
+Rõ ràng việc training này không thuộc kiểu end-to-end mà có sự gián đoạn từ CNN sang SVM. Đây cũng chính là nhược điểm của R-CNN.
 
-**6.** Để tăng độ chính xác cho bounding box một mô hình regession đã đào tạo được sử dụng để xác định 4 offset values. Ví dụ như khi region proposal chứa người nhưng chỉ có phần thân và nửa mặt người, nửa mặt người còn lại không có trong region proposal đó. Khi đó offset values có thể giúp mở rộng region proposal để lấy được toàn bộ người. 
+**Bước 6.** Để tăng độ chính xác cho bounding box một mô hình, regession đã đào tạo được sử dụng để xác định 4 offset values. Ví dụ như khi region proposal chứa người nhưng chỉ có phần thân và nửa mặt người, nửa mặt người còn lại không có trong region proposal đó. Khi đó offset values có thể giúp mở rộng region proposal để lấy được toàn bộ người. Chúng ta thực hiện điều này do region proposals từ Selective Search không hoàn hảo hay không khớp hoàn toàn với ground-truth bounding boxes.
+
 <img src="https://miro.medium.com/max/941/1*NmYBHf1PtxcoSdLX9oOuMA.png" style="display:block; margin-left:auto; margin-right:auto">
 
 Trong R-CNN còn phân tích sự ảnh hưởng của việc dùng lớp **FC 6** hay **FC 7** lên performance của model với fine tuning và không có fine tuning. Phần này khá dài nên mình không viết ra ở đây.
@@ -96,7 +97,7 @@ Trong R-CNN còn phân tích sự ảnh hưởng của việc dùng lớp **FC 6
 
 Regressor sẽ học scale-invariant transformation giữa 2 tâm và log-scale transformation giữa các width và height.
 
-Chúng ta có thể tinh chỉnh vị trí của bounding box dựa trên các công thức sau. Nên nhớ $p_x, p_y, p_w, p_h$ là những giá trị đã biết dựa trên vị trí của region proposal. $d_x(\mathbf{p}), d_y(\mathbf{p}), d_w(\mathbf{p}), d_y(\mathbf{p})$ là những giá trị dự đoán được từ regression model. Và đối với dự đoán như này thì tọa độ tâm, width, height của vùng dự đoán có chứa vật thể là:
+Chúng ta có thể tinh chỉnh vị trí của bounding box dựa trên các công thức sau. Nên nhớ $p_x, p_y, p_w, p_h$ là tọa độ tâm, width và height của region proposal đã biết. $d_x(\mathbf{p}), d_y(\mathbf{p}), d_w(\mathbf{p}), d_y(\mathbf{p})$ là những giá trị dự đoán được từ regression model. Và đối với dự đoán như này thì tọa độ tâm, width, height của vùng dự đoán có chứa vật thể là:
 
 $$\begin{aligned}
 \hat{g}_x &= p_w d_x(\mathbf{p}) + p_x \\
@@ -111,7 +112,7 @@ $$\begin{aligned}
 
 Lợi ích của việc chuyển đổi này thay vì dùng giá trị tuyệt đối luôn vì $d_i(\mathbf{p})$ với $i \in \{ x, y, w, h \}$ có thể nhận bất kỳ giá trị nào trong khoảng $(-\infty, +\infty)$ chúng ta cần thực hiện một số điều chỉnh để chặn giá trị trong khoảng cho phép.
 
-Dưới đây chính là label ban đầu chúng ta có:
+Dưới đây chính là label ban đầu chúng ta có từ vị trí của ground-truth box và region proposal từ Selective Search:
 
 $$\begin{aligned}
 t_x &= (g_x - p_x) / p_w \\
@@ -120,7 +121,7 @@ t_w &= \log(g_w/p_w) \\
 t_h &= \log(g_h/p_h)
 \end{aligned}$$
 
-Nhìn công thức này chắc phần nào mọi người đã hiểu hơn. Bây giờ chúng ta có ground-truth box và box of the region proposal. Do đó chúng ta có thể xác định được các giá trị $t_x, t_y, t_w, t_h$. Nhiệm vụ của chúng ta đi xây dựng regression model cho 4 đại lượng này với đầu vào là feature vector của region proposal. Nếu $d_x, d_y, d_w, d_h$ dự đoán của region proposal khớp với $t_x, t_y, t_w, t_h$ của true proposal ban đầu có nghĩa là dự đoán trùng khớp nhau.
+Nhìn công thức này chắc phần nào mọi người đã hiểu hơn. Ban đầu chúng ta có ground-truth box và box of the region proposal, do đó có thể xác định được các giá trị $t_x, t_y, t_w, t_h$. Nhiệm vụ của chúng ta đi xây dựng regression model cho 4 đại lượng này với đầu vào là feature vector của region proposal. Nếu $d_x, d_y, d_w, d_h$ dự đoán của regressor khớp với $t_x, t_y, t_w, t_h$ (true label - offsets của region proposal so với ground-truth box ban đầu) thì vị trí box dự đoán với ground-truth box trùng nhau.
 
 Xây dựng loss cho các bài toán regression này:
 
@@ -128,7 +129,9 @@ $$\mathcal{L}_* = \sum_{i=\{1,N\}} (t_*^{i} - d_*^{i}(\mathbf{p}))^2 + \lambda \
 
 Trong đó $*$ lần lượt là $x, y, w, h$. Ở đây loss tính riêng cho từng giá trị: 2 tọa độ tâm, width và height chứ không gộp chung lại.
 
-**Chú ý**: Việc xác định các cặp $(\textbf{p}_i, \textbf{g}_i)$ cũng rất quan trọng, không phải cặp nào cũng được chọn. Nếu box of the region proposal mà quá xa ground-truth bounding box thì việc học sẽ rất khó chính xác và không có ý nghĩa nhiều lắm. Do đó cần chọn $\textbf{p}_i$ gần với $\textbf{g}_i$. Cụ thể ở đây $\textbf{p}_i$ được gán cho $\textbf{g}_i$ mà với $\textbf{p}_i$ đó nó có IoU cao nhất, IoU cũng phải lớn hơn 0.6 mới lấy. Các $\textbf{p}_i$ có IoU thấp hơn 0.6 không được sử dụng.
+**Chú ý**: 
+- Việc xác định các cặp $(\textbf{p}_i, \textbf{g}_i)$ cũng rất quan trọng, không phải cặp nào cũng được chọn. Nếu box of the region proposal mà quá xa ground-truth bounding box thì việc học sẽ rất khó chính xác và không có ý nghĩa nhiều lắm. Do đó cần chọn $\textbf{p}_i$ gần với $\textbf{g}_i$. Cụ thể ở đây $\textbf{p}_i$ được gán cho $\textbf{g}_i$ mà với $\textbf{p}_i$ đó nó có IoU cao nhất, IoU cũng phải lớn hơn 0.6 mới lấy. Các $\textbf{p}_i$ có IoU thấp hơn 0.6 không được sử dụng.
+- Việc viết  $(\textbf{p}_i, \textbf{g}_i)$ thể hiện region proposal và ground-truth box có 4 giá trị đặc trưng là tọa độ tâm, width và height
 
 ## Một số kỹ thuật hay dùng trong object detection
 ### IoU - Intersection over Union
@@ -168,4 +171,5 @@ Như vậy chúng ta đã tìm hiểu khá chi tiết về mô hình R-CNN. Chú
 5. https://towardsdatascience.com/understanding-fast-r-cnn-and-faster-r-cnn-for-object-detection-adbb55653d97
 6. https://github.com/huytranvan2010/RCNN-Understanding
 7. https://www.youtube.com/watch?v=o4AjHvl_yPg&list=PLANbacZNzD9HEbQ-CkACLyAqC3f0U9Plp&index=3
+8. https://www.youtube.com/watch?v=_GfPYLNQank&t=2481s
 
