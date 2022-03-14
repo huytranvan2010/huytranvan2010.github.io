@@ -13,7 +13,7 @@ Trong bài trước chúng ta đã tìm hiểu về mô hình [R-CNN](https://hu
 
 Và sau 1 năm từ ngày R-CNN được đề xuất Girshick đã đưa ra mô hình cải tiến hơn với tên gọi Fast R-CNN để giải quyết các hạn chế trên.
 
-Không giống như R-CNN từng region proposal được được qua ConvNet thì ở Fast R-CNN ảnh sẽ được đưa qua ConvNet. Điều này giúp chia sẻ tính toán và cũng giảm thời gian training xuống rất nhiều do nhiều region chồng chập với nhau. 
+Không giống như R-CNN từng region proposal được được qua ConvNet thì ở Fast R-CNN ảnh sẽ được đưa qua ConvNet. Điều này giúp chia sẻ tính toán và cũng giảm thời gian training xuống rất nhiều do nhiều region proposals chồng chập với nhau. 
 
 Sau khi đưa ảnh qua ConvNet chúng ta nhận được feature map (output sau Conv layer cuối cùng). Dựa vào Selective Search chúng ta xác định được các region proposals và vị trí của nó trên ảnh gốc. Từ đây có thể dễ dàng xác định được phần feature map tương ứng với từng region proposal. Từng feature map này được đưa qua RoI pooling layer và một số FC layers để phân loại và tinh chỉnh bounding box.
 
@@ -42,7 +42,7 @@ Như ví dụ trên ảnh ban đầu có kích thươc `668x920` và feature map
 - Biết tọa độ của góc trên bên trái và góc dưới bên phải
 
 Ở đây chúng ta đang nói theo cách 1. Cách số 2 cũng làm tương tự như trên. Sau khi xác định phần feature map tương ứng của region proposal chúng ta đưa nó qua **RoI pooling layer** để nhận được đầu ra có kích thước cố định. Chúng ta tạm thời không cần để ý đến số channels, ở đây làm cho một channel, các channels còn lại cũng tương tự.
-<img src="https://miro.medium.com/max/941/1*5vzG18aSqBoelD9q__y1rw.gif" >
+<img src="https://miro.medium.com/max/941/1*5vzG18aSqBoelD9q__y1rw.gif" style="display:block; margin-left:auto; margin-right:auto">
 
 Như hình bên trên phần vùng màu đỏ - feature map của roi proposal có kích thước `4x5` chúng ta đang đưa nó về output có kích thước `2x2`.
 Ví dụ ban đầu phần feature map có kích thước `hxw`, chúng ta muốn đưa về kích thước `HxW`. Điều này được thực hiện như sau:
@@ -74,6 +74,8 @@ Các bước hoạt động chính của Fast R-CNN
 **4.** Thêm một nhánh để tinh chỉnh bounding box (làm tương tự R-CNN)
 
 <img src="https://miro.medium.com/max/1095/1*jYDMaYeH-TrcoofDqCdxug.jpeg" style="display:block; margin-left:auto; margin-right:auto">
+
+Như hình trên chúng ta nhận thấy không có sự gián đoạn trong việc trích xuất feature vector và việc dự đoán các classes cũng như tinh chỉnh box. Tuy nhiên chúng ta vẫn còn sử dụng Selective Search để tạo ra các region proposals.
 
 ## Loss function
 
@@ -113,7 +115,7 @@ $$L_1^\text{smooth}(x) = \begin{cases}
 
 ## Đánh giá
 - Fast R-CNN đã giải quyết các hạn chế của R-CNN. Nhờ việc chia sẻ tính toán mà tốc độ training và inference cải thiện rất nhiều (có nhiều region chồng chập với nhau).
-- Fast R-CNN vẫn còn sử dụng dụng Selective Search để tạo region proposals. Chính cái này là bottleneck làm giới hạn performance của Fast R-CNN, điều này có thể nhận thấy ở hình thứ 2 bên dưới.
+- Fast R-CNN vẫn còn sử dụng dụng Selective Search để tạo region proposals. Chính cái này là bottleneck làm giới hạn performance của Fast R-CNN, điều này có thể nhận thấy ở hình thứ 2 bên dưới với test time của Fast R-CNN khi cần Selective Search để tạo region proposals.  Lúc này thời gian để xử lý một ảnh lên đến hơn 2s. Đây chính là nhược điểm làm Fast R-CNN không chạy được real time.
 
 <img src="https://miro.medium.com/max/941/1*m2QO_wbUPA05mY2q4v7mjg.png" style="display:block; margin-left:auto; margin-right:auto">
 
