@@ -141,5 +141,7 @@ Chúng ta có thể kết hợp tất cả lại để có một [mạng NN lớ
 2. https://youtu.be/_GfPYLNQank
 3. https://lilianweng.github.io/posts/2017-12-31-object-recognition-part-3/
 4. Deep Learning for Vision Systems
+5. http://cs231n.stanford.edu/slides/2021/lecture_15.pdf
+6. https://www.youtube.com/watch?v=_GfPYLNQank&t=3193s
 
 
