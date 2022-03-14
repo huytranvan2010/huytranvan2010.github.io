@@ -185,7 +185,7 @@ trong đó giá trị nội suy của precision cho recall được xác định
 
 $$ P_{interp}(r) = \underset{\tilde{r} \geq r} {\text{max} ~ P(\tilde{r})} $$
 
-<img src="https://miro.medium.com/max/1280/1*Lb48LpjijU1Cr8Blx_Gvxg.gif">
+<img src="https://miro.medium.com/max/1280/1*Lb48LpjijU1Cr8Blx_Gvxg.gif" style="display:block; margin-left:auto; margin-right:auto">
 
 Đối với 20 classes trong PASCAL VOC chúng ta sẽ tính $AP$ cho từng class. Interpolated method (phương pháp nội suy) này là phương pháp tính gần đúng tuy nhiên nó gặp một số vấn đề. Đầu tiên nó ít chính xác, thứ hai nó mất khả năng đo lường sự khác nhau giữa các phương pháp mà AP thấp. Do đó cần một cách tính AP khác được áp dụng sau năm 2008 cho PASCAL VOC.
 
@@ -209,7 +209,7 @@ Cùng nhìn vào ví dụ chúng ta đã xét ở trên
 
 Chúng ta sẽ đi **từ phải qua trái** tương ứng với recall giảm dần. Mỗi khi recall giảm chúng ta sẽ lấy precision bằng với giá trị cao nhất (phía bên phải của nó).
 
-<img src="https://github.com/rafaelpadilla/Object-Detection-Metrics/raw/master/aux_images/interpolated_precision-AUC_v2.png">
+<img src="https://github.com/rafaelpadilla/Object-Detection-Metrics/raw/master/aux_images/interpolated_precision-AUC_v2.png" style="display:block; margin-left:auto; margin-right:auto">
 
 Sau khi tính tổng các diện tích, chúng ta có AP:
 
