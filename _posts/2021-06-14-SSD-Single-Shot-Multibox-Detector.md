@@ -193,7 +193,7 @@ SSD sẽ tạo ra rất nhiều predicted boxes khác nhau do đó cần thực 
 
 # 5. Kết luận
 
-Trên đây chúng ta đã tìm hiểu chung về mô hình SSD và cách thức chúng hoạt động. Ý tưởng chính của SSD là sử dụng nhiều feature maps có kích thước khác nhau để đưa ra dự đoán. Điều này giúp model có khả năng đối phó tốt với objects nhiều kích thước và hình dạng khác nhau. SSD có độ chính xác cao và tốc độ tương đối nhanh có thể chạy real time được.
+Trên đây chúng ta đã tìm hiểu chung về mô hình SSD và cách thức chúng hoạt động. Ý tưởng chính của SSD là sử dụng nhiều feature maps có kích thước khác nhau để đưa ra dự đoán. Điều này giúp model có khả năng đối phó tốt với objects nhiều kích thước và hình dạng khác nhau. SSD có độ chính xác cao và tốc độ tương đối nhanh có thể chạy real time được. Phần code của SSD các bạn có thể tham khảo thêm [tại đây](https://github.com/pierluigiferrari/ssd_keras).
 
 # Tài liệu tham khảo
 1. https://arxiv.org/abs/1512.02325
