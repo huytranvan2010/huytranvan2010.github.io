@@ -163,7 +163,7 @@ $$ h_{k}^a = \frac{s_k} {\sqrt{a_r}}$$
 
 Đối với trường hợp aspect ratio $ a_{r} = 1$ ta sẽ thêm một default box có scale $s_k' = \sqrt{s_ks_{k+1}}$ và từ đó xác định được width và height tương ứng để tạo thành 6 default boxes cho mỗi vị trí của feature map.
 
-Center của mỗi default box là $\left(x_l^i, y_l^i \right) = \left( \frac{i + 0.5}{|f_k|}, \frac{j + 0.5}{|f_k|}\right)$, trong đó $|f_k|$ chính là kích thước (width hay height) của $k-th$ square feature map, $i, j \in \left[ 0, |f_k|\right]$. 
+Center của mỗi default box là $\left(x_l^i, y_l^i \right) = \left( \frac{i + 0.5}{\left|f_k \right|}, \frac{j + 0.5}{|f_k|}\right)$, trong đó $\left| f_k \right|$ chính là kích thước (width hay height) của $k-th$ square feature map, $i, j \in \left[ 0, \left| f_k \right| \right]$. 
 
 Trên thực tế có thể thiết kế các default boxes để khớp với dataset cụ thể. Bằng cách kết hợp các dự đoán cho tất cả default boxes với các scale và aspect ratios từ tất cả các vị trí trên feature maps, chúng ta có nhiều predictions với các object size và shape khác nhau.
 
