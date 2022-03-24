@@ -10,9 +10,9 @@ Không giống như các mô hình two-stages như R-CNN, Fast-RCNN, Faster-RCNN
 
 1. Input image được chia thành $ S \times S $ grid cells ($S=7$). Nếu tâm của object thuộc grid cell nào thì cell đó chịu trách nhiệm phát hiện vật thể đó. Nếu có nhiều tâm của các object nằm trong cùng một cell thì cũng chỉ gán nhãn duy nhất một nhãn cho cell đó. Đây cũng chính là nhược điểm của YOLOv1. Chúng ta có thể tăng kích thước grid lên để phát hiện được nhiều object hơn.
 
-2. Mỗi grid cell sẽ chịu trách nhiệm dự đoán $B=2$ bounding boxes và xác suất có điều kiện các classes trong cell đó $ Pr(class_i|object) $. Ban đầu sử dụng bộ dữ liệu PASCAL VOC có số classes $ C = 20 $. Grid cell ở đây được coi là prior box, dự đoán bounding boxes sẽ dự trên những grid cell này.
+2. Mỗi grid cell sẽ chịu trách nhiệm dự đoán $B=2$ bounding boxes và xác suất có điều kiện các classes trong cell đó $ Pr(class_i \| object) $. Ban đầu sử dụng bộ dữ liệu PASCAL VOC có số classes $ C = 20 $. Grid cell ở đây được coi là prior box, dự đoán bounding boxes sẽ dự trên những grid cell này.
 
-2. Đối với mỗi predicted bounding box dự đoán 5 giá trị:
+3. Đối với mỗi predicted bounding box dự đoán 5 giá trị:
 - **4 tọa độ** của của bounding box **$(x, y, w, h)$**. 
     - **$(x, y)$** là tọa độ tâm của bounding box so với grid cell của nó (Chính xác là offsets của tâm box so tâm của grid cell, có chia cho width hoặc height của grid cell). **$x, y$** sẽ nhận giá trị từ 0 đến 1.
     - **$(w, h)$** là width và height của bounding box so với width và height của toàn bộ ảnh (không phải so với grid cell). Do đó $w, h$ cũng nhận các giá trị trong khoảng $(0, 1)$.
@@ -36,7 +36,7 @@ $$ Pr(class_i | object) \cdot Pr(object) \cdot IOU_{pred}^{truth} = Pr(class_i) 
 
 Công thức trên cho chúng ta confidence score cho class cụ thể trong một box. Nó vừa tính xác suất có mặt $class_i$ trong bounding box vừa tính đến độ khớp của bounding box đó với grounth truth. **Nên nhớ công thức này chỉ sử dụng để xuất ra kết quả, không được sử dụng ở quá trình training**.
 
-### Network architecture
+## Network architecture
 
 Kiến trúc của YOLOv1 dựa trên GoogleNet, thay vì dùng inception block nó sẽ sử dụng các Conv layers $1 \times 1$ được theo sau bởi $3 \times 3$ Conv layer.
 
@@ -44,7 +44,7 @@ Kiến trúc của YOLOv1 dựa trên GoogleNet, thay vì dùng inception block 
 
 <img src="../images/YOLO/1.png" style="display:block; margin-left:auto; margin-right:auto">
 
-### Training
+## Training
 
 Trong quá trình training sẽ đi optimize loss function sau:
 
@@ -56,6 +56,7 @@ Loss function của YOLOv1 có 3 thành phần chính.
 $$ \mathcal{L}_\text{loc} = \lambda_\text{coord} \sum_{i=0}^{S^2} \sum_{j=0}^B \mathbb{1}_{ij}^\text{obj} [(x_i - \hat{x}_i)^2 + (y_i - \hat{y}_i)^2 ] +\lambda_\text{coord} \sum_{i=0}^{S^2} \sum_{j=0}^B \mathbb{1}_{ij}^\text{obj} [(\sqrt{w_i} - \sqrt{\hat{w}_i})^2 + (\sqrt{h_i} - \sqrt{\hat{h}_i})^2] $$
 
 $ 1^{obj}_{i} = 1$ thể hiện object xuất hiện trong cell $i$ (nếu không xuất hiện thì bằng 0).
+
 $ 1^{obj}_{ij} = 1 $ nếu box thứ $ j $ của cell thứ $ i $ chứa object. $ 1^{obj}_{ij} = 0 $ nếu box thứ $ j $ của cell thứ $ i $ không chứa object. Ở đây grid cell $i$ phải chứa object trước đã, chứa object rồi thì mới khớp được với prediected box.
 
 Khi huấn luyện chúng ta đã biết grounth-truth box thuộc cell nào. Khi dự đoán đưa ra nhiều predicted boxes cho mỗi grid cell. Chúng ta chỉ muốn duy nhất một predicted box chịu trách nhiệm cho object của grid cell. Do đó box thứ $ j $ được coi chứa object trong grid cell $i$ là predicted box có IoU cao nhất trong 2 boxes thuộc grid cell đó. Trong hoàn cảnh này tất nhiên đang đề cập đến grid cell $i$ có object.
@@ -66,9 +67,7 @@ Khi huấn luyện chúng ta đã biết grounth-truth box thuộc cell nào. Kh
 
 Trong loss function $ \mathcal{L}_\text{loc} $ nhận thấy width và height dùng square root (căn bậc 2). Điều này để tính tớí việc chênh lệch giữa hai box lớn ít bị ảnh hưởng hơn so với chênh lệch giữa hai box nhỏ. Cùng lấy ví dụ để hiểu rõ hơn. Ví dụ chúng ta có $w_1 = 0.55, \hat{w_1} = 0.5$, $w_2 = 0.3, \hat{w_2} = 0.25$, nhận thấy $(w_1 -\hat{w_1}) = (w_2 -\hat{w_2}) $, tuy nhiên bounding boxes nhỏ hơn $w_2 = 0.3, \hat{w_2} = 0.25$ bị lệch nhiều hơn so với bounding boxes lớn $w_1 = 0.55, \hat{w_1} = 0.5$. Làm cách nào đó để trừng phạt bounding box nhỏ hơn, ở đây dùng square root. Thật vậy $\sqrt{0.3} - \sqrt{0.25} = 0.0477 > 0.0345 = \sqrt{0.55} - \sqrt{0.5}$.
 
-
-
-* **Confidence loss (hay object loss)**
+- **Confidence loss (hay object loss)**
 
 $$ \mathcal{L}_\text{obj} = {\sum_{i=0}^{S^2} \sum_{j=0}^B \mathbb{1}_{ij}^\text{obj} (C_{ij} - \hat{C}_{ij})^2} +\lambda_\text{noobj}{\sum_{i=0}^{S^2} \sum_{j=0}^B \mathbb{1}_{ij}^\text{noobj} (C_{ij} - \hat{C}_{ij})^2} $$
 
@@ -82,11 +81,11 @@ Thành phần thứ nhất của object loss chính là phần loss cho **trư�
 
 Thành phần thứ hai của object loss chính là phần loss cho **trường hợp cell $i$ không chứa objet**, lúc này $C_{i}$ luôn bằng 0, dĩ nhiên $C_{ij=0}$, còn $ \hat C_{ij} =  Pr(object) \cdot IOU_{pred}^{truth} $ cho bounding box $j$ thuộc cell $i$, đây là giá trị dự đoán.
 
-$1^{noobj}_{ij} = 1$ nếu box thứ $j$ của cell thứ $i$ không chứa object. $1^{noobj}_{ij} = 0$ nếu box thứ $j$ của cell thứ $i$ có chứa object. *Ở đây cứ grid cell và box của nó không match với nhau thì cho vào nhóm này, bao gồm cả những grid cell không chứa object? và grid cell chứa object nhưng không khớp với box do có IoU nhỏ hơn box còn lại*. Và những trường hợp không khớp như này chúng ta chỉ đi minimize objectness score, không quan tâm đến coordinates và class probabilities.
+$1^{noobj}\_{ij} = 1$ nếu box thứ $j$ của cell thứ $i$ không chứa object. $1^{noobj}\_{ij} = 0$ nếu box thứ $j$ của cell thứ $i$ có chứa object. *Ở đây cứ grid cell và box của nó không match với nhau thì cho vào nhóm này, bao gồm cả những grid cell không chứa object? và grid cell chứa object nhưng không khớp với box do có IoU nhỏ hơn box còn lại*. Và những trường hợp không khớp như này chúng ta chỉ đi minimize objectness score, không quan tâm đến coordinates và class probabilities.
 
 **Chú ý**: Trong ảnh đa số các grid cell không chứa object nên nếu để weights của localization loss và confidence loss cho vị trí không có object như nhau thì kết quả sẽ không tốt. Model lúc này có xu hướng tập trung dự đoán các box không chứa object để giảm loss nhiều nhất có thể. Do đó ở đây sẽ thiết lập weights khác nhau $\lambda_\text{noobj} =0.5$, $ \lambda_\text{coord} = 5 $ để tăng performance của model.
 
-* **Classification loss**
+- **Classification loss**
 
 Loss function chỉ phạt classification error nếu object có trong grid cell. Grid cell không có object sẽ không có classification loss.
 
@@ -151,13 +150,14 @@ Sau khi thực hiện xong các bước trên sẽ đến bước vẽ các boun
 **Chú ý**: các giá trị dự đoán $(x, y, w, h)$ cần được suy ngược trở lại để nhận được giá trị tuyệt đối, nên nhớ
 - $(x, y)$ được xác định theo grid cell
 - $(w, h)$ được so sánh với kích thước của original image
-### Kết luận
+
+## Kết luận
 Như vậy chúng ta đã cùng tìm hiểu các ý chính trong YOLOv1. YOLOv1 có một số nhược điểm:
 - Dự đoán tối đa 49 objects 
 - Mỗi cell chỉ predict được duy nhất một vật thể với score cao nhất, nếu vật thể gần nhau rất khó để phát hiện được. 
 - Độ chính xác chưa được tốt như các state-of-the-art thời bấy giờ tuy nhiên bù lại YOLOv1 có tốc độ rất nhanh
 
-### Tài liệu tham khảo
+## Tài liệu tham khảo
 1. https://towardsdatascience.com/yolov1-you-only-look-once-object-detection-e1f3ffec8a89
 2. https://lilianweng.github.io/lil-log/2018/12/27/object-detection-part-4.html
 3. https://www.git2get.com/av/89501128.html
