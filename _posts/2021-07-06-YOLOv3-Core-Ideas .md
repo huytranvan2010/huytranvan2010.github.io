@@ -7,13 +7,12 @@ comments: true
 
 Chúng ta đã tìm hiểu về YOLOv1, YOLOv2/YOLO9000 rồi. Có vẻ như các phiên ản cải tiến của YOLO không ngừng ra đời. Trong bài này chủ đề của chúng ta là YOLOv3.
 
-YOLOv3 có kiến trúc khá giống YOLOv2. Tác giả đã thêm các cải tiến mới trong các nghiên cứu object detection thời điểm đó vào YOLOv2 để tạo ra YOLOv3. Base network mới được dùng, lớn hơn Darknet-19 nhưng vẫn đảm bảo được tốc độ inference. Các cải tiến đó bao gồm:
-
-**1. Logistic regression cho confidence score:** - YOLOv3 predict độ tin cậy của bounding box (có chứa vật hay không) cho mỗi bounding box bằng cách sử dụng logistic regression trong khi YOLOv1 và YOLOv2 sử dụng sum of squared errors.eventually
+YOLOv3 có kiến trúc khá giống YOLOv2. Tác giả đã thêm các cải tiến mới trong các nghiên cứu object detection thời điểm đó vào YOLOv2 để tạo ra YOLOv3. Base network mới được dùng, lớn hơn Darknet-19 nhưng vẫn đảm bảo được tốc độ inference. 
 
 ## 1. Bounding box prediction
 
 Trong dự đoán của mỗi box sẽ có các giá trị $t_x, t_y, t_w, t_h$ - những giá trị này được sử dụng để tính loss. Nếu grid ceel offset so với góc trên bên trái của ảnh $(c_x, c_y)$ và anchor box có width và height $p_w, p_h$ thì predictions (được tính toán lại, không phải output của model) sẽ là
+
 $$
 \begin{aligned}
 b_x &= \sigma(t_x) + c_x\\
@@ -24,7 +23,9 @@ b_h &= p_h e^{t_h}\\
 $$
 
 
-<img src="../images/YOLO/yolov2_7.jpeg" style="display:block; margin-left:auto; margin-right:auto">
+<img src="../images/YOLO/yolov2_7.jpeg" style="display:block; margin-left:auto; margin-right:auto" width="400">
+
+*Bounding boxes with dimension priors and location prediction.*
 
 YOLOv3 dự đoán objectness score cho mỗi bounding box bằng logistic regression. Nếu bounding box prior (anchor) overlap với ground-truth box lớn hơn so với các anchỏ boxes khác thì objectness score bằng 1. Nếu anchor box không có IoU lớn nhất nhưng overlap với ground-truth box và IoU lớn hơn threshold 0.5 thì chúng ta bỏ qua dự đoán đó - không tính loss. Mỗi ground-truth box chỉ liên quan đến một anchor box. Nếu anchor box không được gán cho ground-truth box nào thì khi tính loss cho nó sẽ bỏ qua classification loss, localization loss và chỉ tính confidence loss cho object - liên quan đến có object hay không.
 
@@ -44,7 +45,7 @@ Darknet-53 mạnh mẽ hơn so với Darknet-19. Darknet-53 tốt hơn so với 
 
 Darknet-53 có BFLOP/s (billion floating point operations per second) lớn. Điều này có nghĩa rằng kiến trúc của Darknet-53 sử dụng tốt GPU, giúp nó có tốc độ nhanh hơn.
 
-<img src="../images/YOLO/yolov3_2.png" style="display:block; margin-left:auto; margin-right:auto">
+<img src="../images/YOLO/yolov3_2.png" style="display:block; margin-left:auto; margin-right:auto" width="500">
 
 ## 4. Multi-scale prediction
 
@@ -60,7 +61,7 @@ Cụ thể việc dự đoán cho 3 scales khác nhau là:
 - Feature map ở trước đó 2 layers, feature map được được upsample 2x. YOLOv3 lấy feature map có resolution lớn hơn (ở trước nữa trong mạng NN) và kết hợp với upsampled feature thông qua concatenation. Sau đó áp dụng một số Conv layers và dự đoán output cuối cùng.
 - Thực hiện thiết kế như scale thứ 2 cho scale thứ 3.
 
-<img src="../images/YOLO/1.webp" style="display:block; margin-left:auto; margin-right:auto">
+<img src="../images/YOLO/1.webp" style="display:block; margin-left:auto; margin-right:auto" width="500">
 
 *Kiến trúc YOLOv3*
 
@@ -79,7 +80,7 @@ Nhận thấy với $\text{IoU}=0.5$, AP của YOLOv3 cao hơn hẳn so với SS
 
 Các phiên bản YOLO trước gặp khó khăn trong việc detect các objects nhỏ. Tuy nhiên YOLOv3 đã cản thiện điều này với $\text{AP\_S} = 18.3%$
 
-<img src="../images/YOLO/yolov3_4.png" style="display:block; margin-left:auto; margin-right:auto">
+<img src="../images/YOLO/yolov3_4.png" style="display:block; margin-left:auto; margin-right:auto" width="500">
 
 *So sánh tốc độ và mAP của các object detection model*
 

@@ -40,11 +40,11 @@ Dưới đây là một số thay đổi khi sử dụng convolutional với anc
 
 - Thay đổi input size từ `448x448` xuống `416x416`. Điều này giúp tạo feature map có kích thước `13x13` - là số lẻ. Thông thường center của picture thường bị chiếm bởi object có kích thước lớn. Với số lẻ grid cells, chúng ta sẽ chỉ rõ vị trí của object.
 
-<img src="../images/YOLO/yolov2_6.jpeg" style="display:block; margin-left:auto; margin-right:auto">
+<img src="../images/YOLO/yolov2_6.jpeg" style="display:block; margin-left:auto; margin-right:auto" width="500">
 
 - Chuyển class prediction từ cell level sang bounding box level. Mỗi dự đoán của bounding box bao gồm 4 parameters, 1 box confidence score (objectness) và 20 class probabilities. Giả sử mỗi grid cell có 5 anchor boxes (5 prior boxes) thì sẽ dự đoán 5 bounding boxes và lúc này có tổng số 125 parameters cho mỗi grid cell.
 
-<img src="../images/YOLO/yolov2_3.png" style="display:block; margin-left:auto; margin-right:auto">
+<img src="../images/YOLO/yolov2_3.png" style="display:block; margin-left:auto; margin-right:auto" width="800">
 
 Thay vì dự đoán vị trí của bounding boxes với FC layers trong [YOLOv1](https://huytranvan2010.github.io/YOLOv1-Core-Ideas/), YOLOv2 sử dụng Conv layers để dự đoán vị trí của anchor boxes như trong [Faster R-CNN](https://huytranvan2010.github.io/Faster-RCNN/). YOLOv2 downsampling ảnh ban đầu xuống feature map có kích thước `13x13`. YOLOv1 dự đoán 98 bounding boxes, còn YOLOv2 với anchor boxes nó dự đoán hơn 1000 boxes. Thay đổi này làm giảm mAP một chút từ 69.6% map xuống 69.2% mAP, nhưng recall tăng từ 81% lên 88% - đồng nghĩa với việc tăng cơ hội phát hiện được tất cả groundth-truth boxes. 
 
@@ -56,7 +56,7 @@ $$  d(\text{box}, \text{centroid}) = 1 - \text{IoU}(\text{box}, \text{centroid})
 
 Việc lựa chọn metric này giúp chúng ta có IoU trung bình cao hơn (IoU giữa groudn truth box và centroid của nó). Tác giả đã lựa chọn $K=5$, việc lựa chọn này có tradeoff giữa model complexity và recall.
 
-<img src="../images/YOLO/yolov2_1.png" style="display:block; margin-left:auto; margin-right:auto">
+<img src="../images/YOLO/yolov2_1.png" style="display:block; margin-left:auto; margin-right:auto" width="300">
 
 *Phụ thuộc IoU trung bình vào số clusters*
 
@@ -88,7 +88,7 @@ b_h &= p_h e^{t_h}\\
 
 Thực chất chúng ta có mối liên hệ giữa anchor box, grid cell và ground-truth box, bây giờ như ở trên chúng ta có mối liên hệ giữa anchor box, grid cell và predicted bounding box. Từ đây nhận thấy thông qua anchor box và grid cell chúng ta đang đi khớp predicted bounding box với ground-truth box.
 
-<img src="../images/YOLO/yolov2_7.jpeg" style="display:block; margin-left:auto; margin-right:auto">
+<img src="../images/YOLO/yolov2_7.jpeg" style="display:block; margin-left:auto; margin-right:auto" width="500">
 
 *Hình 1. YOLOv2 bounding box location prediction*
 
@@ -108,7 +108,7 @@ YOLOv1 có điểm yếu khi phát hiện các đối tượng với các kích 
 
 Dưới đây là bản tổng hợp các thử nghiệm cho YOLOv2. Nhận thấy các ý tưởng đều tăng mAP ngoại trừ việc sử dụng fully convolutional layers và anchor boxes. Tuy nhiên nó cũng giúp tăng recal của model.
 
-<img src="../images/YOLO/yolov2_2.png" style="display:block; margin-left:auto; margin-right:auto">
+<img src="../images/YOLO/yolov2_2.png" style="display:block; margin-left:auto; margin-right:auto" width="800">
 
 ## 1.8. Darknet 19
 
@@ -116,7 +116,9 @@ YOLOv1 tận dụng GoogleNet architecture, network này nhanh hơn VGG16, nó c
 
 Để tăng tốc độ YOLOv2 mà vẫn đảm bảo độ chính xác, YOLOv2 đã sử dụng kiến trúc Darknet-19 với 19 Conv layers, 5 MaxPooling layers, một Conv layer `1x1` để giảm số channels và 1 average pooling kết hợp với softmax layer cho phân loại vật thể. Darknet được viết bằng ngôn ngữ C và CUDA. Darknet-19 cần 5.58 tỉ operations để xử lý image, nó đạt 72.9% top-1 accuracy và 91.2% top-5 accuracy trên ImageNet.
 
-<img src="../images/YOLO/yolov2_4.png" style="display:block; margin-left:auto; margin-right:auto">
+<img src="../images/YOLO/yolov2_4.png" style="display:block; margin-left:auto; margin-right:auto" width="400">
+
+*Kiến trúc Darknet-19*
 
 Với những cải tiến như vậy YOLOv2 chính xác hơn, nhanh hơn so với phiên bản YOLOv1.
 
@@ -126,7 +128,7 @@ Bởi vì việc vẽ các bounding boxes trên ảnh cho object detection tốn
 
 Để có thể kết nối ImageNet labels (1000 classes, fine-grained) với COCO/PASCAL (< 100 classes, coarse-grained), YOLO9000 xây dựng hierarchical tree từ [WordNet](https://wordnet.princeton.edu/), các labels chung gần với các node gốc còn fine-grained class labels là các node lá (classes trong ImageNet).
 
-<img src="https://lilianweng.github.io/lil-log/assets/images/word-tree.png" style="display:block; margin-left:auto; margin-right:auto">
+<img src="https://lilianweng.github.io/lil-log/assets/images/word-tree.png" style="display:block; margin-left:auto; margin-right:auto" width="800">
 
 *Hình 2. The WordTree hierarchy merges labels from COCO and ImageNet. Blue nodes are COCO labels and red nodes are ImageNet labels.*
 
