@@ -5,7 +5,7 @@ tags: [Object Detection, YOLO]
 comments: true
 ---
 
-YOLOv2 ([Redmon & Farhadi, 2016](https://arxiv.org/abs/1612.08242)){:target="\_blank"} được Joseph Redmon và Ali Farhadi công bố vào cuối năm 2016. YOLO9000 được xây dựng trên top của YOLOv2, nó được train kết hợp bởi COCO detection dataset và ImageNet classification dataset. Cải tiến chính của phiên bản này tốt hơn, nhanh hơn, tiên tiến hơn để bắt kịp faster R-CNN (phương pháp sử dụng Region Proposal Network), xử lý được những vấn đề gặp phải của YOLOv1.
+YOLOv2 [Redmon & Farhadi, 2016](https://arxiv.org/abs/1612.08242&target=_blank) được Joseph Redmon và Ali Farhadi công bố vào cuối năm 2016. YOLO9000 được xây dựng trên top của YOLOv2, nó được train kết hợp bởi COCO detection dataset và ImageNet classification dataset. Cải tiến chính của phiên bản này tốt hơn, nhanh hơn, tiên tiến hơn để bắt kịp faster R-CNN (phương pháp sử dụng Region Proposal Network), xử lý được những vấn đề gặp phải của YOLOv1.
 
 Nhắc lại một số nhược điểm của YOLOv1:
 - Dự đoán tối đa 49 objects
@@ -31,7 +31,7 @@ Khác với YOLOv1, base network của YOLOv2 được train cho classification 
 
 ## 1.3. Convolutional with anchor boxes
 
-Đây là thay đổi đáng chú ý nhất của YOLOv2 so với YOLOv1. Các anchor boxes này chịu trách nhiệm cho việc dự đoán các bounding boxes. Anchor boxes được thiết kế cho bộ dataset có sẵn dựa trên phân nhóm clustering (K-means clustering). Điều này xuất phát từ việc các vật thể có một số boundng boxes tương đồng ví dụ như ô tô, xe đẹp có bounding box dạng hình chữ nhật nằm ngang, người có bounding box dạng hình chữ nhật đứng...Khái niệm anchor boxes này đã có trên [Faster R-CNN](https://huytranvan2010.github.io/Faster-RCNN/){:target="\_blank"}, hoạt động khá hiệu quả, sẽ đi dự đoán bounding boxes dựa trên các anchor boxes này.
+Đây là thay đổi đáng chú ý nhất của YOLOv2 so với YOLOv1. Các anchor boxes này chịu trách nhiệm cho việc dự đoán các bounding boxes. Anchor boxes được thiết kế cho bộ dataset có sẵn dựa trên phân nhóm clustering (K-means clustering). Điều này xuất phát từ việc các vật thể có một số boundng boxes tương đồng ví dụ như ô tô, xe đẹp có bounding box dạng hình chữ nhật nằm ngang, người có bounding box dạng hình chữ nhật đứng...Khái niệm anchor boxes này đã có trên [Faster R-CNN](https://huytranvan2010.github.io/Faster-RCNN/), hoạt động khá hiệu quả, sẽ đi dự đoán bounding boxes dựa trên các anchor boxes này.
 
 Dưới đây là một số thay đổi khi sử dụng convolutional với anchor boxes:
 - Loại bỏ FC layers chịu trách nhiệm cho dự đoán bounding boxes, loại bỏ một lớp Maxpooling ở cuối để tăng kích thước feature map.
@@ -46,7 +46,7 @@ Dưới đây là một số thay đổi khi sử dụng convolutional với anc
 
 <img src="../images/YOLO/yolov2_3.png" style="display:block; margin-left:auto; margin-right:auto">
 
-Thay vì dự đoán vị trí của bounding boxes với FC layers trong [YOLOv1](https://huytranvan2010.github.io/YOLOv1-Core-Ideas/){:target="\_blank"}, YOLOv2 sử dụng Conv layers để dự đoán vị trí của anchor boxes như trong [Faster R-CNN](https://huytranvan2010.github.io/Faster-RCNN/){:target="\_blank"}. YOLOv2 downsampling ảnh ban đầu xuống feature map có kích thước `13x13`. YOLOv1 dự đoán 98 bounding boxes, còn YOLOv2 với anchor boxes nó dự đoán hơn 1000 boxes. Thay đổi này làm giảm mAP một chút từ 69.6% map xuống 69.2% mAP, nhưng recall tăng từ 81% lên 88% - đồng nghĩa với việc tăng cơ hội phát hiện được tất cả groundth-truth boxes. 
+Thay vì dự đoán vị trí của bounding boxes với FC layers trong [YOLOv1](https://huytranvan2010.github.io/YOLOv1-Core-Ideas/), YOLOv2 sử dụng Conv layers để dự đoán vị trí của anchor boxes như trong [Faster R-CNN](https://huytranvan2010.github.io/Faster-RCNN/). YOLOv2 downsampling ảnh ban đầu xuống feature map có kích thước `13x13`. YOLOv1 dự đoán 98 bounding boxes, còn YOLOv2 với anchor boxes nó dự đoán hơn 1000 boxes. Thay đổi này làm giảm mAP một chút từ 69.6% map xuống 69.2% mAP, nhưng recall tăng từ 81% lên 88% - đồng nghĩa với việc tăng cơ hội phát hiện được tất cả groundth-truth boxes. 
 
 ## 1.4. Dimension clusters
 
@@ -96,7 +96,7 @@ Thực chất chúng ta có mối liên hệ giữa anchor box, grid cell và gr
 
 YOLOv1 gặp vấn đề khó khăn khi phát hiện các vật thể nhỏ (chia ảnh thành `7x7` grid cells). YOLOv2 chia ảnh thành `13x13` grid cells, do đó có thể phát hiện được những vật thể nhỏ hơn, đồng thời cũng hiệu quả đối với các vật thể lớn.
 
-Faster R-CNN và SSD đưa ra dự đoán ở nhiều tầng khác nhau trong mạng để tận dụng các feature map ở các kích thước khác nhau. Thay vì làm như vậy, YOLOv2 kết hợp các feature ở các tầng khác nhau lại để đưa ra dự đoán, cụ thể YOLOv2 chuyển feature map `26x26x512` thành `13x13x2048` thông qua kỹ thuật [**Reorg**](https://leimao.github.io/blog/Reorg-Layer-Explained/){:target="\_blank"} , sau đó kết hợp với feature map `13x13x512` feature map để được `13x13x3072`. Feature map này được dùng để đưa ra dự đoán. Bên dưới là kiến trúc của YOLOv2.
+Faster R-CNN và SSD đưa ra dự đoán ở nhiều tầng khác nhau trong mạng để tận dụng các feature map ở các kích thước khác nhau. Thay vì làm như vậy, YOLOv2 kết hợp các feature ở các tầng khác nhau lại để đưa ra dự đoán, cụ thể YOLOv2 chuyển feature map `26x26x512` thành `13x13x2048` thông qua kỹ thuật [Reorg](https://leimao.github.io/blog/Reorg-Layer-Explained/), sau đó kết hợp với feature map `13x13x512` feature map để được `13x13x3072`. Feature map này được dùng để đưa ra dự đoán. Bên dưới là kiến trúc của YOLOv2.
 
 <img src="../images/YOLO/yolov2_3.ppm" style="display:block; margin-left:auto; margin-right:auto">
 
