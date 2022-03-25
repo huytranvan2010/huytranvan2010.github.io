@@ -10,13 +10,18 @@ Không giống như các mô hình two-stages như R-CNN, Fast-RCNN, Faster-RCNN
 
 1. Input image được chia thành $ S \times S $ grid cells ($S=7$). Nếu tâm của object thuộc grid cell nào thì cell đó chịu trách nhiệm phát hiện vật thể đó. Nếu có nhiều tâm của các object nằm trong cùng một cell thì cũng chỉ gán nhãn duy nhất một nhãn cho cell đó. Đây cũng chính là nhược điểm của YOLOv1. Chúng ta có thể tăng kích thước grid lên để phát hiện được nhiều object hơn.
 
-2. Mỗi grid cell sẽ chịu trách nhiệm dự đoán $B=2$ bounding boxes và xác suất có điều kiện các classes trong cell đó $ Pr(class_i \| object) $. Ban đầu sử dụng bộ dữ liệu PASCAL VOC có số classes $ C = 20 $. Grid cell ở đây được coi là prior box, dự đoán bounding boxes sẽ dự trên những grid cell này.
+2. Mỗi grid cell sẽ chịu trách nhiệm dự đoán:
+- $B=2$ bounding boxes
+- $C$ **conditional class probabilities** $ Pr(class_i \| object) $ (hay xác suất có điều kiện các classes trong cell đó). Ban đầu sử dụng bộ dữ liệu PASCAL VOC có số classes $ C = 20 $. Grid cell ở đây được coi là prior box, dự đoán bounding boxes sẽ dựa trên những grid cell này.
 
 3. Đối với mỗi predicted bounding box dự đoán 5 giá trị:
 - **4 tọa độ** của của bounding box **$(x, y, w, h)$**. 
-    - **$(x, y)$** là tọa độ tâm của bounding box so với grid cell của nó (Chính xác là offsets của tâm box so tâm của grid cell, có chia cho width hoặc height của grid cell). **$x, y$** sẽ nhận giá trị từ 0 đến 1.
+    - **$(x, y)$** là tọa độ tâm của bounding box so với grid cell của nó (chính xác là offsets của tâm box so tâm của grid cell, có chia cho width hoặc height của grid cell). **$x, y$** sẽ nhận giá trị từ 0 đến 1 ban đầu, lúc dự đoán thì không có constraints.
     - **$(w, h)$** là width và height của bounding box so với width và height của toàn bộ ảnh (không phải so với grid cell). Do đó $w, h$ cũng nhận các giá trị trong khoảng $(0, 1)$.
-- **1 confidence score** thể hiện khả năng cell có chứa object, nó chính là $Pr(object) \cdot IOU_{pred}^{truth}$. Ở đây thêm $IOU_{pred}^{truth}$ có nghĩa rằng vừa tính khả năng cell chứa object vừa tính đến bounding box khớp với grounth truth như thế nào. Nếu không có object trong cell thì confidence score bằng 0, ngược lại chúng ta muốn confidence score bằng với IoU giữa predicted box và ground truth box.
+
+<img src="../images/YOLO/6.png" style="display:block; margin-left:auto; margin-right:auto">
+
+- **1 box confidence score** thể hiện khả năng box có chứa object, nó chính là $Pr(object) \cdot IOU_{pred}^{truth}$. Ở đây thêm $IOU_{pred}^{truth}$ có nghĩa rằng vừa tính khả năng box chứa object vừa tính đến bounding box khớp với grounth truth như thế nào. Nếu không có object trong cell thì confidence score bằng 0, ngược lại chúng ta muốn confidence score bằng với IoU giữa predicted box và ground truth box.
 
 Hình bên dưới sẽ thể hiện rất rõ cách bố trí output. Trong hình "Confidence" của mỗi box sẽ tương ứng với $Pr(object) \cdot IOU_{pred}^{truth}$.
 
@@ -32,9 +37,24 @@ Cùng phân tích kết quả của quá trình **inference**.
 
 Do đó kết quả nhận được cuối cùng cho một bounding box sẽ là:
 
-$$ Pr(class_i | object) \cdot Pr(object) \cdot IOU_{pred}^{truth} = Pr(class_i) \cdot IOU_{pred}^{truth}$$
+$$ \text{class confidence score} = \text{box confidence score} \times \text{conditional class probabilities}$$
 
-Công thức trên cho chúng ta confidence score cho class cụ thể trong một box. Nó vừa tính xác suất có mặt $class_i$ trong bounding box vừa tính đến độ khớp của bounding box đó với grounth truth. **Nên nhớ công thức này chỉ sử dụng để xuất ra kết quả, không được sử dụng ở quá trình training**.
+$$ \text{class confidence score} = \left[ Pr(object) \cdot IOU_{pred}^{truth} \right] \cdot Pr(class_i | object)= Pr(class_i) \cdot IOU_{pred}^{truth}$$
+
+Công thức trên cho chúng ta **confidence score cho class cụ thể trong một box**. Nó vừa tính xác suất có mặt $class_i$ trong bounding box vừa tính đến độ khớp của bounding box đó với grounth truth. **Nên nhớ công thức này chỉ sử dụng để xuất ra kết quả, không được sử dụng ở quá trình training**. Bên dưới sẽ viết lại các khái niệm
+
+$$\text{box confidence score} = Pr(object) \cdot IOU_{pred}^{truth}$$
+
+$$\text{conditional class probabilities} = Pr(class_i | object)$$
+
+$$\text{class confidence score} = Pr(class_i) \cdot IOU_{pred}^{truth}$$
+
+$Pr(object)$ là xác suất box chứa object.
+IoU - IoU giữa predicted box và ground-truth box
+$Pr(class_i | object)$ - xác suất object thuộc class $i$ khi cho trước có object
+$Pr(class_i)$ - xác suất object thuộc class $i$
+
+
 
 ## Network architecture
 
@@ -154,8 +174,9 @@ Sau khi thực hiện xong các bước trên sẽ đến bước vẽ các boun
 ## Kết luận
 Như vậy chúng ta đã cùng tìm hiểu các ý chính trong YOLOv1. YOLOv1 có một số nhược điểm:
 - Dự đoán tối đa 49 objects 
-- Mỗi cell chỉ predict được duy nhất một vật thể với score cao nhất, nếu vật thể gần nhau rất khó để phát hiện được. 
+- Mỗi cell chỉ predict được duy nhất một vật thể với score cao nhất (do nó chỉ đưa ra class conditional probability chung cho grid cell), nếu vật thể gần nhau rất khó để phát hiện được. 
 - Độ chính xác chưa được tốt như các state-of-the-art thời bấy giờ tuy nhiên bù lại YOLOv1 có tốc độ rất nhanh
+- Không có constraints với tọa độ predicted bounding box, điều này khiến nó có thể nằm ở bất kì vị trí nào trong ảnh. Nhược điểm này sẽ được giải quyết trong YOLOv2.
 
 ## Tài liệu tham khảo
 1. https://towardsdatascience.com/yolov1-you-only-look-once-object-detection-e1f3ffec8a89
