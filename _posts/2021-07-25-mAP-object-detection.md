@@ -270,6 +270,6 @@ Có một repo rất hay giúp chúng ta tính mAP cho các bài toán object de
 6. https://towardsdatascience.com/breaking-down-mean-average-precision-map-ae462f623a52
 7. https://www.kdnuggets.com/2021/03/evaluating-object-detection-models-using-mean-average-precision.html
 8. https://www.youtube.com/playlist?list=PL1GQaVhO4f_jE5pnXU_Q4MSrIQx4wpFLM
-
+9. https://manalelaidouni.github.io/Evaluating-Object-Detection-Models-Guide-to-Performance-Metrics.html
 
 
