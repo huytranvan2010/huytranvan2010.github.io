@@ -31,22 +31,24 @@ Khác với YOLOv1, base network của YOLOv2 được train cho classification 
 
 ## 1.3. Convolutional with anchor boxes
 
-Đây là thay đổi đáng chú ý nhất của YOLOv2 so với YOLOv1. Các anchor boxes này chịu trách nhiệm cho việc dự đoán các bounding boxes. Anchor boxes được thiết kế cho bộ dataset có sẵn dựa trên phân nhóm clustering (K-means clustering). Điều này xuất phát từ việc các vật thể có một số boundng boxes tương đồng ví dụ như ô tô, xe đẹp có bounding box dạng hình chữ nhật nằm ngang, người có bounding box dạng hình chữ nhật đứng...Khái niệm anchor boxes này đã có trên [Faster R-CNN](https://huytranvan2010.github.io/Faster-RCNN/), hoạt động khá hiệu quả, sẽ đi dự đoán bounding boxes dựa trên các anchor boxes này.
+Đây là thay đổi đáng chú ý nhất của YOLOv2 so với YOLOv1. Các anchor boxes này chịu trách nhiệm cho việc dự đoán các bounding boxes. Anchor boxes được thiết kế cho bộ dataset có sẵn dựa trên phân nhóm clustering (K-means clustering). Điều này xuất phát từ việc các vật thể có một số boundng boxes tương đồng ví dụ như ô tô, xe đẹp có bounding box dạng hình chữ nhật nằm ngang, người có bounding box dạng hình chữ nhật đứng... Khái niệm anchor boxes này đã có trên [Faster R-CNN](https://huytranvan2010.github.io/Faster-RCNN/), hoạt động khá hiệu quả, sẽ đi dự đoán bounding boxes dựa trên các anchor boxes này.
 
 Dưới đây là một số thay đổi khi sử dụng convolutional với anchor boxes:
 - Loại bỏ FC layers chịu trách nhiệm cho dự đoán bounding boxes, loại bỏ một lớp Maxpooling ở cuối để tăng kích thước feature map.
 
 <img src="../images/YOLO/yolov2_5.jpeg" style="display:block; margin-left:auto; margin-right:auto">
 
-- Thay đổi input size từ `448x448` xuống `416x416`. Điều này giúp tạo feature map có kích thước `13x13` - là số lẻ. Thông thường center của picture thường bị chiếm bởi object có kích thước lớn. Với số lẻ grid cells, chúng ta sẽ chỉ rõ vị trí của object.
+- Thay đổi input size từ `448x448` xuống `416x416`. Điều này giúp tạo feature map có kích thước `13x13` - là số lẻ. Thông thường center của picture thường bị chiếm bởi object có kích thước lớn. Với số lẻ grid cells, chúng ta sẽ chỉ rõ vị trí của object. Tránh trường hợp feature map chẵn, vị trí trong hình thuộc về cả 4 grid cells.
 
 <img src="../images/YOLO/yolov2_6.jpeg" style="display:block; margin-left:auto; margin-right:auto" width="500">
 
-- Chuyển class prediction từ cell level sang bounding box level. Mỗi dự đoán của bounding box bao gồm 4 parameters, 1 box confidence score (objectness) và 20 class probabilities. Giả sử mỗi grid cell có 5 anchor boxes (5 prior boxes) thì sẽ dự đoán 5 bounding boxes và lúc này có tổng số 125 parameters cho mỗi grid cell.
+- Chuyển class prediction từ cell level sang bounding box level. Mỗi dự đoán của bounding box bao gồm 4 parameters, 1 box confidence score (objectness) và 20 class probabilities. Xem thêm [Deep Learning Specialization]() để có cảm giác tốt hơn .Giả sử mỗi grid cell có 5 anchor boxes (5 prior boxes) thì sẽ dự đoán 5 bounding boxes và lúc này có tổng số 125 parameters cho mỗi grid cell.
 
 <img src="../images/YOLO/yolov2_3.png" style="display:block; margin-left:auto; margin-right:auto" width="800">
 
 Thay vì dự đoán vị trí của bounding boxes với FC layers trong [YOLOv1](https://huytranvan2010.github.io/YOLOv1-Core-Ideas/), YOLOv2 sử dụng Conv layers để dự đoán vị trí của anchor boxes như trong [Faster R-CNN](https://huytranvan2010.github.io/Faster-RCNN/). YOLOv2 downsampling ảnh ban đầu xuống feature map có kích thước `13x13`. YOLOv1 dự đoán 98 bounding boxes, còn YOLOv2 với anchor boxes nó dự đoán hơn 1000 boxes. Thay đổi này làm giảm mAP một chút từ 69.6% map xuống 69.2% mAP, nhưng recall tăng từ 81% lên 88% - đồng nghĩa với việc tăng cơ hội phát hiện được tất cả groundth-truth boxes. 
+
+**Chú ý**: Tương tự như YOLOv1, khi downsampling xuống feature map `13x13`, điều này đồng nghĩa với việc chúng ta chia input image thành grid cell `13x13` và mỗi cell này tương ứng với một vị trí trong feature map.
 
 ## 1.4. Dimension clusters
 
@@ -64,7 +66,7 @@ Việc lựa chọn $K$ lớn hơn có thể cho IoU trung bình cao hơn, tuy n
 
 ## 1.5. Direct location prediction
 
-YOLOv1 không hạn chế trong việc dự đoán vị trí của bounding box. Khi các trọng số được khởi tạo ngẫu nhiên, bounding box có thể được dự đoán ở bất kỳ đâu trong ảnh. Điều này khiến mô hình không ổn định trong giai đoạn đầu của quá trình huấn luyện. Vị trí của bounding box có thể ở rất xa so với vị trí của grid cell.
+YOLOv1 không hạn chế trong việc dự đoán vị trí của bounding box. Khi các trọng số được khởi tạo ngẫu nhiên, bounding box có thể được dự đoán ở bất kỳ đâu trong ảnh. Điều này khiến mô hình không ổn định trong giai đoạn đầu của quá trình huấn luyện. Vị trí của bounding box có thể ở rất xa so với vị trí của grid cell, ví dụ grid cell góc trên bên trái chứa object xong đi dự đoán của tâm của object lại ở grid cell gần dưới cùng.
 
 YOLOv2 sử dụng hàm sigmoid để hạn chế giá trị trong khoảng 0 đến 1, từ đó có thể hạn chế các dự đoán bounding box ở xung quanh grid cell, từ đó giúp mô hình ổn định hơn trong quá trình huấn luyện.
 
@@ -84,9 +86,11 @@ b_h &= p_h e^{t_h}\\
 \text{Pr}(\text{object}) &\cdot \text{IoU}(b, \text{object}) = \sigma(t_o)
 \end{aligned} $$
 
-**Chú ý**: cách biểu diễn parameters của YOLOv2 khác với cách biểu diễn trong Faster R-CNN. Với cách biểu diễn trong YOLOv2, chúng ta ép tâm của predicted bounding box nằm trong grid cell ứng với anchor box.
+**Chú ý**: 
+- Cách biểu diễn parameters của YOLOv2 khác với cách biểu diễn trong Faster R-CNN. Với cách biểu diễn trong YOLOv2, chúng ta đang **ép tâm của predicted bounding box nằm trong grid cell ứng với anchor box**.
+- Mình có tham khảo rất nhiều bài viết nhưng đa phần đều không nói chi tiết về các tham số bên trên, cách xác định khá mơ hồ. Cụ thể ở đây $(c_x, c_y)$ - **tọa độ góc trên bên trái** của grid cell chứa anchor box tương ứng. Tọa độ này được xác định sau khi đã chia grid cell, ví dụ như hình bên trên $c_x = 1, c_y = 1$. $p_w, p_h$ cũng vậy, cũng được normalize theo width và height sau khi đã chia grid cell. Khi tính được $b_x, b_y, b_w, b_h$ có thể suy ngược lại như sau $b_x = b_x * \frac{416}{13}$ do kích thước một cell hay một đơn vị ở đây tương ứng với $\frac{416}{13} = 32$ pixels.
 
-Thực chất chúng ta có mối liên hệ giữa anchor box, grid cell và ground-truth box, bây giờ như ở trên chúng ta có mối liên hệ giữa anchor box, grid cell và predicted bounding box. Từ đây nhận thấy thông qua anchor box và grid cell chúng ta đang đi khớp predicted bounding box với ground-truth box.
+Thực chất chúng ta có mối liên hệ giữa (anchor box, grid cell) và ground-truth box, bây giờ như ở trên chúng ta có mối liên hệ giữa (anchor box, grid cell) và predicted bounding box. Từ đây nhận thấy thông qua anchor box và grid cell chúng ta đang đi khớp predicted bounding box với ground-truth box. Cụ thể từ các công thức trên chúng ta có thể xác định labels cho $t_x, t_y, t_h, t_w$ của ground-truth ứng với anchor box và grid cell tương ứng, đơn giản chỉ cần tính ngược lại.
 
 <img src="../images/YOLO/yolov2_7.jpeg" style="display:block; margin-left:auto; margin-right:auto" width="500">
 

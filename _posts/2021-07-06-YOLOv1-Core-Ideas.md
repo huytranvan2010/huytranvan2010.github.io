@@ -12,7 +12,7 @@ Không giống như các mô hình two-stages như R-CNN, Fast-RCNN, Faster-RCNN
 
 2. Mỗi grid cell sẽ chịu trách nhiệm dự đoán:
 - $B=2$ bounding boxes
-- $C$ **conditional class probabilities** $ Pr(class_i \| object) $ (hay xác suất có điều kiện các classes trong cell đó). Ban đầu sử dụng bộ dữ liệu PASCAL VOC có số classes $ C = 20 $. Grid cell ở đây được coi là prior box, dự đoán bounding boxes sẽ dựa trên những grid cell này.
+- $C$ **conditional class probabilities** $ Pr(class_i \| object) $ (hay xác suất có điều kiện xuất hiện các classes trong cell đó). Ban đầu sử dụng bộ dữ liệu PASCAL VOC có số classes $ C = 20 $. Grid cell ở đây được coi là prior box, dự đoán bounding boxes sẽ dựa trên những grid cell này.
 
 3. Đối với mỗi predicted bounding box dự đoán 5 giá trị:
 - **4 tọa độ** của của bounding box **$(x, y, w, h)$**. 
@@ -28,6 +28,8 @@ Hình bên dưới sẽ thể hiện rất rõ cách bố trí output. Trong hì
 <img src="../images/YOLO/2.png" style="display:block; margin-left:auto; margin-right:auto">
 
 Như vậy tổng cộng chúng ta sẽ có $S \times S \times (5B + C)$ giá trị đầu ra ($7 \times 7 \times (2\times 5 + 20)=1470$). Đây chính là tensor shape của layer cuối cùng model. Hình bên dưới thể hiện đầu ra của model.
+
+**Chú ý**: Đầu output tensor của YOLOv1 của shape là `7x7x30`. Đó chính là lý do bên trên chúng ta nói input image được chia thành grid cell `7x7`. Mỗi vị trí trên output tương ứng với một cell trên input image.
 
 Cùng phân tích kết quả của quá trình **inference**.
 
@@ -85,7 +87,9 @@ Khi huấn luyện chúng ta đã biết grounth-truth box thuộc cell nào. Kh
 
 **Chú ý**: Phần localization loss này chỉ cho grid cell chứa object và cho predicted box của grid đó có IoU cao nhất.
 
-Trong loss function $ \mathcal{L}_\text{loc} $ nhận thấy width và height dùng square root (căn bậc 2). Điều này để tính tớí việc chênh lệch giữa hai box lớn ít bị ảnh hưởng hơn so với chênh lệch giữa hai box nhỏ. Cùng lấy ví dụ để hiểu rõ hơn. Ví dụ chúng ta có $w_1 = 0.55, \hat{w_1} = 0.5$, $w_2 = 0.3, \hat{w_2} = 0.25$, nhận thấy $(w_1 -\hat{w_1}) = (w_2 -\hat{w_2}) $, tuy nhiên bounding boxes nhỏ hơn $w_2 = 0.3, \hat{w_2} = 0.25$ bị lệch nhiều hơn so với bounding boxes lớn $w_1 = 0.55, \hat{w_1} = 0.5$. Làm cách nào đó để trừng phạt bounding box nhỏ hơn, ở đây dùng square root. Thật vậy $\sqrt{0.3} - \sqrt{0.25} = 0.0477 > 0.0345 = \sqrt{0.55} - \sqrt{0.5}$.
+Trong loss function $ \mathcal{L}_\text{loc} $ nhận thấy width và height dùng square root (căn bậc 2). Điều này để tính đến việc chênh lệch giữa hai box lớn ít bị ảnh hưởng hơn so với chênh lệch giữa hai box nhỏ. Cùng lấy ví dụ để hiểu rõ hơn. Ví dụ chúng ta có $w_1 = 0.55, \hat{w_1} = 0.5$, $w_2 = 0.3, \hat{w_2} = 0.25$, nhận thấy $(w_1 -\hat{w_1}) = (w_2 -\hat{w_2}) $, tuy nhiên bounding boxes nhỏ hơn $w_2 = 0.3, \hat{w_2} = 0.25$ bị lệch nhiều hơn so với bounding boxes lớn $w_1 = 0.55, \hat{w_1} = 0.5$. Làm cách nào đó để trừng phạt bounding box nhỏ hơn, ở đây dùng square root. Thật vậy $\sqrt{0.3} - \sqrt{0.25} = 0.0477 > 0.0345 = \sqrt{0.55} - \sqrt{0.5}$. 
+
+> Để dễ hiểu hơn nữa mình sẽ lấy thêm ví dụ cho trường hợp **kích thước thật**. Tạm thời chỉ quan tâm đến width. Một box lớn có $w_1 = 10$, dự đoán được $\hat{w_1} = 5$. Một box nhỏ có $w_2 = 6$, dự đoán được $\hat{w_2} = 3$. Nếu chỉ dùng thông thường chúng ta sẽ có $\left(w_1 - \hat{w_1} \right)^2 > \left(w_2 - \hat{w_2} \right)^2$, tuy nhiên thực chất về việc dự đoán sai khác là như nhau (lệch một nửa). Do đó ở đây tác giả đã sử dụng square root để giảm sự khác biệt này.
 
 - **Confidence loss (hay object loss)**
 
@@ -101,7 +105,7 @@ Thành phần thứ nhất của object loss chính là phần loss cho **trư�
 
 Thành phần thứ hai của object loss chính là phần loss cho **trường hợp cell $i$ không chứa objet**, lúc này $C_{i}$ luôn bằng 0, dĩ nhiên $C_{ij=0}$, còn $ \hat C_{ij} =  Pr(object) \cdot IOU_{pred}^{truth} $ cho bounding box $j$ thuộc cell $i$, đây là giá trị dự đoán.
 
-$1^{noobj}\_{ij} = 1$ nếu box thứ $j$ của cell thứ $i$ không chứa object. $1^{noobj}\_{ij} = 0$ nếu box thứ $j$ của cell thứ $i$ có chứa object. *Ở đây cứ grid cell và box của nó không match với nhau thì cho vào nhóm này, bao gồm cả những grid cell không chứa object? và grid cell chứa object nhưng không khớp với box do có IoU nhỏ hơn box còn lại*. Và những trường hợp không khớp như này chúng ta chỉ đi minimize objectness score, không quan tâm đến coordinates và class probabilities.
+$1^{noobj}\_{ij} = 1$ nếu box thứ $j$ của cell thứ $i$ không chứa object. $1^{noobj}\_{ij} = 0$ nếu box thứ $j$ của cell thứ $i$ có chứa object. *Ở đây cứ grid cell và box của nó không match với nhau thì cho vào nhóm này, bao gồm cả những grid cell không chứa object? và grid cell chứa object nhưng không khớp với box do có IoU nhỏ hơn box còn lại*. Và những trường hợp không khớp như này chúng ta chỉ đi minimize objectness score, không quan tâm đến coordinates và class probabilities (không chứa object rồi nên cũng chẳng quan).
 
 **Chú ý**: Trong ảnh đa số các grid cell không chứa object nên nếu để weights của localization loss và confidence loss cho vị trí không có object như nhau thì kết quả sẽ không tốt. Model lúc này có xu hướng tập trung dự đoán các box không chứa object để giảm loss nhiều nhất có thể. Do đó ở đây sẽ thiết lập weights khác nhau $\lambda_\text{noobj} =0.5$, $ \lambda_\text{coord} = 5 $ để tăng performance của model.
 
