@@ -13,9 +13,9 @@ Chắc mọi người đã quen với bài toán multi-class classification như
 
 Trong khi đó, bài toán multi-label classification, mỗi dữ liệu có thể chứa nhiều class. Ví dụ đối với dữ liệu ảnh chẳng hạn, ảnh có thể được gán nhãn vừa chứa chó vừa chứa mèo. Số units của output layer bằng với số classes có thể chứa trong mỗi ảnh. Thường chúng ta sẽ dùng sigmoid activation function cho output layer.
 
-<img src="https://gombru.github.io/assets/cross_entropy_loss/multiclass_multilabel.png" style="display:block; margin-left:auto; margin-right:auto">
+<img src="../images/Multi-label -classification/1.png" style="display:block; margin-left:auto; margin-right:auto" width="600">
 
-# 2. Một số kỹ thuật để giải quyết bài toán Multi-lable classification
+# 2. Một số kỹ thuật để giải quyết bài toán Multi-label classification
 
 - Problem Transformation
 - Adapted Algorithm
@@ -24,27 +24,32 @@ Trong khi đó, bài toán multi-label classification, mỗi dữ liệu có th�
 
 ## 2.1. Problem Transformation
 
-Với phương pháp này chúng ta cố gắng chuyển đổi nulti-lable problem về single-label problem. Phương pháp này có thể thực hiện qua một số cách sau:
+Với phương pháp này chúng ta cố gắng chuyển đổi multi-label problem về single-label problem. Phương pháp này có thể thực hiện qua một số cách sau:
 - Binary Relevance
 - Classifier Chains
 - Label Powerset
 
 ### 2.1.1. Binary Relevance
 
-Đây là kỹ thuật đơn giản nhất, chúng ta sẽ xử lý các label riêng rẽ. Cùng xem ví dụ dưới đây
-<img src="https://cdn.analyticsvidhya.com/wp-content/uploads/2017/08/25230613/Screen-Shot-2017-08-21-at-1.42.27-AM.png" style="display:block; margin-left:auto; margin-right:auto">
+Đây là kỹ thuật đơn giản nhất, chúng ta sẽ xử lý các label một cách riêng rẽ. Cùng xem ví dụ dưới đây
 
-Với binary relevance chúng ta sẽ chia thành 4 sigle class classification (do ở đây có 4 classes). Từ đây có thể dễ dàng xử lý các bài toán riêng lẻ, sau đó kết quả cuối cùng có thể gộp lại làm một.
+<img src="../images/Multi-label -classification/2.png" style="display:block; margin-left:auto; margin-right:auto" width="600">
 
-Thư viện Scikit-learn có hỗ trợ chúng ta trong việc này, vừa chia vừa train model luôn
+Với binary relevance, chúng ta sẽ bài toán trên chia thành 3 single class classification (do ở đây có 3 classes). Từ đây có thể dễ dàng xử lý các bài toán riêng lẻ, sau đó kết quả cuối cùng có thể gộp lại làm một.
+
+Thư viện [Scikit-multilearn](http://scikit.ml/api/skmultilearn.problem_transform.br.html) có hỗ trợ chúng ta trong việc này, vừa chia vừa train model luôn
 ```python
-# using binary relevance
 from skmultilearn.problem_transform import BinaryRelevance
-from sklearn.naive_bayes import GaussianNB
+from sklearn.svm import SVC
 
-# initialize binary relevance multi-label classifier
-# with a gaussian naive bayes base classifier
-classifier = BinaryRelevance(GaussianNB())
+# initialize Binary Relevance multi-label classifier
+# with an SVM classifier
+# SVM in scikit only supports the X matrix in sparse representation
+
+classifier = BinaryRelevance(
+    classifier = SVC(),
+    require_dense = [False, True]
+)
 
 # train
 classifier.fit(X_train, y_train)
@@ -55,72 +60,78 @@ predictions = classifier.predict(X_test)
 
 ### 2.1.2. Classifier Chains - chuỗi classifier
 Ban đầu chúng ta có dataset như này
-<img src="https://cdn.analyticsvidhya.com/wp-content/uploads/2017/08/25230735/Screen-Shot-2017-08-25-at-12.41.13-AM.png" style="display:block; margin-left:auto; margin-right:auto">
 
-Trong classifier chains chúng ta cũng có 4 single label problem tương ứng với 4 classes.
+<img src="../images/Multi-label -classification/3.png" style="display:block; margin-left:auto; margin-right:auto" width="300">
 
-<img src="https://cdn.analyticsvidhya.com/wp-content/uploads/2017/08/25233225/Screen-Shot-2017-08-25-at-11.31.58-PM.png" style="display:block; margin-left:auto; margin-right:auto">
+Trong classifier chains chúng ta cũng có 3 single label problem tương ứng với 3 classes.
+
+<img src="../images/Multi-label -classification/4.png" style="display:block; margin-left:auto; margin-right:auto" width="800">
 
 - Classifier 1 có features là $\mathbf{X}$ và target là $\mathbf{y}_1$
 - Classifier 2 có features là $\mathbf{X}$, $\mathbf{y}_1$ và target là $\mathbf{y}_2$
 - Classifier 3 có features là $\mathbf{X}$, $\mathbf{y}_1$, $\mathbf{y}_2$ và target là $\mathbf{y}_3$
-- Classifier 4 có features là $\mathbf{X}$, $\mathbf{y}_1$, $\mathbf{y}_2$, $\mathbf{y}_3$ và target là $\mathbf{y}_4$
 
 Cách này giúp giữ lại tương quan giữa các class (hiểu đơn giản như class này xuất hiện thì nhiều khả năng class kia sẽ xuất hiện). Chúng ta hoàn toàn có thể train các models riêng rẽ được.
 
-Scikit-learn cũng hỗ trợ phương pháp này
-```python
-# using classifier chains
-from skmultilearn.problem_transform import ClassifierChain
-from sklearn.naive_bayes import GaussianNB
+[Scikit-multilearn](http://scikit.ml/api/skmultilearn.problem_transform.cc.html) cũng hỗ trợ phương pháp này.
 
-# initialize classifier chains multi-label classifier
-# with a gaussian naive bayes base classifier
-classifier = ClassifierChain(GaussianNB())
+```python
+from skmultilearn.problem_transform import ClassifierChain
+from sklearn.svm import SVC
+
+# initialize Classifier Chain multi-label classifier
+# with an SVM classifier
+# SVM in scikit only supports the X matrix in sparse representation
+
+classifier = ClassifierChain(
+    classifier = SVC(),
+    require_dense = [False, True]
+)
 
 # train
 classifier.fit(X_train, y_train)
 
 # predict
 predictions = classifier.predict(X_test)
-
-# exact match ratito
-accuracy_score(y_test,predictions)
 ```
 
 ### 2.1.3. Label Powerset
 
 Ý tưởng của label powerset là chọn ra các "class" duy nhất trong trong nhãn dữ liệu ban đầu.
-<img src="https://cdn.analyticsvidhya.com/wp-content/uploads/2017/08/25230858/Screen-Shot-2017-08-25-at-12.46.30-AM.png" style="display:block; margin-left:auto; margin-right:auto">
 
-Như hình trên, điểm dữ liệu x1 và x4 được coi có cùng nhãn, x3 và x6 được coi có cùng nhãn. x2 có nhãn riêng, x5 có nhãn riêng. Tổng cộng lúc này chúng ta có 4 classes mới cho model mới. Model này phục vụ cho bài toàn multi-class classification. Nhận thấy bài toán multi-label classification đã chuyển về bài toán multi-class classification.
+<img src="../images/Multi-label -classification/5.png" style="display:block; margin-left:auto; margin-right:auto" width="600">
 
-**Chú ý**: cần xử lý trường hợp trong test data có dữ liệu không thuộc nhãn nào ở training data. Lúc này chúng ta có thể tạo thêm một class mới - KHÔNG THUỘC CÁC CLASS TRÊN.
+Như hình trên, điểm dữ liệu x2 và x3 được coi có cùng nhãn, x4 và x6 được coi có cùng nhãn. x1 có nhãn riêng, x5 có nhãn riêng. Tổng cộng lúc này chúng ta có 4 classes mới cho model mới. Model này phục vụ cho bài toàn multi-class classification. Nhận thấy bài toán multi-label classification đã chuyển về bài toán multi-class classification.
 
-Trong Scikit-learn có hỗ trợ phương pháp này
+**Chú ý**: 
+- Cần xử lý trường hợp trong test data có dữ liệu không thuộc nhãn nào ở training data. Lúc này chúng ta có thể tạo thêm một class mới - KHÔNG THUỘC CÁC CLASS TRÊN.
+- Nếu có ban đầu $n$ classes thì chúng ta sẽ có tối đa $2^n$ classes cho bài toán multi-class classificationn
+
+Trong [Scikit-learn](http://scikit.ml/api/skmultilearn.problem_transform.lp.html) có hỗ trợ phương pháp này
+
 ```python
-# using Label Powerset
 from skmultilearn.problem_transform import LabelPowerset
-from sklearn.naive_bayes import GaussianNB
+from sklearn.ensemble import RandomForestClassifier
 
-# initialize Label Powerset multi-label classifier
-# with a gaussian naive bayes base classifier
-classifier = LabelPowerset(GaussianNB())
+# initialize LabelPowerset multi-label classifier with a RandomForest
+classifier = ClassifierChain(
+    classifier = RandomForestClassifier(n_estimators=100),
+    require_dense = [False, True]
+)
 
 # train
 classifier.fit(X_train, y_train)
 
 # predict
 predictions = classifier.predict(X_test)
-
-accuracy_score(y_test,predictions)
 ```
 
 ## 2.2. Adapted Algorithm
 
-Đúng như cái tên, Adapted Algorithm sẽ điều chỉnh để algorithm để thực hiện multi-label classification thay vì chuyển thành các bài toán khác.
+Đúng như cái tên, Adapted Algorithm sẽ điều chỉnh để algorithm để giải quyết trước tiếp multi-label classification thay vì chuyển thành các bài toán khác.
 
-Ví dụ phiên bản multi-label của kNN được gọi là MLkNN.
+Ví dụ phiên bản multi-label của kNN được gọi là [MLkNN](http://scikit.ml/api/skmultilearn.adapt.mlknn.html).
+
 ```python
 from skmultilearn.adapt import MLkNN
 
@@ -146,9 +157,9 @@ Emsemble method thường cho kết quả tốt hơn. Thư viện [Scikit-Multil
 # 3. Metrics cho multi-label classification
 ## 3.1. Example-based metrics
 
-Example-based metrics là các metrics dựa trên các examples.
+Example-based metrics là các metrics dựa trên các examples hay các samples, nó không đánh giá dựa trên từng classes.
 
-### 3.1.1 Exact match ratio (EMR) - tỉ lệ khớp chính xác
+### 3.1.1. Exact match ratio (EMR) - tỉ lệ khớp chính xác
 
 $$acc = \frac{\text{số dự đoán đúng}}{\text{tổng số dự đoán}} = \frac{1}{n}\sum_{i=1}^{n}[\mathbf{I}(\mathbf{y}^{(i)} =\mathbf{\hat{y}}^{(i)}]$$
 
@@ -168,7 +179,7 @@ def emr(y_true, y_pred):
     return exact_match_count/len(y_true)
 ```
 
-### Harming loss
+### 3.1.2. Harming loss
 
 Harming loss tính tỉ lệ các labels dự đoán không chính xác trên tổng số labels.
 
@@ -193,7 +204,33 @@ def get_harming_loss(y_true, y_pred):
 
 Từ Harming loss chúng ta sẽ có Harming score.
 
-## 2.2. Label-based metrics (các metrics dựa trên label)
+### 3.1.3. Samples metrics
+
+Chúng ta sẽ đi tính metrics cho mỗi **sample** sau đó sẽ đi lấy trung bình trên toàn bộ các samples.
+
+<img src="../images/Multi-label -classification/6.png" style="display:block; margin-left:auto; margin-right:auto" width="600">
+
+$$ \text{Sample precision} = \frac{\sum_{i=1}^{n}P^i}{n}$$
+
+trong đó $n$ chính là tổng số examples trong dữ liệu.
+
+```python
+total_Precision=0
+
+# duyệt qua từng example hay sample
+for i in range (len(y_true)):
+    # precision cho mỗi sample
+    p = metrics.precision_score(y_true[i,:], y_pred[i,:])
+    total_Precision += p
+    print("For Sample {} precision: {:.2f} ".format(y_true[i,:], p ))
+print("Sample Precision: {:.2f}".format(total_Precision / len(y_true)))
+```
+
+Như hình trên chúng ta có true sample 1 là [0 1 1 1], dự đoán được là `[0 1 0 1]`, từ đó sẽ đi tính các metrics thôi. Khá dễ hiểu phải không nào.
+
+Việc xác định các đại lượng khác như recall cũng tương tự như vậy
+
+## 3.2. Label-based metrics (các metrics dựa trên label)
 
 Không giống với example-based metrics, label-based metrics được thực hiện cho mỗi class riêng rẽ, sau đó sẽ lấy trung bình trên tất cả các classes.
 Tất cả các metrics dùng cho binary classification đều có thể dùng được cho label-based metrics.
@@ -203,7 +240,7 @@ Tất cả các metrics dùng cho binary classification đều có thể dùng �
 
 Chúng ta cùng đi chi tiết vào các metrics để dễ hiểu hơn.
 
-### 2.2.1. Macro-average
+### 3.2.1. Macro-average
 **Macro-average accuracy**
 
 Công thức chung của accuracy
@@ -276,14 +313,16 @@ for i in range (len(label_names)):
     print("Macro F1 score: {:.2f}".format(total_f1score / len(label_names)))
 ```
 
-### Micro-average
+Rõ ràng macro-average metric này không tính đến **imbalance** giữa các class. Ben dưới chúng ta sẽ giới thiệu weightes metric, nó sẽ tính đến imbalance của các classes.
+
+### 3.2.2. Micro-average
 
 **Micro-average accuracy**
 
 Công thức tổng quát:
 
 $$
-\text{micro-average accuracy} = \frac{\sum_{c=1}^C\text{TP}c}{\sum_{c=1}^C(\text{TP}c + \text{FP}c)}
+\text{micro-average accuracy} = \frac{\sum_{c=1}^C\text{TP}c}{\sum_{c=1}^C(\text{TP}c + \text{FP}c + \text{FN}c + \text{TN}c)}
 $$
 
 Nhìn lên công thức tính accracy cho từng class ở phần macro-average accuracy, ta thấy tử số và mẫu số của nó bây giờ được lấy tổng theo các classes giống như công thức tổng quát bên trên.
@@ -324,7 +363,50 @@ micro_f1score = micro_precision * micro_recall / (micro_precision + micro_recall
 ```
 
 Những metrics macro, micro, average, samples có thể được xác định thông qua [classification_report](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.classification_report.html) của thư viện scikit-learn.
-### $\alpha$ - evaluation score
+
+### 3.3.3. Weighted
+
+Chúng ta sẽ đi xác định metric cho từng label sau đi lấy trung bình có trọng số của các metric đó để được weighted metric. Trong số cho mỗi label chính là số examples **chứa** labels đó trong data ban đầu.
+
+Weighted metric này khá giống với macro-average, chỉ có điều trong macro-average chúng ta coi các labels có weights như nhau. Việc có tính thêm weights của mỗi label giúp chúng ta tính đến **imbalance** trong dataset.
+
+Cho accuracy:
+
+$$ \text{Weighted accuracy} = \frac{\sum_{j=1}^{k} n^j \times A^j}{\sum_{j=1}^{k} n^j}$$
+
+trong đó $k$ - số classes, $n^j$ là số examples có chứa class $\text{j-th}$.
+
+Cho precision:
+
+$$ \text{Weighted precision} = \frac{\sum_{j=1}^{k} n^j \times P^j} {\sum_{j=1}^{k} n^j}$$
+
+Tương tự chúng ta cũng có cho Recall và từ đó xác định được F1-score.
+
+Implementation cho **weighted precision**:
+
+```python
+total_Precision = 0
+total_examples=0
+for i in range (len(label_names)):
+    p = metrics.precision_score(y_true[:,i], y_pred[:,i])
+    # số true examples của class i, nghĩa là số examples xuất hiện class i
+    no_ex = (y_true[:, i] == 1).sum()
+    # xác định tổng số examples
+    total_examples += no_ex
+    total_Precision += p * no_ex
+    print("For {} precision: {:.2f} support: {}".format(label_names[i], p, no_ex))
+print("Weighted Precision: {:.2f}".format(totalPrecision / total_examples))
+```
+
+Trong scikit-learn đã implement cho chúng ta rồi, có thể kiểm tra chéo bằng cách in ra classification report như sau:
+
+```python
+print(classification_report(y_true, y_pred,target_names=label_names))
+```
+
+<!-- 
+
+### 3.4. $\alpha$ - evaluation score
 
 Boutell et.al. in [Learning multi-label scene](https://www.rose-hulman.edu/~boutell/publications/boutell04PRmultilabel.pdf) đã giới thiệu phiên bản tổng quát của **Jaccard Similarity** để đánh giá multi-label prediction.
 
@@ -339,8 +421,11 @@ trong đó:
 - $P_x$ - TP + FP
 - $\vee$ - logical OR operator
 
-# 3. Example
-Dưới đây là implementation đơn giản cho bài toán multi-label classification.
+-->
+
+# 4. Example
+
+Dưới đây là implementation một model đơn giản cho bài toán multi-label classification.
 
 Tạo dataset từ scikit-learn.
 ```python
@@ -366,9 +451,13 @@ hist = model.fit(X_train, y_train, validation_data=(X_test, y_test), verbose=1, 
 
 # 4. Kết luận
 
-Như vậy chúng ta đã tìm hiểu một số khía cạnh của bài toán multi-label classification. Các nội dung chính đã đề cập là:
+Như vậy chúng ta đã tìm hiểu một số khía cạnh của bài toán multi-label classification. Các nội dung chính mình đã đề cập là:
 - Multi-label classification
-- Các phương pháp giải quyết
+- Các phương pháp giải quyết bài toán:
+    - Problem Transformation
+    - Adapted Algorithm
+    - Ensemble approaches
+    - Neural Network
 - Các metrics đánh giá model
 
 Hy vọng mọi người tìm thấy điều gì đó hữu ích từ bài viết này.
@@ -381,3 +470,4 @@ Hy vọng mọi người tìm thấy điều gì đó hữu ích từ bài viế
 6. https://www.analyticsvidhya.com/blog/2017/08/introduction-to-multi-label-classification/
 7. https://www.kaggle.com/kmkarakaya/multi-label-model-evaluation
 8. https://scikit-learn.org/stable/
+9. https://xang1234.github.io/multi-label/

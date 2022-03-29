@@ -31,7 +31,7 @@ Khác với YOLOv1, base network của YOLOv2 được train cho classification 
 
 ## 1.3. Convolutional with anchor boxes
 
-Đây là thay đổi đáng chú ý nhất của YOLOv2 so với YOLOv1. Các anchor boxes này chịu trách nhiệm cho việc dự đoán các bounding boxes. Anchor boxes được thiết kế cho bộ dataset có sẵn dựa trên phân nhóm clustering (K-means clustering). Điều này xuất phát từ việc các vật thể có một số boundng boxes tương đồng ví dụ như ô tô, xe đẹp có bounding box dạng hình chữ nhật nằm ngang, người có bounding box dạng hình chữ nhật đứng... Khái niệm anchor boxes này đã có trên [Faster R-CNN](https://huytranvan2010.github.io/Faster-RCNN/), hoạt động khá hiệu quả, sẽ đi dự đoán bounding boxes dựa trên các anchor boxes này.
+Đây là thay đổi đáng chú ý nhất của YOLOv2 so với YOLOv1. Các anchor boxes này chịu trách nhiệm cho việc dự đoán các bounding boxes. Anchor boxes được thiết kế cho bộ dataset có sẵn dựa trên phân nhóm clustering (K-means clustering). Điều này xuất phát từ việc các vật thể có một số boundng boxes tương đồng ví dụ như ô tô, xe đẹp có bounding box dạng hình chữ nhật nằm ngang, người có bounding box dạng hình chữ nhật đứng... Khái niệm anchor boxes này đã có trên [Faster R-CNN](https://huytranvan2010.github.io/Faster-RCNN/), hoạt động khá hiệu quả, sẽ đi dự đoán bounding boxes dựa trên các anchor boxes này. Anchor boxes sẽ giúp model phát hiện được nhiều vật thể trong cùng một grid cell, điều này đã khắc phục nhược điểm của YOLOv1 chỉ phát hiện được 1 object trong 1 grid cell.
 
 Dưới đây là một số thay đổi khi sử dụng convolutional với anchor boxes:
 - Loại bỏ FC layers chịu trách nhiệm cho dự đoán bounding boxes, loại bỏ một lớp Maxpooling ở cuối để tăng kích thước feature map.
@@ -42,7 +42,7 @@ Dưới đây là một số thay đổi khi sử dụng convolutional với anc
 
 <img src="../images/YOLO/yolov2_6.jpeg" style="display:block; margin-left:auto; margin-right:auto" width="500">
 
-- Chuyển class prediction từ cell level sang bounding box level. Mỗi dự đoán của bounding box bao gồm 4 parameters, 1 box confidence score (objectness) và 20 class probabilities. Xem thêm [Deep Learning Specialization]() để có cảm giác tốt hơn .Giả sử mỗi grid cell có 5 anchor boxes (5 prior boxes) thì sẽ dự đoán 5 bounding boxes và lúc này có tổng số 125 parameters cho mỗi grid cell.
+- Chuyển class prediction từ cell level sang bounding box level. Mỗi dự đoán của bounding box bao gồm 4 parameters, 1 box confidence score (objectness) và 20 class probabilities. Xem thêm [Deep Learning Specialization](https://youtu.be/GSwYGkTfOKk?list=PLkDaE6sCZn6Gl29AoE31iwdVwSG-KnDzF&t=675) để có cảm giác tốt hơn. **Giả sử mỗi grid cell có 5 anchor boxes (5 prior boxes) thì sẽ dự đoán 5 bounding boxes và lúc này có tổng số 125 parameters cho mỗi grid cell.** Dĩ nhiên ứng với mỗi anchor box chúng ta sẽ có [label](https://youtu.be/RTlwl2bv0Tg?list=PLkDaE6sCZn6Gl29AoE31iwdVwSG-KnDzF&t=132).
 
 <img src="../images/YOLO/yolov2_3.png" style="display:block; margin-left:auto; margin-right:auto" width="800">
 
@@ -90,7 +90,7 @@ b_h &= p_h e^{t_h}\\
 - Cách biểu diễn parameters của YOLOv2 khác với cách biểu diễn trong Faster R-CNN. Với cách biểu diễn trong YOLOv2, chúng ta đang **ép tâm của predicted bounding box nằm trong grid cell ứng với anchor box**.
 - Mình có tham khảo rất nhiều bài viết nhưng đa phần đều không nói chi tiết về các tham số bên trên, cách xác định khá mơ hồ. Cụ thể ở đây $(c_x, c_y)$ - **tọa độ góc trên bên trái** của grid cell chứa anchor box tương ứng. Tọa độ này được xác định sau khi đã chia grid cell, ví dụ như hình bên trên $c_x = 1, c_y = 1$. $p_w, p_h$ cũng vậy, cũng được normalize theo width và height sau khi đã chia grid cell. Khi tính được $b_x, b_y, b_w, b_h$ có thể suy ngược lại như sau $b_x = b_x * \frac{416}{13}$ do kích thước một cell hay một đơn vị ở đây tương ứng với $\frac{416}{13} = 32$ pixels.
 
-Thực chất chúng ta có mối liên hệ giữa (anchor box, grid cell) và ground-truth box, bây giờ như ở trên chúng ta có mối liên hệ giữa (anchor box, grid cell) và predicted bounding box. Từ đây nhận thấy thông qua anchor box và grid cell chúng ta đang đi khớp predicted bounding box với ground-truth box. Cụ thể từ các công thức trên chúng ta có thể xác định labels cho $t_x, t_y, t_h, t_w$ của ground-truth ứng với anchor box và grid cell tương ứng, đơn giản chỉ cần tính ngược lại.
+Thực chất chúng ta có mối liên hệ giữa [(anchor box, grid cell) và ground-truth box](https://youtu.be/RTlwl2bv0Tg?list=PLkDaE6sCZn6Gl29AoE31iwdVwSG-KnDzF&t=258), bây giờ như ở trên chúng ta có mối liên hệ giữa (anchor box, grid cell) và predicted bounding box. Từ đây nhận thấy thông qua anchor box và grid cell chúng ta đang đi khớp predicted bounding box với ground-truth box. Cụ thể từ các công thức trên chúng ta có thể xác định labels cho $t_x, t_y, t_h, t_w$ của ground-truth ứng với anchor box và grid cell tương ứng, đơn giản chỉ cần tính ngược lại.
 
 <img src="../images/YOLO/yolov2_7.jpeg" style="display:block; margin-left:auto; margin-right:auto" width="500">
 

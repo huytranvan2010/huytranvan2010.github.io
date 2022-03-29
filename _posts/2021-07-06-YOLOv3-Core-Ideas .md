@@ -11,7 +11,7 @@ YOLOv3 có kiến trúc khá giống YOLOv2. Tác giả đã thêm các cải ti
 
 ## 1. Bounding box prediction
 
-Trong dự đoán của mỗi box sẽ có các giá trị $t_x, t_y, t_w, t_h$ - những giá trị này được sử dụng để tính loss. Nếu grid ceel offset so với góc trên bên trái của ảnh $(c_x, c_y)$ và anchor box có width và height $p_w, p_h$ thì predictions (được tính toán lại, không phải output của model) sẽ là
+Trong dự đoán của mỗi box sẽ có các giá trị $t_x, t_y, t_w, t_h$ và objectness prediction - những giá trị này được sử dụng để tính loss. Nếu grid cell offset so với góc trên bên trái của ảnh $(c_x, c_y)$ và anchor box có width và height $p_w, p_h$ thì predictions (được tính toán lại, không phải output của model) sẽ là
 
 $$
 \begin{aligned}
@@ -25,9 +25,13 @@ $$
 
 <img src="../images/YOLO/yolov2_7.jpeg" style="display:block; margin-left:auto; margin-right:auto" width="400">
 
+*Bounding box location prediction*
+
+Mình xin nhắc lại $(c_x, c_y)$ - **tọa độ góc trên bên trái** của grid cell chứa anchor box tương ứng. Tọa độ này được xác định sau khi đã chia grid cell, ví dụ như hình bên trên $c_x = 1, c_y = 1$. $p_w, p_h$ cũng vậy, cũng được normalize theo width và height sau khi đã chia grid cell. Chi tiết hơn các bạn có thể xem lại ở [YOLOv2](https://huytranvan2010.github.io/YOLOv2-Core-Ideas/).
+
 *Bounding boxes with dimension priors and location prediction.*
 
-YOLOv3 dự đoán objectness score cho mỗi bounding box bằng logistic regression. Nếu bounding box prior (anchor) overlap với ground-truth box lớn hơn so với các anchỏ boxes khác thì objectness score bằng 1. Nếu anchor box không có IoU lớn nhất nhưng overlap với ground-truth box và IoU lớn hơn threshold 0.5 thì chúng ta bỏ qua dự đoán đó - không tính loss. Mỗi ground-truth box chỉ liên quan đến một anchor box. Nếu anchor box không được gán cho ground-truth box nào thì khi tính loss cho nó sẽ bỏ qua classification loss, localization loss và chỉ tính confidence loss cho object - liên quan đến có object hay không.
+YOLOv3 dự đoán objectness score cho mỗi bounding box bằng logistic regression. Nếu bounding box prior (anchor) overlap với ground-truth box lớn hơn so với các anchor boxes khác thì objectness score bằng 1. Nếu anchor box không có IoU lớn nhất nhưng overlap với ground-truth box và IoU lớn hơn threshold 0.5 thì chúng ta bỏ qua dự đoán đó - không tính loss. Mỗi ground-truth box chỉ liên quan đến một anchor box. Nếu anchor box không được gán cho ground-truth box nào thì khi tính loss cho nó sẽ bỏ qua classification loss, localization loss và chỉ tính confidence loss cho object - liên quan đến việc có object hay không.
 
 ## 2. Class prediction
 
@@ -78,13 +82,28 @@ COCO AP metric của YOLOv3 ngang với SSD những YOLOv3 nhanh hơn 3 lần. T
 
 Nhận thấy với $\text{IoU}=0.5$, AP của YOLOv3 cao hơn hẳn so với SSD, tuy nhiên khi sử dụng các $\text{IoU}$ lớn hơn thì AP của YOLOv3 tụt rất nhanh. Điều này có nghĩa YOLOv3 gặp khó khăn trong việc khớp chính xác các boxes.
 
-Các phiên bản YOLO trước gặp khó khăn trong việc detect các objects nhỏ. Tuy nhiên YOLOv3 đã cản thiện điều này với $\text{AP\_S} = 18.3%$
+Các phiên bản YOLO trước gặp khó khăn trong việc detect các objects nhỏ. Tuy nhiên YOLOv3 đã cải thiện điều này với $\text{AP}_S = 18.3%$
 
 <img src="../images/YOLO/yolov3_4.png" style="display:block; margin-left:auto; margin-right:auto" width="500">
 
 *So sánh tốc độ và mAP của các object detection model*
 
-## 6. Tài liệu tham khảo
+## 6. Kết luận
+
+Như vậy chúng ta đã tìm hiểu 3 phiên bản khác nhau của YOLO. Cho đến nay YOLO đã phát triển đến phiên bản thứ 5 và một số biến thể khác như YOLO-X... Đến nay các mô hình YOLO rất thành công, nó được sử dụng rộng rãi trong các cuộc thi như trên Kaggle cũng như trong các ứng dụng trên edge devices. Trong phần tiếp theo có thể chúng ta đi sử dụng pre-trained model YOLO và thực hiện training lại trên custom dataset của chúng ta.
+
+## 7. Tài liệu tham khảo
+
 1. https://arxiv.org/abs/1804.02767
 2. https://jonathan-hui.medium.com/real-time-object-detection-with-yolo-yolov2-28b1b93e2088
+3. https://dev.to/afrozchakure/all-you-need-to-know-about-yolo-v3-you-only-look-once-e4m
 
+
+
+<!-- C4W3L05 https://www.youtube.com/watch?v=gKreZOUi-O0
+Nhắc lại một chút về sliding window, chúng ta trượt cửa sổ và đi classifiy cửa sổ đó. Nếu có object thì coi cửa sổ đó cũng là vị trí của
+object hay bounding box luôn. Điều này có nhược điểm:
+- Dự đoán không chính xác vị trí: Do thông thường window có hình vuông mà vật thể có thể có dạng hình chữ nhật
+- Không đưa ra vị trí chính xác mà chỉ là vị trí của window 
+
+Cần có algorithm khác OK hơn-->

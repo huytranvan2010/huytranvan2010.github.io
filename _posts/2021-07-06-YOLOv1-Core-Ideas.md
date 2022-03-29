@@ -19,6 +19,10 @@ Không giống như các mô hình two-stages như R-CNN, Fast-RCNN, Faster-RCNN
     - **$(x, y)$** là tọa độ tâm của bounding box so với grid cell của nó (chính xác là offsets của tâm box so tâm của grid cell, có chia cho width hoặc height của grid cell). **$x, y$** sẽ nhận giá trị từ 0 đến 1 ban đầu, lúc dự đoán thì không có constraints.
     - **$(w, h)$** là width và height của bounding box so với width và height của toàn bộ ảnh (không phải so với grid cell). Do đó $w, h$ cũng nhận các giá trị trong khoảng $(0, 1)$.
 
+<!-- https://youtu.be/gKreZOUi-O0?t=734 
+Trong khóa học DeepLearning.ai thì nói w, h cũng so với kích thước grid cell chứ ko phải cả image.
+Có nhiều quy ước về bounding boxes, cần để ý cho phù hợp -->
+
 <img src="../images/YOLO/6.png" style="display:block; margin-left:auto; margin-right:auto">
 
 - **1 box confidence score** thể hiện khả năng box có chứa object, nó chính là $Pr(object) \cdot IOU_{pred}^{truth}$. Ở đây thêm $IOU_{pred}^{truth}$ có nghĩa rằng vừa tính khả năng box chứa object vừa tính đến bounding box khớp với grounth truth như thế nào. Nếu không có object trong cell thì confidence score bằng 0, ngược lại chúng ta muốn confidence score bằng với IoU giữa predicted box và ground truth box.
@@ -27,13 +31,13 @@ Hình bên dưới sẽ thể hiện rất rõ cách bố trí output. Trong hì
 
 <img src="../images/YOLO/2.png" style="display:block; margin-left:auto; margin-right:auto">
 
-Như vậy tổng cộng chúng ta sẽ có $S \times S \times (5B + C)$ giá trị đầu ra ($7 \times 7 \times (2\times 5 + 20)=1470$). Đây chính là tensor shape của layer cuối cùng model. Hình bên dưới thể hiện đầu ra của model.
+Như vậy tổng cộng chúng ta sẽ có $S \times S \times (5B + C)$ giá trị đầu ra ($7 \times 7 \times (2\times 5 + 20)=1470$). Đây chính là tensor shape của layer cuối cùng model. Hình bên dưới thể hiện đầu ra của model. Dưới đây là video từ khóa học của [DeepLearning.ai](https://youtu.be/gKreZOUi-O0?t=331). Tuy không hoàn toàn giống như bài báo gốc nhưng nó cho ta intuition rất tốt.
 
-**Chú ý**: Đầu output tensor của YOLOv1 của shape là `7x7x30`. Đó chính là lý do bên trên chúng ta nói input image được chia thành grid cell `7x7`. Mỗi vị trí trên output tương ứng với một cell trên input image.
+**Chú ý**: Đầu output tensor của YOLOv1 của shape là `7x7x30`. Đó chính là lý do bên trên chúng ta nói input image được chia thành grid cell `7x7`. Mỗi vị trí trên output tương ứng với một cell trên input image. Bạn có thể xem [video này](https://www.youtube.com/watch?v=XdsmlBGOK-k&list=PLkDaE6sCZn6Gl29AoE31iwdVwSG-KnDzF&index=26).
 
 Cùng phân tích kết quả của quá trình **inference**.
 
-<img src="https://lilianweng.github.io/lil-log/assets/images/yolo.png" style="display:block; margin-left:auto; margin-right:auto">
+<img src="../images/YOLO/yolov1_0.png" style="display:block; margin-left:auto; margin-right:auto">
 
 Đầu ra của model chúng ra nhận được $Pr(object)\cdot IOU_{pred}^{truth}$ cho mỗi bounding box, đối với mỗi grid cell chúng ta nhận được $Pr(class_i \mid object)$ (dùng chung cho tất cả bounding box và không phụ thuộc vào số boxes của grid cell). 
 
@@ -81,9 +85,9 @@ $ 1^{obj}_{i} = 1$ thể hiện object xuất hiện trong cell $i$ (nếu khôn
 
 $ 1^{obj}\_{ij} = 1 $ nếu box thứ $ j $ của cell thứ $ i $ chứa object. $ 1^{obj}\_{ij} = 0 $ nếu box thứ $ j $ của cell thứ $ i $ không chứa object. Ở đây grid cell $i$ phải chứa object trước đã, chứa object rồi thì mới khớp được với prediected box.
 
-Khi huấn luyện chúng ta đã biết grounth-truth box thuộc cell nào. Khi dự đoán đưa ra nhiều predicted boxes cho mỗi grid cell. Chúng ta chỉ muốn duy nhất một predicted box chịu trách nhiệm cho object của grid cell. Do đó box thứ $ j $ được coi chứa object trong grid cell $i$ là predicted box có IoU cao nhất trong 2 boxes thuộc grid cell đó. Trong hoàn cảnh này tất nhiên đang đề cập đến grid cell $i$ có object.
+Khi huấn luyện chúng ta đã biết grounth-truth box thuộc cell nào. Khi dự đoán đưa ra nhiều predicted boxes cho mỗi grid cell. Chúng ta chỉ muốn duy nhất một predicted box chịu trách nhiệm cho object của grid cell. **Do đó box thứ $ j $ được coi chứa object trong grid cell $i$ là predicted box có IoU cao nhất trong 2 boxes thuộc grid cell đó.** Trong hoàn cảnh này tất nhiên đang đề cập đến grid cell $i$ có object.
 
-<img src="../images/YOLO/4.png" style="display:block; margin-left:auto; margin-right:auto">
+<img src="../images/YOLO/4.png" style="display:block; margin-left:auto; margin-right:auto" width="500">
 
 **Chú ý**: Phần localization loss này chỉ cho grid cell chứa object và cho predicted box của grid đó có IoU cao nhất.
 
@@ -105,7 +109,7 @@ Thành phần thứ nhất của object loss chính là phần loss cho **trư�
 
 Thành phần thứ hai của object loss chính là phần loss cho **trường hợp cell $i$ không chứa objet**, lúc này $C_{i}$ luôn bằng 0, dĩ nhiên $C_{ij=0}$, còn $ \hat C_{ij} =  Pr(object) \cdot IOU_{pred}^{truth} $ cho bounding box $j$ thuộc cell $i$, đây là giá trị dự đoán.
 
-$1^{noobj}\_{ij} = 1$ nếu box thứ $j$ của cell thứ $i$ không chứa object. $1^{noobj}\_{ij} = 0$ nếu box thứ $j$ của cell thứ $i$ có chứa object. *Ở đây cứ grid cell và box của nó không match với nhau thì cho vào nhóm này, bao gồm cả những grid cell không chứa object? và grid cell chứa object nhưng không khớp với box do có IoU nhỏ hơn box còn lại*. Và những trường hợp không khớp như này chúng ta chỉ đi minimize objectness score, không quan tâm đến coordinates và class probabilities (không chứa object rồi nên cũng chẳng quan).
+$1^{noobj}\_{ij} = 1$ nếu box thứ $j$ của cell thứ $i$ không chứa object. $1^{noobj}\_{ij} = 0$ nếu box thứ $j$ của cell thứ $i$ có chứa object. *Ở đây cứ grid cell và box của nó không match với nhau thì cho vào nhóm này, bao gồm cả những grid cell không chứa object và grid cell chứa object nhưng không khớp với box do có IoU nhỏ hơn box còn lại*. Và những trường hợp không khớp như này chúng ta chỉ đi minimize objectness score, không quan tâm đến coordinates và class probabilities (không chứa object rồi nên cũng chẳng quan).
 
 **Chú ý**: Trong ảnh đa số các grid cell không chứa object nên nếu để weights của localization loss và confidence loss cho vị trí không có object như nhau thì kết quả sẽ không tốt. Model lúc này có xu hướng tập trung dự đoán các box không chứa object để giảm loss nhiều nhất có thể. Do đó ở đây sẽ thiết lập weights khác nhau $\lambda_\text{noobj} =0.5$, $ \lambda_\text{coord} = 5 $ để tăng performance của model.
 
@@ -151,7 +155,7 @@ $$ Pr(class_i | object) \cdot Pr(object) \cdot IOU_{pred}^{truth} = Pr(class_i) 
 
 Tương ứng với mỗi bounding box chúng ta sẽ có 20 giá trị $Pr(class_i) \cdot IOU_{pred}^{truth}$ thể hiện score của từng class trong bounding box có tính đến sự khớp với ground truth box. Tổng cộng chúng ta có $98 \times 20 = 1960 $ các giá trị như này cho 98 bounding boxes do mỗi có $7 \times 7$ grid cell, mỗi cell có 2 boxes. Thực chất việc đưa về tensor $7 \times 7 \times 30 = 1470$ giúp chúng ta giảm số tham số trong mô hình thay vì phải dùng FC layer với 1960 units. Sau FC layer với 1470 units chúng ta reshape lại về tensor `7x7x30` như hình bên dưới.
 
-<img src="../images/YOLO/5.png" style="display:block; margin-left:auto; margin-right:auto">
+<img src="../images/YOLO/5.png" style="display:block; margin-left:auto; margin-right:auto" width="700">
 
 <img src="../images/YOLO/yolov1.png" style="display:block; margin-left:auto; margin-right:auto">
 
@@ -162,9 +166,9 @@ Sau đó chúng ta cần biến đổi một chút để có được class scor
 Để đơn giản gọi là $Pr(class_i) \cdot IOU_{pred}^{truth}$ là **class confidence** - kết quả sau khi thực hiện phép nhân. Xét cho tất cả bounding boxes:
 - Đối với class $c_1$ đầu tiên, nếu class confidence $c_1$ của box nào nhỏ hơn **threshold score** thì set class confidence của box đó = 0
 - Sắp xếp boxes theo chiều giảm của class confidence $c_1$
-- Áp dụng NMS bắt đầu từ box bên trái có class confidence $c_1$ lớn nhất, các box phía bên phải có IOU so với box đầu lớn hơn **IOU threshold** thì set class confidence của box đó = 0. 
+- Áp dụng [NMS](https://youtu.be/VAo84c1hQX8?list=PLkDaE6sCZn6Gl29AoE31iwdVwSG-KnDzF&t=159) bắt đầu từ box bên trái có class confidence $c_1$ lớn nhất, các box phía bên phải có [IOU](https://youtu.be/ANIzQ5G-XPE?list=PLkDaE6sCZn6Gl29AoE31iwdVwSG-KnDzF&t=102) so với box đầu lớn hơn **IOU threshold** thì set class confidence của box đó = 0. 
 - Làm xong với box bên trái có class confidence $c_1$ max rồi sẽ làm tiếp đến box còn lại (có class confidence $c_1$ còn khác 0)
-- Cứ làm như vậy đến khi bên tay phải không còn box nào có class confidence $c_1$ khác 0. Như vậy xong cho một class. Lúc này class confidence của class đó trong các boxes được chọn sẽ lớn hơn 0, và bằng 0 trong các boxes không được chọn
+- [Cứ làm như vậy](https://youtu.be/VAo84c1hQX8?list=PLkDaE6sCZn6Gl29AoE31iwdVwSG-KnDzF&t=393) đến khi bên tay phải không còn box nào có class confidence $c_1$ khác 0. Như vậy xong cho một class. Lúc này class confidence của class đó trong các boxes được chọn sẽ lớn hơn 0, và bằng 0 trong các boxes không được chọn
 * Lặp lại các bước trên lần lượt cho các class còn lại.
 
 Sau khi thực hiện xong các bước trên sẽ đến bước vẽ các bounding box. Nên nhớ sau khi xử lý trong một bounding box có thể có nhiều class confidences khác 0. Đối với mỗi bounding box sẽ chọn ra class có confidence lớn nhất. Giá trị của class confidence này phải lớn hơn 0. Khi đó bounding box là hợp lệ có chứa thông tin class, class confidence và các thông số hình học, từ đây là vẽ được rồi. 
