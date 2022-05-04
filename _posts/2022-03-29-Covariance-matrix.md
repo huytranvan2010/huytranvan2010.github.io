@@ -67,12 +67,14 @@ Chúng ta sẽ có một ví dụ để hiểu rõ hơn cách xác định covar
 
 Giả sử chúng ta có các dữ liệu, mỗi dữ liệu có 2 thành phần chiều cao và cân nặng của mỗi người được khảo sát. Dữ liệu được cho trong bảng dưới đây.
 
-|STT | Chiều cao (m)| Cân nặng (kg) |
-|---| -----------  | ----------- |
-|1  | 1.6          | 50          |
-|2  | 1.7          | 52          |
-|3  | 1.75         | 55          |
-|4  | 1.63         | 49          |
+<!-- : trong bang ben nao thi can ve phia do-->
+
+|STT  | Chiều cao (m)| Cân nặng (kg) |
+|:---:| :----------: | :-----------: |
+|1    | 1.6          | 50            |
+|2    | 1.7          | 52            |
+|3    | 1.75         | 55            |
+|4    | 1.63         | 49            |
 
 Chúng ta làm ví dụ đơn giản như này. Ở đây số examples $N=4$. Coi chiều cao là $x$, cân nặng là $y$. Ta có 
 
