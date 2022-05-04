@@ -51,7 +51,7 @@ $$\Sigma =
 
 Nếu $x$ tương quan dương với $y$ thì $y$ cũng tương quan dương với $x$, ở đây chúng ta có $\sigma(x, y) = \sigma(y, x)$. Do đó covariance matrix là ma trận đối xứng với các variances trên đường chéo chính. Đối với data n chiều, chúng ta có covariance matrix $n \times n$
 
-Chúng ta hoàn toàn có thể dựa vào công thức (2) để xác định covariance giữa các biến. Bên phía dưới chúng ta sẽ đưa ra công thức tổng quát dưới dạng vector.
+Chúng ta hoàn toàn có thể dựa vào công thức (2) để xác định covariance giữa các biến. Bài tiếp theo chúng ta sẽ đưa ra công thức tổng quát dưới dạng vector.
 
 <img src="../images/covariance_matrix/3.png" style="display:block; margin-left:auto; margin-right:auto" width="800">
 
@@ -65,9 +65,9 @@ Chúng ta hoàn toàn có thể dựa vào công thức (2) để xác định c
 
 Chúng ta sẽ có một ví dụ để hiểu rõ hơn cách xác định covariance matrix dựa trên data chúng ta có.
 
-Giả sử chúng ta có các dữ liệu, mỗi dữ liệu có 2 thành phần chiều cao và cân nặng của mỗi nguwoif được khảo sát. Dữ liệu được cho trong bảng dưới đây.
+Giả sử chúng ta có các dữ liệu, mỗi dữ liệu có 2 thành phần chiều cao và cân nặng của mỗi người được khảo sát. Dữ liệu được cho trong bảng dưới đây.
 
-STT | Chiều cao (m)| Cân nặng (kg) |
+|STT | Chiều cao (m)| Cân nặng (kg) |
 |---| -----------  | ----------- |
 |1  | 1.6          | 50          |
 |2  | 1.7          | 52          |
