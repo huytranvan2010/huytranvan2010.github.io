@@ -53,9 +53,43 @@ Nếu $x$ tương quan dương với $y$ thì $y$ cũng tương quan dương v�
 
 Chúng ta hoàn toàn có thể dựa vào công thức (2) để xác định covariance giữa các biến. Bài tiếp theo chúng ta sẽ đưa ra công thức tổng quát dưới dạng vector.
 
+```python
+import numpy as np 
+import matplotlib.pyplot as plt 
+
+
+def plot_data(means, cov_matrix, xlim=(13, 28), ylim=(13,28)):
+    data = np.random.multivariate_normal(means, cov_matrix, size=500)
+    # plot
+    fig = plt.figure(figsize=(8,6))
+    plt.scatter(data[:, 0], data[:, 1], s=2)
+    plt.xlim(xlim)
+    plt.ylim(ylim)
+
+    plt.show()
+```
+
+```python
+# tạo data POSITIVE CORRELATION
+means = np.array([20, 20])
+cov_matrix = np.array([
+    [1, 1.5], 
+    [1.5, 1]])
+plot_data(means, cov_matrix)
+```
+
 <img src="../images/covariance_matrix/3.png" style="display:block; margin-left:auto; margin-right:auto" width="800">
 
 *Data với các features x, y có tương quan dương với nhau*
+
+```python
+# tạo data NEGATIVE CORRELATION
+means = np.array([20, 20])
+cov_matrix = np.array([
+    [1, -0.5], 
+    [-0.5, 1]])
+plot_data(means, cov_matrix)
+```
 
 <img src="../images/covariance_matrix/4.png" style="display:block; margin-left:auto; margin-right:auto" width="800">
 
