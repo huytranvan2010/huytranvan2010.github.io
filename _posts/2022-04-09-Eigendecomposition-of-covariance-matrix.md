@@ -6,8 +6,6 @@ tags: [Math4CV]
 comments: true
 ---
 
-# Engidecomposition of a covariance matrix
-
 Trong [bài lần trước](https://huytranvan2010.github.io/Covariance-matrix/) chúng ta nhận thấy covariance matrix xác định độ mở rộng (spread of data) thông qua variance - các thành phần trên đường chéo và hướng (của data) thông qua covariance - các thành phần ngoài đường chéo. **Do đó nếu chúng ta muốn biểu diễn covariance matrix với vector và độ lớn của nó thì cách đơn giản là tìm vector chỉ theo hướng mở rộng nhất của data và độ lớn của nó bằng với variance theo hướng đó.**
 
 Nếu chúng ta gọi vector này là $\mathbf{v}$, thì hình chiếu của data lên vector này sẽ là $\mathbf{v}^T \mathbf{X}$. Variance của projected data sẽ là $\mathbf{v}^T \Sigma \mathbf{v}$, gọi là variance do bây giờ mỗi example chuyển thành một điểm. Mình sẽ chứng minh lại công thức này bên dưới. $\Sigma$ là covariance matrix của data ban đầu.
