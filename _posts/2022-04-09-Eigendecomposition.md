@@ -97,15 +97,23 @@ $$
 
 Lúc này việc xác định $\mathbf{A}^k$ rất dễ dàng khi đã biết eigenvectors của ma trận ban đầu $\mathbf{A}$.
 
-Ví dụ trong [bài trước](https://huytranvan2010.github.io/Eigenvectors-eigenvalues/) có ma trận $\mathbf{A} = \begin{bmatrix}2& 3\\ 2& 1 \end{bmatrix}$ xác định được hai eigenvectors $\mathbf{v}_1 = 
+Ví dụ trong [bài trước](https://huytranvan2010.github.io/Eigenvectors-eigenvalues/) có ma trận 
+
+$$\mathbf{A} = \begin{bmatrix}2& 3\\ 2& 1 \end{bmatrix}$$ 
+xác định được hai eigenvectors 
+
+$$\mathbf{v}_1 = 
 \begin{bmatrix}
 -1\\
 1
-\end{bmatrix}$ và $\mathbf{v}_1 = 
+\end{bmatrix} ~~~~~
+\mathbf{v}_2 = 
 \begin{bmatrix}
 3\\
 2
-\end{bmatrix}$ tương ứng với eigenvalues $\lambda_1 = -1$ và $\lambda_2 = 4$. Lúc này ta có:
+\end{bmatrix}$$
+
+tương ứng với eigenvalues $\lambda_1 = -1$ và $\lambda_2 = 4$. Lúc này ta có:
 
 $$
 \mathbf{A}^{20} = \mathbf{S} \Lambda^{20} \mathbf{S}^{-1} = 
@@ -123,4 +131,9 @@ $$
 \end{bmatrix}^{-1}
 $$
 
-Như vậy chúng ta đã tìm hiểu về eigendecomposition của ma trận và một số ứng dụng của nó. Trong bài sau chúng ta sẽ nói về một trường hợp đặc biệt là eigendecomposition của covariance matrix, nó có ứng dụng trong Principal Component Analysis (PCA).
+Như vậy chúng ta đã tìm hiểu về eigendecomposition của ma trận và một số ứng dụng của nó. Trong bài sau chúng ta sẽ nói về một trường hợp đặc biệt là eigendecomposition của covariance matrix, nó có ứng dụng trong Principal Component Analysis (PCA) để giảm chiều dữ liệu.
+
+<!--
+https://blueblazin.github.io/math/2016/08/18/eigenvalue-decomposition.html
+https://guzintamath.com/textsavvy/2019/02/02/eigenvalue-decomposition/
+-->
