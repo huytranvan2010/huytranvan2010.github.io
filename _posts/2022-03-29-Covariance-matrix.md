@@ -57,7 +57,6 @@ Chúng ta hoàn toàn có thể dựa vào công thức (2) để xác định c
 import numpy as np 
 import matplotlib.pyplot as plt 
 
-
 def plot_data(means, cov_matrix, xlim=(13, 28), ylim=(13,28)):
     data = np.random.multivariate_normal(means, cov_matrix, size=500)
     # plot
@@ -73,8 +72,8 @@ def plot_data(means, cov_matrix, xlim=(13, 28), ylim=(13,28)):
 # tạo data POSITIVE CORRELATION
 means = np.array([20, 20])
 cov_matrix = np.array([
-    [1, 1.5], 
-    [1.5, 1]])
+    [2, 1.5], 
+    [1.5, 2]])
 plot_data(means, cov_matrix)
 ```
 
@@ -95,6 +94,28 @@ plot_data(means, cov_matrix)
 
 *Data với các features x, y có tương quan âm với nhau*
 
+**Chú ý:** correlation bị giới hạn trong đoạn [-1, 1] tuy nhiên covariance không bị giới hạn. Giá trị cao không đồng nghĩa chúng thay đổi cùng nhau nhiều. Giá trị này phụ thuộc vào khoảng giá trị mà các biến nhận được. Xem hai ví dụ bên dưới.
+
+```python
+means = np.array([200, 200])
+cov_matrix = np.array([
+    [20, 20], 
+    [20, 20]])
+plot_data(means, cov_matrix, xlim=(180, 220), ylim=(180, 220))
+```
+<img src="../images/covariance_matrix/10.png" style="display:block; margin-left:auto; margin-right:auto" width="800">
+
+```python
+means = np.array([20, 20])
+cov_matrix = np.array([
+    [5, 5], 
+    [5, 5]])
+plot_data(means, cov_matrix, xlim=(10, 30), ylim=(10, 30))
+```
+
+<img src="../images/covariance_matrix/11.png" style="display:block; margin-left:auto; margin-right:auto" width="800">
+
+Nhận thấy ở đây covariance khác nhau nhưng $x$ và $y$ tăng với tốc độ như nhau.
 ## Ví dụ 
 
 Chúng ta sẽ có một ví dụ để hiểu rõ hơn cách xác định covariance matrix dựa trên data chúng ta có.
