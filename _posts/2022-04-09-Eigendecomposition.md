@@ -136,4 +136,7 @@ Như vậy chúng ta đã tìm hiểu về eigendecomposition của ma trận v�
 <!--
 https://blueblazin.github.io/math/2016/08/18/eigenvalue-decomposition.html
 https://guzintamath.com/textsavvy/2019/02/02/eigenvalue-decomposition/
+https://www.utdallas.edu/~Herve/Abdi-EVD2007-pretty.pdf
+https://www.math.usm.edu/lambers/cos702/cos702_files/docs/PCA.pdf   Lý thuyết hay đầy đủ
+https://blog.clairvoyantsoft.com/eigen-decomposition-and-pca-c50f4ca15501
 -->

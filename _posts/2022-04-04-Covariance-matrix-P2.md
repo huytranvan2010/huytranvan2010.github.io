@@ -166,3 +166,6 @@ array([[4.60000000e-03, 1.66666667e-01],
 So sánh lại kết quả với [phần 1](https://huytranvan2010.github.io/Covariance-matrix/) nhận thấy các tính của chúng ta là chính xác.
 
 Phía bên trên chúng ta đang xây dựng ma trận $\mathbf{X}$ với cột tương ứng với example. Chúng ta hoàn toàn có thể xây dựng theo kiểu hàng tương ứng với example, lúc này cần đổi chỗ các ma trận. Cách đơn giản nhất để check xem đúng hay không là kiểm tra shape.
+
+<!-- https://www.utdallas.edu/~Herve/Abdi-EVD2007-pretty.pdf
+-->
