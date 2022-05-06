@@ -47,8 +47,9 @@ Ví dụ 2 vector $\mathbf{x}_1=(1, 0, 0, 0, 0)$ và $\mathbf{x}_2 = (0, 1, 0, 0
 **Basis** (cơ sở)
 
 $ V \subset \mathbb{R}^n $ là không gian con của $\mathbb{R}^n$. Bộ các vectors $\mathbf{u}_1, \mathbf{u}_2 ... \mathbf{u}_m \in V$ được gọi là cơ sở của $V$ nếu:
+
 **1.** Vectors $ \mathbf{u}_1, \mathbf{u}_2 ... \mathbf{u}_m $ độc lập tuyến tính
-**2.** $span(\mathbf{u}_1, \mathbf{u}_2 ... \mathbf{u}_n) = V $ (không gian con được tạo ra bởi tổ hợp các vector đó chính là $V$)
+**2.** $span(\mathbf{u}_1, \mathbf{u}_2 ... \mathbf{u}_m) = V $ (không gian con được tạo ra bởi tổ hợp các vector đó chính là $V$)
 
 **Định lý:** $V$ là không gian con của không gian vector. Số lượng vector của bất kì cơ sở nào của không gian con $V$ đều như nhau và được gọi là số chiều (dimensionality) của $V$, kí hiệu là $dim(V)$.
 
@@ -62,7 +63,7 @@ $$
 \begin{matrix}
  \mathbf{u}_1 = (1, 0,..., 0)\\
  \mathbf{u}_2 = (0, 1,..., 0)\\
- ............................\\
+ \dots\\
  \mathbf{u}_n = (0, 0,..., 1)\\
 \end{matrix}
 $$

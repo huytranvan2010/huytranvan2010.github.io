@@ -6,6 +6,8 @@ tags: [Math4CV]
 comments: true
 ---
 
+### Giới thiệu về vector
+
 Có thể hiểu đơn giản **vector là một mảng các giá trị số**. Mỗi giá trị trong mảng được gọi là tọa độ hay thành phần của vector. Chiều của vector (dimension) chính là số thành phần (hay số tọa độ của nó). Ví dụ  $(1, 2, 3.3)$ là vector có 3 chiều.
 
 **Sparse vector** - vector mà các thành phần của nó chủ yếu là 0, ví dụ $(0, 1, 0, 0, 0, 0, 0.1)$ - sparse vector có chiều là 7.
@@ -14,32 +16,33 @@ Số chiều của sparse vector có thể rất lớn nhưng nó chỉ mang lư
 
 Định nghĩa chính thức của **sparse vector**: vector có n chiều được coi là sparse nếu số thành phần khác 0 của nó bị giới hạn bởi $\alpha n$, ở đây $\alpha \ll 1$.
 
-**Không gian vector** - không gian các vector có cùng chiều. Đây là không gian tuyến tính (linear space) vì trong này xác định 2 phép tính (operations):
-- Nhân vector với số vô hướng (scalar): nhân mỗi thành phần của vector với số vô hướng để được vector với. Ví dụ $2 \times (1, 1) = (2, 2)$
-- Phép cộng hai vector được vector mới. Thành phần (tọa độ) của vector mới bằng tổng 2 thành phần tương ứng các các vector ban đầu. Ví dụ $(2, 2) + (1, 1) = (3,3)$
+### Không gian vector (vector space)
 
-Tổng quát hơn chúng ta đi tìm hiểu về một số tiên đề của không gian vector.
+Tập hợp các vectors có cùng chiều tạo thành một không gian vector - vector space (còn gọi là không gian tuyến tính - linear space). Nó được gọi là không gian vector do tồn tại hai phép toán:
+- **Phép nhân vector với số vô hướng (scalar)**: nhân mỗi thành phần của vector với số vô hướng để được vector với. Ví dụ $2 \times (1, 1) = (2, 2)$
+- **Phép cộng hai vector được vector mới.** Thành phần (tọa độ) của vector mới bằng tổng 2 thành phần tương ứng các các vector ban đầu. Ví dụ $(2, 2) + (1, 1) = (3,3)$
 
-**Real vector space** - tập hợp $V$ với 2 phép tính:
-* Nhân vô hướng: cho vector $\textbf{x}\in V$ và số thực $c$, tích của $\textbf{x}$ và $c$ là vector $c\textbf{x}$ cũng thuộc $V$
+Ngoài ra hai phép toán này thỏa mãn 8 tiên đề. Bên dưới mình sẽ trình bày rõ hơn.
+
+**Real vector space** - tập hợp $V$, mỗi phần tử của $V$ được gọi là vector, tồn tại 2 phép tính:
+* Nhân vô hướng: cho vector $\textbf{x}\in V$ và số thực $c \in \mathbb{R}$, tích của $\textbf{x}$ và $c$ là vector $c\textbf{x}$ cũng thuộc $V$
 * Cộng: cho vectors $\textbf{x}, \textbf{y} \in V$, tổng của $\textbf{x}$ và $\textbf{y}$ là một vector thuộc $V$ 
 
 **Tiên đề cho phép cộng vector**:
 * Phép cộng có tính giao hoán (commutative): $\textbf{x}+\textbf{y} = \textbf{y}+\textbf{x}$
 * Phép cộng có tính kết hợp (associative): $(\textbf{x}+\textbf{y})+\textbf{z}=\textbf{x}+(\textbf{y}+\textbf{z})$
 * Phần tử $\mathbf{0}$. Tồn tại phần tử $\mathbf{0}$ sao cho $\textbf{x}+ \mathbf{0}=\mathbf{0}+\textbf{x}=\textbf{x}$
-* Phần tử nghich đảo. Cho mỗi phần tử $\textbf{x}$ tồn tại $(-\textbf{x})$ sao cho $\textbf{x}+(-\textbf{x})=(-\textbf{x})+\textbf{x}=\mathbf{0}$
+* Phần tử nghịch đảo. Cho mỗi phần tử $\textbf{x}$ tồn tại $(-\textbf{x})$ sao cho $\textbf{x}+(-\textbf{x})=(-\textbf{x})+\textbf{x}=\mathbf{0}$
 
 **Tiên đề cho phép nhân vô hướng**:
 - Cho vector $\textbf{x} \in V$ và các số nguyên $c, d$ ta có: 
-    - $0 \cdot \textbf{x} = \mathbf{0}$
     - $1 \cdot \textbf{x}= \textbf{x} $
     - $(cd)\textbf{x}=c(d\textbf{x})$
 - Tính phân phối: Cho vectors $\textbf{x}, \textbf{y} \in V$ và các số nguyên $c, d$:
     * $c(\textbf{x}+\textbf{y})=c\textbf{x}+c\textbf{y}$
     * $(c+d)\textbf{x}=c\textbf{x}+d\textbf{x}$
 
-Một số ví dụ của không gian vector như: không gian các mảng số thực với số chiều cho trước, không gian các ma trận với kích thước cho trước, không gian các hàm số, không gian các biến ngẫu nhiên.
+Một số ví dụ của không gian vector như: không gian các mảng số thực với số chiều cho trước, không gian các ma trận với kích thước cho trước, không gian các hàm số, không gian các biến ngẫu nhiên. Khái niệm vector bây giờ không còn bị giới hạn như những gì chúng ta đã học, nó có thể là bất cứ thứ gì thỏa mãn định nghĩa cho không gian vector bên trên.
 
 **Một số kí hiệu toán học**
 
@@ -89,7 +92,12 @@ Ví dụ $\textbf{x}=(1, 2, 3, 4)$ thì $\textbf{x}^T=\begin{bmatrix}
  4\\
 \end{bmatrix}$. Ở đây đối với vector hàng có thể dùng ngoặc vuông cũng được không sao cả.
 
-
+<!--
+Có thể xem thêm khái niệm không gian vector ở đây.
+Chi tiết hơn phải định nghĩa không gian vector trên một trường nào đó như số thực, số phức, số hữu tỉ gì đấy.
+https://www.youtube.com/watch?v=B3hg2u2zpSs
+https://www.youtube.com/watch?v=1QNBsEiFsA4
+-->
 
 
 

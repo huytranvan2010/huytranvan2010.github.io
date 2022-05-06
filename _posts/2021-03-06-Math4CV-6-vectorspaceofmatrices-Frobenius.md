@@ -30,12 +30,10 @@ Ngoài ra chúng ta cũng có $dim(\mathbb{R}^{n \times m}) = n \cdot m$. Cái n
 
 **Frobenius norm** 
 
-$\mathbb{R}^{m \times n}$ là một không gian vector, nó có thể trang bị cho mình một loija norm là Frobenius.
+$\mathbb{R}^{m \times n}$ là một không gian vector, nó có thể trang bị cho mình một loại norm là Frobenius.
 
 Frobenius norm của ma trận $ A \in \mathbb{R}^{m \times n} , A = (a_{i j})$:
 
 $$ \left\| \textbf{A} \right\|_F = \left ( \sum_{i=1}^{m}\sum_{j=1}^{n}\left|a_{ij} \right|^2 \right )^\frac{1}{2} $$
 
-
-Frobenius norm của ma trận chính là Euclidean norm của row raster representation của ma trận đó.
-
+Các bạn có thể xem thêm khái niệm norm 1 và norm 2 của ma trận [tại đây](https://huytranvan2010.github.io/Math4CV-2-Norm-distance-similarity/).

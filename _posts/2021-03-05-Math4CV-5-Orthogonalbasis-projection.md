@@ -12,13 +12,13 @@ comments: true
 
 $$ \left< \mathbf{u}_i, \mathbf{u}_j \right> = 0, \text{với}~~ i\neq j,~~ i,j=1,2...k  $$
 
-Hệ vector trực giao luôn **độc lập tuyến tính**. Cái này chứng minh bằng phản ứng. Giả sử nếu hệ vector trực giao phụ thuộc tuyến tính thì $\mathbf{u}\_i = \sum_{j} \mathbf{u}\_j$, nhân cả 2 vế với $\mathbf{u}\_i$ được vế trái lớn hơn 0 (do $ \textbf{u}\_i \neq \textbf{0} $), vế phải bằng 0, điều này không đúng. Do đó hệ vector trực giao là độc ập tuyến tính.
+Hệ vector trực giao luôn **độc lập tuyến tính**. Cái này chứng minh bằng phản ứng. Giả sử nếu hệ vector trực giao phụ thuộc tuyến tính thì $\mathbf{u}\_i = \sum_{j} \mathbf{u}\_j$, nhân cả 2 vế với $\mathbf{u}\_i$ được vế trái lớn hơn 0 (do $ \textbf{u}\_i \neq \textbf{0} $), vế phải bằng 0, điều này không đúng. Do đó hệ vector trực giao là độc lập tuyến tính.
 
 Một cơ sở là hệ trực giao thì gọi là cơ sở trực giao (vừa là cơ sở, vừa có tính chất trực giao).
 
 $ V \subset \mathbb{R}^n $. Bộ các vector $ \mathbf{u}_1, \mathbf{u}_2 ... \mathbf{u}_n $ được gọi là cơ sở trực giao của $V$ nếu:
-* $ \mathbf{u}_1, \mathbf{u}_2 ... \mathbf{u}_m $ là hệ trực giao
-* $span(\mathbf{u}_1, \mathbf{u}_2 ... \mathbf{u}_m) = V$ (có thể tạo ra các vector thuộc $V$ từ bộ các vector đó).
+- $ \mathbf{u}_1, \mathbf{u}_2 ... \mathbf{u}_m $ là hệ trực giao (như nói ở trên hệ trực giao thì độc lập tuyến tính)
+- $span(\mathbf{u}_1, \mathbf{u}_2 ... \mathbf{u}_m) = V$ (không gian con tạo bởi các vector này chính là $V$ hay có thể tạo ra các vector thuộc $V$ từ bộ các vector đó).
 
 **Ví dụ 1**: cơ sở chuẩn của $\mathbb{R}^n$ là cơ sở trực giao (xem lại cơ sở chuẩn của $\mathbb{R}^n$ ở đây).
 
@@ -29,6 +29,7 @@ $$\left< \mathbf{u}_1, \mathbf{u}_2\right> = 0$$
 và $\mathbf{x}_1 = \mathbf{u}_1 +\mathbf{u}_2$, $\mathbf{x}_2 = \mathbf{u}_1 - \mathbf{u}_2$, $\mathbf{x}_3 = 2\mathbf{u}_1 +\mathbf{u}_2$. Do đó $span(\mathbf{u}_1,  \mathbf{u}_2) = span(\mathbf{x}_1, \mathbf{x}_2, \mathbf{x}_3)$.  
 
 **Orthomormal system** (hệ trực chuẩn) 
+
 Hệ trực giao $ \mathbf{u}_1, \mathbf{u}_2 ... \mathbf{u}_k $ được gọi là trực chuẩn nếu :
 $$ \left< \mathbf{u}_i, \mathbf{u}_i \right> = 1 $$
 
@@ -54,7 +55,7 @@ $$
 \begin{matrix}
  \mathbf{u}_1 = (1, 0,..., 0)\\
  \mathbf{u}_2 = (0, 1,..., 0)\\
- ............................\\
+ \dots\\
  \mathbf{u}_n = (0, 0,..., 1)\\
 \end{matrix}
 $$
@@ -69,7 +70,7 @@ Cho $V$ là không gian con của không gian Euclid và $\mathbf{x} \in E$. Pro
 
 $$|| \mathbf{x} - \mathbf{x}^* || = \underset{\mathbf{u} \in V}{\text{min}} ||\mathbf{x} - \mathbf{u}||  ~~~ (1)$$
 
-Làm sao để tìm projection? Trong các không gian khác không dễ để tìm $\mathbf{x}^*$, tuy nhiên trong không gian Euclid chúng ta có thể ìm projection thông qua tính chất trực giao như trình bày bên dưới.
+Làm sao để tìm projection? Trong các không gian khác, không dễ để tìm $\mathbf{x}^*$, tuy nhiên trong không gian Euclid chúng ta có thể tìm projection thông qua tính chất trực giao như trình bày bên dưới.
 
 Nếu $ \mathbf{u}_1, \mathbf{u}_2 ... \mathbf{u}_m $ là cơ sở của $V$. Khi đó $\mathbf{x}^*$ có thể tìm được thông qua hệ phương trình tuyến tính (được suy ra từ (1)):
 
@@ -88,7 +89,7 @@ $$
 
 Hệ phương trình này có m ẩn và m phương trình. Ma trận của hệ phương trình này là ma trận của inner product các thành phần của cơ sở không gian con $V$ - gọi là Gram matrix. Cơ sở của không gian độc lập tuyến tính nên định thức của Gram matrix khác 0, hệ phương trình có một nghiệm duy nhất.
 
-Hệ phương trình cho projection trong không gian Euclid đưcọ đơn giản hóa nếu cơ sở của không gian con là trực giao.
+Hệ phương trình cho projection trong không gian Euclid được đơn giản hóa nếu cơ sở của không gian con là trực giao.
 
 Ví dụ: Tìm projection của vector $\mathbf{x}$ lên không gian con $V=span(\mathbf{x}_1, \mathbf{x}_2, \mathbf{x}_2)$, ở đây $\mathbf{x}_1 = (2, 0, 2, 3, 3, -1, 4, -2, 0, 2)$, $\mathbf{x}_2 = (0, -2, 2, -3, -1, -3, -4, 2, 2, 0)$, $\mathbf{x}_3 = (3, -1, 4, 3, 4, -3, 4, -2, 1, 3)$
 

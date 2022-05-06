@@ -6,12 +6,13 @@ tags: [Math4CV]
 comments: true
 ---
 
-Không gian Euclid là một trường hợp của không gian vector. Ở trong đó xác định thêm phép tính đặc biệt đó là **inner product (scalar product) (tích vô hướng)**. Inner product của 2 vector $ \mathbf{x}, \mathbf{y} $ được kí hiệu là $ \left< \mathbf{x}, \mathbf{y} \right> $
-
-Một số tiên đề với inner product:
+Không gian Euclid là một trường hợp của không gian vector, ở trong đó xác định thêm phép tính đặc biệt đó là **inner product (scalar product) (tích vô hướng)**. Inner product của 2 vector $ \mathbf{x}, \mathbf{y} $ được kí hiệu là $ \left< \mathbf{x}, \mathbf{y} \right> $ và phải thỏa mãn 4 tính chất sau:
 - Inner product không âm. $ \left< \mathbf{x}, \mathbf{x} \right> \geq 0$, dấu = xảy ra khi và chỉ khi $\mathbf{x} = \mathbf{0}$
 - Có tính đối xứng: $ \left< \mathbf{x}, \mathbf{y} \right> = \left< \mathbf{y}, \mathbf{x} \right> $
-- $ \left< \alpha \mathbf{x}, \mathbf{y} \right> = \alpha \left< \mathbf{x}, \mathbf{y} \right> $, $ \left< \mathbf{x+z}, \mathbf{y} \right> = \left< \mathbf{x}, \mathbf{y} \right> + \left< \mathbf{z}, \mathbf{y} \right>$
+- $ \left< \alpha \mathbf{x}, \mathbf{y} \right> = \alpha \left< \mathbf{x}, \mathbf{y} \right> $, 
+- $ \left< \mathbf{x+z}, \mathbf{y} \right> = \left< \mathbf{x}, \mathbf{y} \right> + \left< \mathbf{z}, \mathbf{y} \right>$
+
+**Chú ý**: Công thức cho tích vô hướng có thể thay đổi tuy nhiên phải thỏa mãn 4 tính chất phía trên.
 
 Norm liên hệ với inner product thông qua công thức sau:
 $$ || \mathbf{x} || = \sqrt{\left< \mathbf{x}, \mathbf{x} \right>} $$
