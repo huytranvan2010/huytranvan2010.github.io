@@ -98,12 +98,13 @@ $$\text{sim}(\mathbf{x}, \mathbf{y}) = \text{exp}\left( \frac{-d^{2}(\mathbf{x},
 
 Đối với ma trận $\mathbf{A} \in \mathbb{R}^{m \times n}$ ta có:
 
-$$\lVert \mathbf{A} \rVert_p = \underset{x \neq 0}\sup \frac{\lVert\mathbf{A} \mathbf{x}\rVert_p}{\lVert\mathbf{x}\rVert_p}$$
+$$\lVert \mathbf{A} \rVert_p = \underset{\mathbf{x} \neq 0}\sup \frac{\lVert\mathbf{A} \mathbf{x}\rVert_p}{\lVert\mathbf{x}\rVert_p}$$
 
+tương ứng với norm p của vetor $\mathbf{x}$ - số cột của ma trận $\mathbf{A}$ bằng với số chiều của vector $\mathbf{x}$. Lớp các norm của ma trận được định nghĩa dựa trên norm của vector được gọi là **induced norms**.
 
 **Norm 1** của ma trận được xác định như sau: 
 - Lấy trị tuyệt đối các phần tử của ma trận trên mỗi cột
-- Tỉnh tổng giá trị cho mỗi cột (sau khi lấy trị tuyệt đối cho từng phần tử)
+- Tính tổng giá trị cho mỗi cột (sau khi lấy trị tuyệt đối cho từng phần tử)
 - Lấy ra giá trị lớn nhất trong số các tổng đó. Đó chính là norm 1 của ma trận.
 
 $$\lVert \mathbf{A} \rVert_1 = \underset{1 \leq j \leq n} \max \sum_{i=1}^m \lvert a_{ij}\rvert$$
@@ -114,7 +115,52 @@ $$
 \lVert \mathbf{A} \rVert_2 = \sqrt{\lambda_{\max}(\mathbf{A}^T \mathbf{A})}
 $$
 
-trong đó $\lambda_{\max}(\mathbf{A}^T \mathbf{A})$ là trị riêng lớn nhất của ma trân $(\mathbf{A}^T \mathbf{A})$
+trong đó $\lambda_{\max}(\mathbf{A}^T \mathbf{A})$ là trị riêng lớn nhất của ma trận $(\mathbf{A}^T \mathbf{A})$
+
+Chúng ta sẽ đi chứng minh điều này. Như định nghĩa ở bên trên ta có:
+
+$$\lVert \mathbf{A} \rVert_2 = \underset{\mathbf{x} \neq 0} \max \frac{\lVert\mathbf{A} \mathbf{x}\rVert_2}{\lVert\mathbf{x}\rVert_2}$$
+
+Nhận thấy vế phải là bài toán tối ưu với biến là vector $\mathbf{x}$. Nếu $\mathbf{x}$ là nghiệm của bài toán tối ưu trên thì $k \mathbf{x}, k \neq 0$ cũng là cũng nghiệm. Do đó có thể giả sử mẫu số bằng 1. Lúc này bài toán tối ưu được viết lại dưới dạng:
+
+$$
+\lVert \mathbf{A} \rVert_2 = \underset{\lVert \mathbf{x}\rVert_2 = 1} \max \lVert\mathbf{A} \mathbf{x}\rVert_2
+$$
+
+Có thể viết lại như sau:
+
+$$
+\mathbf{x} =\underset{\mathbf{x}}\argmax \lVert \mathbf{A} \mathbf{x} \rVert^2_2 ~~~~\text{s.t.:} ~~~ \lVert \mathbf{x} \rVert^2_2 = 1 ~~~~~ (*)
+$$
+
+Bài toán (*) này có thể được giải bằng phương pháp nhân tử Langrange. Lagrangian của bài toán trên là:
+
+$$
+\mathcal{L}(\mathbf{x}, \lambda) = \lVert\mathbf{Ax}\rVert_2^2 + \lambda (1 - \lVert \mathbf{x}\rVert_2^2)
+$$
+
+Nghiệm của bài toán (*) thỏa mãn hệ phương trình:
+
+$$
+\left\{\begin{matrix}
+\frac{\partial \mathcal{L}}{\partial \mathbf{x}} = 2\mathbf{A}^T\mathbf{Ax} - 2\lambda \mathbf{x} = \mathbf{0} \\ 
+\frac{\partial \mathcal{L}}{\partial \lambda} = 1 - \lVert\mathbf{x}\rVert_2^2 = 0
+\end{matrix}\right.
+$$
+
+Ta sẽ có:
+
+$$
+\mathbf{A}^T\mathbf{Ax} = \lambda\mathbf{x}
+$$
+
+Từ đây suy ra $\lambda$ là trị riêng của ma trận $\mathbf{A}^T \mathbf{A}$ và $\mathbf{x}$ là vector riêng tương ứng với trị riêng đó. Nhân vào bên cả hai vế của phương trình trên ta nhận được:
+
+$$
+\mathbf{x}^T \mathbf{A}^T\mathbf{Ax} = \lambda \mathbf{x}^T \mathbf{x} = \lambda
+$$
+
+Vế trái chính là $\lVert \mathbf{A}\mathbf{x} \rVert^2_2$ chính là hàm mục tiêu trong phương trình (*). Như vậy hàm mục tiêu lớn nhất khi $\lambda$ đạt giá trị lớn nhất hay $\lambda$ chính là trị riêng lớn nhất của ma trận $\mathbf{A}^T \mathbf{A}$.
 
 Một chuẩn rất hay được dùng của ma trận $\mathbf{A} \in \mathbb{R}^{m \times n}$ là **chuẩn Frobenius** $\lVert \mathbf{A} \rVert_F$ là căn bậc hai tổng bình phương của tất cả các phần tử của ma trận đó.
 
