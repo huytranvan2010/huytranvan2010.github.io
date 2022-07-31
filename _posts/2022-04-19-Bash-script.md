@@ -2374,6 +2374,55 @@ em:
 - https://www.digitalocean.com/community/tutorials/how-to-use-makefiles-to-automate-repetitive-tasks-on-an-ubuntu-vps 
 
 
+# Hướng dẫn sử dụng pyenv để tạo môi trường ảo với Python
+Được cái cái này có thể cài nhiều versions dễ dàng. Mình thì quen dùng conda nhưng có project cần
+
+Nhớ cái này chạy trong Bash, nếu muốn cho Zsh thì cần cài kiểu khác
+
+```python
+git clone https://github.com/pyenv/pyenv.git ~/.pyenv
+```
+
+```python
+echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.bashrc
+echo 'command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.bashrc
+echo 'eval "$(pyenv init -)"' >> ~/.bashrc
+```
+
+```python
+exec "$SHELL"
+```
+
+Muốn cài phiên bản Python mới
+```python
+pyenv install 3.8.0
+```
+Tạo môi trường ảo với phiên bản Python 3.8.0 được chỉ định
+```python
+pyenv virtualenv 3.8.0 name_of_env
+```
+Cần cài virtualenv nếu chưa có
+```python
+sudo apt install python3-virtualenv
+```
+
+```python
+git clone https://github.com/pyenv/pyenv-virtualenv.git $(pyenv root)/plugins/pyenv-virtualenv
+
+echo 'eval "$(pyenv virtualenv-init -)"' >> ~/.bashrc
+
+exec bash
+```
+Kích hoạt như sau:
+```python
+pyenv local name_of_env
+```
+
+Để deactivate
+```python
+pyenv local system
+```
+
 **Lấy full path của current file's directory trong python**
 
 Ví dụ trong `~/Desktop/toi` có file `main.py` với nội dụng như sau:
